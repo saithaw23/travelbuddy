@@ -954,19 +954,19 @@ export default function PlanDetailPage() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="font-medium text-gray-900">Number of Seats</p>
-                      <p className="text-xs text-gray-500">${item.price} per seat</p>
+                      <p className="text-xs text-gray-900">${item.price} per seat</p>
                     </div>
                     <div className="flex items-center gap-3">
                       <button
                         onClick={() => updateItemQuantity(showEditModal, 'seats', -1)}
-                        className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                        className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700"
                       >
                         <Minus className="w-4 h-4" />
                       </button>
-                      <span className="w-8 text-center font-semibold">{qty.seats || 1}</span>
+                      <span className="w-8 text-center font-semibold text-gray-900">{qty.seats || 1}</span>
                       <button
                         onClick={() => updateItemQuantity(showEditModal, 'seats', 1)}
-                        className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                        className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700"
                       >
                         <Plus className="w-4 h-4" />
                       </button>
@@ -984,14 +984,14 @@ export default function PlanDetailPage() {
                       <div className="flex items-center gap-3">
                         <button
                           onClick={() => updateItemQuantity(showEditModal, 'nights', -1)}
-                          className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                          className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700"
                         >
                           <Minus className="w-4 h-4" />
                         </button>
-                        <span className="w-8 text-center font-semibold">{qty.nights || 1}</span>
+                        <span className="w-8 text-center font-semibold text-gray-900">{qty.nights || 1}</span>
                         <button
                           onClick={() => updateItemQuantity(showEditModal, 'nights', 1)}
-                          className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                          className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700"
                         >
                           <Plus className="w-4 h-4" />
                         </button>
@@ -1004,14 +1004,14 @@ export default function PlanDetailPage() {
                       <div className="flex items-center gap-3">
                         <button
                           onClick={() => updateItemQuantity(showEditModal, 'guests', -1)}
-                          className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                          className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700"
                         >
                           <Minus className="w-4 h-4" />
                         </button>
-                        <span className="w-8 text-center font-semibold">{qty.guests || 1}</span>
+                        <span className="w-8 text-center font-semibold text-gray-900">{qty.guests || 1}</span>
                         <button
                           onClick={() => updateItemQuantity(showEditModal, 'guests', 1)}
-                          className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                          className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700"
                         >
                           <Plus className="w-4 h-4" />
                         </button>
@@ -1029,14 +1029,14 @@ export default function PlanDetailPage() {
                     <div className="flex items-center gap-3">
                       <button
                         onClick={() => updateItemQuantity(showEditModal, 'guests', -1)}
-                        className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                        className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700"
                       >
                         <Minus className="w-4 h-4" />
                       </button>
-                      <span className="w-8 text-center font-semibold">{qty.guests || 1}</span>
+                      <span className="w-8 text-center font-semibold text-gray-900">{qty.guests || 1}</span>
                       <button
                         onClick={() => updateItemQuantity(showEditModal, 'guests', 1)}
-                        className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                        className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700"
                       >
                         <Plus className="w-4 h-4" />
                       </button>
@@ -1053,14 +1053,14 @@ export default function PlanDetailPage() {
                     <div className="flex items-center gap-3">
                       <button
                         onClick={() => updateItemQuantity(showEditModal, 'quantity', -1)}
-                        className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                        className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700"
                       >
                         <Minus className="w-4 h-4" />
                       </button>
-                      <span className="w-8 text-center font-semibold">{qty.quantity || 1}</span>
+                      <span className="w-8 text-center font-semibold text-gray-900">{qty.quantity || 1}</span>
                       <button
                         onClick={() => updateItemQuantity(showEditModal, 'quantity', 1)}
-                        className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                        className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700"
                       >
                         <Plus className="w-4 h-4" />
                       </button>
