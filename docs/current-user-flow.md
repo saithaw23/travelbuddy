@@ -4,80 +4,135 @@ _Last updated: 2026-01-08_
 
 ## 1. Prototype Overview
 - **Scope:** Frontend-only Next.js experience that showcases an end-to-end leisure trip planning flow powered by static/mock data.
-- **Persona:** Logged-in traveler ("John Doe") exploring, configuring, and checking out a curated New York City holiday itinerary.
+- **Persona:** Logged-in traveler ("John Doe" / "Krit") exploring, configuring, and checking out curated travel itineraries.
 - **Device Target:** Desktop-first layouts with responsive-friendly grid choices; minimal mobile optimization work completed.
 
-## 2. Navigation Surface & Routes
+## 2. Navigation Surface & Routes (Updated Flow)
+
+### Primary User Paths
 | Route | Component | Purpose | Primary Inbound Paths |
 | --- | --- | --- | --- |
-| `/` | [components/LandingPage.tsx](../components/LandingPage.tsx) | Trip intake form + marketing hero | Direct load, header logo, footer links |
-| `/recommendations` | [components/RecommendationsPage.tsx](../components/RecommendationsPage.tsx) | Category tabs for AI-matched options + selection cart | Submission from `/` |
-| `/trip-summary` | [components/TripSummaryPage.tsx](../components/TripSummaryPage.tsx) | Condensed itinerary + budget card + CTA to checkout/compare | "Save and Review Trip" CTA on `/recommendations` |
-| `/compare-itineraries` | [components/CompareItinerariesPage.tsx](../components/CompareItinerariesPage.tsx) | Saved itinerary cards + comparison table + expand/collapse per day | CTA from `/trip-summary`, nav experimentation |
-| `/checkout` | [components/CheckoutPage.tsx](../components/CheckoutPage.tsx) | Traveler info + payment form + order summary | "Book This Plan" CTAs in comparison + "Continue to Checkout" on summary |
-| `/profile` | [components/ProfilePage.tsx](../components/ProfilePage.tsx) | User profile, stats, preferences, loyalty insights | Header avatar chip |
+| `/` | [LandingPage.tsx](../components/LandingPage.tsx) | Trip intake form + marketing hero + "Near Me" toggle | Direct load, header logo |
+| `/ai-plans` | [AIPlansPage.tsx](../components/AIPlansPage.tsx) | **NEW:** AI-generated complete trip plans for selection | "Get AI Trip Plans" CTA from `/` |
+| `/browse` | [BrowsePage.tsx](../components/BrowsePage.tsx) | **NEW:** Manual category-based place browsing | "Browse Manually" CTA from `/` |
+| `/my-plans` | [MyPlansPage.tsx](../components/MyPlansPage.tsx) | **NEW:** Library of saved/created plans | Header nav, after plan selection |
+| `/plan/[id]` | [PlanDetailPage.tsx](../components/PlanDetailPage.tsx) | **NEW:** Individual plan with collaboration (voting, comments) | Selecting a plan from `/ai-plans` or creating from `/browse` |
+| `/compare-itineraries` | [CompareItinerariesPage.tsx](../components/CompareItinerariesPage.tsx) | Side-by-side plan comparison | Multi-select from `/my-plans` |
+| `/checkout` | [CheckoutPage.tsx](../components/CheckoutPage.tsx) | Traveler info + payment form + order summary | "Proceed to Checkout" from `/plan/[id]` |
+| `/profile` | [ProfilePage.tsx](../components/ProfilePage.tsx) | User profile, stats, preferences, review contributions | Header avatar chip |
 
-All routes share a common sticky header (logo, marketing links, avatar) and footer (legal links).
+### Legacy Routes (May be deprecated)
+| Route | Component | Notes |
+| --- | --- | --- |
+| `/recommendations` | [RecommendationsPage.tsx](../components/RecommendationsPage.tsx) | Original category recommendations, still accessible |
+| `/trip-summary` | [TripSummaryPage.tsx](../components/TripSummaryPage.tsx) | Original summary view, still accessible |
 
-## 3. End-to-End User Flow
+## 3. End-to-End User Flow (Updated)
+
+### Flow A: AI-Powered Trip Planning
 1. **Discovery & Intake (`/`)**  
    - User lands on hero section describing AI-powered planning.
-   - Completes trip basics (destination, dates, traveler count), budget, travel style, interests, optional per-traveler preferences.
-   - Submits form, which currently uses `router.push('/recommendations')` without persisting data.
+   - Can toggle "Near Me" to auto-detect location and get local recommendations.
+   - Completes trip basics (destination, dates, traveler count), budget, travel style, interests.
+   - Clicks "Get AI Trip Plans" → routes to `/ai-plans`.
 
-2. **Browse Recommendations (`/recommendations`)**  
-   - Category tabs (Flights, Hotels, Restaurants, Attractions, Car Rentals) with count badges.
-   - Filters sidebar (AI match score slider, price slider, sort, budget checkbox).
-   - Card list (currently flights only) showing match badge, route, duration, price, and `Select` toggles updating right-hand cart placeholder.
-   - "Save and Review Trip" CTA routes to `/trip-summary` regardless of selected items.
+2. **Browse AI Plans (`/ai-plans`)**  
+   - Displays complete trip plans curated by AI (e.g., "Tokyo Cultural Immersion", "Bali Wellness Retreat").
+   - Each plan card shows destination, duration, price, AI confidence score, what's included (flights, hotels, restaurants, activities), and key highlights.
+   - User clicks "Select Plan" → confirmation modal → adds to library → routes to `/plan/[id]`.
 
-3. **Evaluate Summary (`/trip-summary`)**  
-   - Gradient hero reiterates destination, dates, travelers, and progress step.
-   - Accordion itinerary per day with action buttons (`Change`, `Remove`) using static data.
-   - Budget cards show total budget, spend, remaining, and breakdown by category.
-   - Primary CTAs: `Continue to Checkout` (→ `/checkout`) and `Compare Options` (→ `/compare-itineraries`).
+3. **Plan Collaboration Hub (`/plan/[id]`)**  
+   - Shows plan details with hero image, destination, dates, travelers, total cost.
+   - Displays all included items (flights, hotels, restaurants, activities) in expandable cards.
+   - **Collaboration Features:**
+     - Invite collaborators via email
+     - Team voting (Yes/No/Maybe) on each item
+     - Comments section per item
+     - Owner notes/decisions log
+   - Primary CTA: "Proceed to Checkout" → `/checkout`.
 
-4. **Compare Alternatives (`/compare-itineraries`)**  
-   - Grid of saved itineraries showing cost, duration, traveler count, with toggle-select states.
-   - Comparison matrix highlights total cost and budget status for selected itineraries (two by default).
-   - Detailed cards for each selected itinerary feature expandable per-day agendas and CTAs (`Book This Plan`, `Edit Comparison`).
+4. **My Plans Library (`/my-plans`)**  
+   - Shows all saved plans with status badges (Draft, Planning, Confirmed, Completed).
+   - Multi-select to compare plans → routes to `/compare-itineraries`.
+   - Quick actions: Share, Duplicate, Delete.
 
-5. **Checkout (`/checkout`)**  
-   - Split layout with traveler details form, mock payment inputs, terms checkbox, primary CTA (`Complete Booking`).
-   - Sticky order summary card listing cost breakdown and trip facts, reinforcing commitment.
+### Flow B: Manual Browsing
+1. **Intake (`/`)** → User clicks "Browse Manually" → routes to `/browse`.
 
-6. **Profile (`/profile`)**  
-   - Serves as a personalized hub showing avatar, stats (trips, countries, spending), saved travel styles, interests, AI insight blurb, past trip highlight, account + loyalty info, and hard-coded destination suggestions.
-   - Provides future surface to manage preferences that feed earlier steps.
+2. **Browse Destinations (`/browse`)**  
+   - Category tabs: Flights, Hotels, Restaurants, Activities.
+   - "Near Me" toggle to filter by distance.
+   - Add individual items to cart.
+   - Click "Create My Plan" → creates plan → routes to `/plan/custom-1`.
+
+3. **Continue with collaboration and checkout** (same as Flow A steps 3-4).
+
+### Compare Flow
+- From `/my-plans`, select 2+ plans → "Compare" button → `/compare-itineraries`.
+- Side-by-side comparison with vote summaries and consensus board.
 
 ## 4. Feature Inventory by Screen
+
 ### Landing Intake (`/`)
 - Marketing hero + feature tiles for value proposition.
-- Multi-section form: destination, date inputs + quick presets, traveler count with dynamic per-person preferences, budget & currency, adventure slider, travel styles (chip toggles), interests (checkbox grid).
-- Secondary CTA to browse all destinations (currently non-functional). 
+- **NEW: "Near Me" toggle** to auto-detect location.
+- Multi-section form: destination input with location icon, date inputs + quick presets, traveler count, budget & currency, adventure slider, travel styles (chip toggles), interests (checkbox grid).
+- **Updated CTAs:**
+  - Primary: "Get AI Trip Plans" (with Sparkles icon) → `/ai-plans`
+  - Secondary: "Browse Manually" (with Compass icon) → `/browse`
 
-### Recommendations (`/recommendations`)
-- Category tabs with active styling and count chips.
-- Filter panel: AI match slider, price slider, budget checkbox, sort dropdown, clear button.
-- Recommendation cards (flights demo) with image placeholder gradient, match badge, route, schedule, price, selection button.
-- Right sidebar summary listing selected items placeholder + budget breakdown (zeros initially) + CTA to trip summary.
+### AI Plans (`/ai-plans`) — NEW
+- Hero section with "Powered by AI" badge.
+- Grid of complete trip plan cards featuring:
+  - Destination image with tag overlays
+  - AI confidence match percentage
+  - Plan name, tagline, location, duration, group size
+  - What's included (flights, hotels, restaurants, activities counts)
+  - Highlights checklist
+  - Price per person
+  - "Select Plan" CTA
+- Confirmation modal when selecting a plan.
+- Bottom CTA: "Want to build your own?" → `/browse`.
 
-### Trip Summary (`/trip-summary`)
-- Hero summarizing trip metadata and progress step.
-- Accordion itinerary segments with timeline styling and `Change/Remove` affordances.
-- Budget overview card plus category breakdown and status alert (within budget) with remaining amount message.
-- Branching CTAs to resume editing (`Compare Options`) or continue conversion (`Checkout`).
+### Browse Destinations (`/browse`) — NEW
+- Sticky header with "Near Me" toggle and location display.
+- Category tabs: Flights, Hotels, Restaurants, Activities.
+- Item cards with:
+  - Image, distance badge (when Near Me enabled)
+  - Name, location, rating, tags, duration
+  - Price with unit label
+  - Add/Added toggle button
+- Floating cart summary showing item count and total.
+- Slide-out cart drawer with item list and "Create My Plan" CTA.
 
-### Compare Itineraries (`/compare-itineraries`)
-- Saved itinerary cards with select/deselect logic, visual checkmark, and cost/destination metadata.
-- Buttons to compare selected itineraries (scrolls page) or clear selection.
-- Comparison table showing total cost and budget status row.
-- Detailed itinerary cards per selection, each with gradient header, day-by-day expanders, and booking actions.
+### My Plans Library (`/my-plans`) — NEW
+- Action bar: "Get AI Plan", "Build Custom" buttons.
+- Compare button (appears when 2+ plans selected).
+- Plan cards with:
+  - Selection checkbox for comparison
+  - Destination image
+  - AI-generated badge (if applicable)
+  - Status badge (Draft/Planning/Confirmed/Completed)
+  - Plan name, destination, date range, traveler count
+  - Collaborator avatars
+  - Item count
+  - Last updated timestamp
+  - Open/Menu actions
+- Empty state with CTAs to get started.
 
-### Checkout (`/checkout`)
-- Traveler details form (name, email, phone) and payment form (card number, expiry, CVV).
-- Terms checkbox, primary CTA (`Complete Booking`), secondary CTA (`Save for Later`).
-- Sticky order summary with line items (flight, hotel, activities, meals) and trip detail list.
+### Plan Detail (`/plan/[id]`) — NEW
+- Hero section: Plan image, name, AI badge, destination, dates, travelers, cost.
+- Participants section with avatar row and invite button.
+- Itinerary items in expandable cards:
+  - Category icon and label
+  - Item image, name, location, date/time, price, rating
+  - Vote summary badges (thumbs up/down counts, comment count)
+  - Expand to reveal:
+    - **Team Votes:** Grid of participants with Yes/No/Maybe buttons
+    - **Comments:** List with add comment form
+    - **Owner Notes:** Textarea for decisions
+- Summary footer with total cost and checkout CTA.
+- Invite modal with email input and collaborator capabilities list.
 
 ### Profile (`/profile`)
 - Profile header with avatar, stats, and buttons (`Edit Profile`, `Settings`).

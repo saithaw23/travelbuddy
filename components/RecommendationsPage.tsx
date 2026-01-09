@@ -509,12 +509,12 @@ export default function RecommendationsPage() {
                           {(comments[flight.id] || []).map(comment => {
                             const participant = participants.find(p => p.id === comment.participantId);
                             return (
-                              <div key={comment.id} className="bg-gray-50 rounded-lg p-3">
+                              <div key={comment.id} className="bg-white border border-gray-200 rounded-lg p-3">
                                 <div className="flex items-center justify-between mb-1 text-[11px] text-gray-500">
-                                  <span className="font-semibold text-gray-700">{participant?.name || 'Unknown'}</span>
+                                  <span className="font-semibold text-gray-800">{participant?.name || 'Unknown'}</span>
                                   <span>{comment.createdAt}</span>
                                 </div>
-                                <p className="text-xs text-gray-700">{comment.text}</p>
+                                <p className="text-sm text-gray-900">{comment.text}</p>
                               </div>
                             );
                           })}

@@ -1,12 +1,76 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { Check, CreditCard, Save, ArrowLeft, Star } from 'lucide-react';
 
 export default function CheckoutPage() {
+  const router = useRouter();
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [bookingComplete, setBookingComplete] = useState(false);
+  const [showRatingModal, setShowRatingModal] = useState(false);
+  const [ratings, setRatings] = useState<Record<string, number>>({});
+  const [termsAccepted, setTermsAccepted] = useState(true);
+
+  const bookingItems = [
+    { id: 'flight', name: 'Flight to NYC', type: 'Flight' },
+    { id: 'hotel', name: 'The Plaza Hotel', type: 'Hotel' },
+    { id: 'activity1', name: 'Statue of Liberty Tour', type: 'Activity' },
+    { id: 'restaurant1', name: 'Le Bernardin', type: 'Restaurant' },
+  ];
+
+  const handleCompleteBooking = () => {
+    if (!termsAccepted) {
+      alert('Please accept the terms and conditions to continue.');
+      return;
+    }
+    setIsProcessing(true);
+    // Simulate payment processing
+    setTimeout(() => {
+      setIsProcessing(false);
+      setBookingComplete(true);
+      // Show rating modal after successful booking
+      setTimeout(() => {
+        setShowRatingModal(true);
+      }, 1500);
+    }, 2000);
+  };
+
+  const handleSaveForLater = () => {
+    alert('Your booking has been saved! You can find it in My Plans.');
+    router.push('/my-plans');
+  };
+
+  const handleRatingSubmit = () => {
+    setShowRatingModal(false);
+    alert('Thank you for your ratings! They help other travelers.');
+    router.push('/profile');
+  };
+
+  const setItemRating = (itemId: string, rating: number) => {
+    setRatings(prev => ({ ...prev, [itemId]: rating }));
+  };
+
+  if (bookingComplete && !showRatingModal) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="bg-white rounded-2xl p-10 text-center max-w-md shadow-lg">
+          <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <Check className="w-10 h-10 text-green-600" />
+          </div>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Booking Confirmed!</h1>
+          <p className="text-gray-600 mb-6">Your NYC Holiday Deluxe trip is booked. Check your email for confirmation details.</p>
+          <p className="text-sm text-gray-500">Preparing your rating form...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
       {/* HEADER */}
-      <header className="fixed top-0 left-0 right-0 h-20 bg-white shadow-md z-1000 flex items-center justify-between px-10">
+      <header className="fixed top-0 left-0 right-0 h-20 bg-white shadow-md z-50 flex items-center justify-between px-10">
         <Link href="/" className="text-2xl font-bold text-purple-600">TravelBuddy</Link>
         <nav className="flex gap-10 items-center">
           <a href="#about" className="text-sm font-medium text-gray-800 hover:text-purple-600">About</a>
@@ -93,7 +157,13 @@ export default function CheckoutPage() {
 
               {/* TERMS */}
               <div className="flex items-start gap-3">
-                <input type="checkbox" id="terms" defaultChecked className="mt-1 w-4 h-4 accent-purple-600" />
+                <input 
+                  type="checkbox" 
+                  id="terms" 
+                  checked={termsAccepted}
+                  onChange={(e) => setTermsAccepted(e.target.checked)}
+                  className="mt-1 w-4 h-4 accent-purple-600" 
+                />
                 <label htmlFor="terms" className="text-sm text-gray-600">
                   I agree to the terms and conditions and have read the privacy policy
                 </label>
@@ -101,10 +171,30 @@ export default function CheckoutPage() {
 
               {/* CTA BUTTONS */}
               <div className="space-y-3">
-                <button className="w-full py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition">
-                  Complete Booking
+                <button 
+                  type="button"
+                  onClick={handleCompleteBooking}
+                  disabled={isProcessing}
+                  className={`w-full py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition flex items-center justify-center gap-2 ${isProcessing ? 'opacity-70 cursor-not-allowed' : ''}`}
+                >
+                  {isProcessing ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      Processing...
+                    </>
+                  ) : (
+                    <>
+                      <CreditCard className="w-5 h-5" />
+                      Complete Booking
+                    </>
+                  )}
                 </button>
-                <button className="w-full py-3 border-2 border-gray-300 text-gray-800 rounded-lg font-semibold hover:bg-gray-50 transition">
+                <button 
+                  type="button"
+                  onClick={handleSaveForLater}
+                  className="w-full py-3 border-2 border-gray-300 text-gray-800 rounded-lg font-semibold hover:bg-gray-50 transition flex items-center justify-center gap-2"
+                >
+                  <Save className="w-5 h-5" />
                   Save for Later
                 </button>
               </div>
@@ -162,6 +252,76 @@ export default function CheckoutPage() {
           <a href="#contact" className="text-purple-400 hover:text-red-400 transition"> Contact Us</a>
         </p>
       </footer>
+
+      {/* RATING MODAL - Shown after successful booking */}
+      {showRatingModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+            <div className="text-center mb-6">
+              <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Star className="w-8 h-8 text-yellow-500" fill="#FACC15" />
+              </div>
+              <h2 className="text-xl font-bold text-gray-900 mb-2">Rate Your Experience</h2>
+              <p className="text-sm text-gray-600">Help other travelers by rating the places in your trip!</p>
+            </div>
+
+            <div className="space-y-4 mb-6">
+              {bookingItems.map((item) => (
+                <div key={item.id} className="bg-gray-50 rounded-xl p-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <div>
+                      <p className="font-semibold text-gray-900">{item.name}</p>
+                      <p className="text-xs text-gray-500">{item.type}</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-1">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        key={star}
+                        type="button"
+                        onClick={() => setItemRating(item.id, star)}
+                        className="p-1 hover:scale-110 transition"
+                      >
+                        <Star
+                          className={`w-7 h-7 ${
+                            (ratings[item.id] || 0) >= star
+                              ? 'text-yellow-500'
+                              : 'text-gray-300'
+                          }`}
+                          fill={(ratings[item.id] || 0) >= star ? '#FACC15' : 'none'}
+                        />
+                      </button>
+                    ))}
+                    <span className="ml-2 text-sm text-gray-500 self-center">
+                      {ratings[item.id] ? `${ratings[item.id]}/5` : 'Not rated'}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  setShowRatingModal(false);
+                  router.push('/profile');
+                }}
+                className="flex-1 py-3 border-2 border-gray-200 text-gray-700 rounded-xl font-semibold hover:border-gray-300 transition"
+              >
+                Skip
+              </button>
+              <button
+                type="button"
+                onClick={handleRatingSubmit}
+                className="flex-1 py-3 bg-purple-600 text-white rounded-xl font-semibold hover:bg-purple-700 transition"
+              >
+                Submit Ratings
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

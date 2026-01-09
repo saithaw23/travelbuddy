@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState, useEffect } from 'react';
+import { MapPin, Navigation, Sparkles, Compass } from 'lucide-react';
 
 export default function LandingPage() {
   const router = useRouter();
@@ -18,6 +19,9 @@ export default function LandingPage() {
   const [additionalTravelersVisible, setAdditionalTravelersVisible] = useState(false);
   const [expandedCollapsible, setExpandedCollapsible] = useState<string | null>(null);
   const [additionalAdventureLevels, setAdditionalAdventureLevels] = useState<Record<number, number>>({});
+  const [nearMeEnabled, setNearMeEnabled] = useState(false);
+  const [userLocation, setUserLocation] = useState<string | null>(null);
+  const [detectingLocation, setDetectingLocation] = useState(false);
 
   const adventureLabels = ['', 'Relaxed', 'Moderate', 'Balanced', 'Adventurous', 'Extreme'];
   
@@ -83,7 +87,27 @@ export default function LandingPage() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    router.push('/recommendations');
+    router.push('/ai-plans');
+  };
+
+  const handleBrowseManually = () => {
+    router.push('/browse');
+  };
+
+  const handleNearMeToggle = () => {
+    if (!nearMeEnabled) {
+      setDetectingLocation(true);
+      // Simulate location detection
+      setTimeout(() => {
+        setUserLocation('San Francisco, CA');
+        setDestination('San Francisco, CA');
+        setDetectingLocation(false);
+        setNearMeEnabled(true);
+      }, 1500);
+    } else {
+      setNearMeEnabled(false);
+      setDestination('');
+    }
   };
 
   return (
@@ -143,13 +167,37 @@ export default function LandingPage() {
 
                 <div className="mb-6">
                   <label className="block text-sm font-semibold text-gray-800 mb-2">Where are you going?</label>
-                  <input
-                    type="text"
-                    placeholder="Enter destination"
-                    value={destination}
-                    onChange={(e) => setDestination(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm font-sans text-gray-800 focus:outline-none focus:border-purple-600 focus:ring-2 focus:ring-purple-100"
-                  />
+                  <div className="flex gap-3">
+                    <div className="relative flex-1">
+                      <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                      <input
+                        type="text"
+                        placeholder="Enter destination"
+                        value={destination}
+                        onChange={(e) => setDestination(e.target.value)}
+                        disabled={nearMeEnabled}
+                        className={`w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg text-sm font-sans text-gray-800 focus:outline-none focus:border-purple-600 focus:ring-2 focus:ring-purple-100 ${nearMeEnabled ? 'bg-purple-50 border-purple-300' : ''}`}
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      onClick={handleNearMeToggle}
+                      className={`flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold transition-all ${
+                        nearMeEnabled
+                          ? 'bg-purple-600 text-white'
+                          : 'bg-gray-100 text-gray-700 hover:bg-purple-100 hover:text-purple-700 border border-gray-300'
+                      }`}
+                    >
+                      <Navigation className={`w-4 h-4 ${detectingLocation ? 'animate-pulse' : ''}`} />
+                      {detectingLocation ? 'Detecting...' : nearMeEnabled ? 'Near Me ✓' : 'Near Me'}
+                    </button>
+                  </div>
+                  {nearMeEnabled && userLocation && (
+                    <p className="text-xs text-purple-600 mt-2 flex items-center gap-1">
+                      <Navigation className="w-3 h-3" />
+                      Showing places near {userLocation}
+                    </p>
+                  )}
                 </div>
 
                 <div className="grid grid-cols-2 gap-6 mb-6">
@@ -355,11 +403,13 @@ export default function LandingPage() {
 
                 {/* FORM ACTIONS */}
                 <div className="flex gap-4 justify-center pt-6">
-                  <button type="submit" className="flex-1 min-w-52 px-10 py-3 bg-purple-600 text-white rounded-lg text-base font-semibold hover:bg-purple-700 shadow-lg hover:shadow-xl transition-all">
-                    Get My Personalized Recommendations
+                  <button type="submit" className="flex-1 min-w-52 px-10 py-3 bg-purple-600 text-white rounded-lg text-base font-semibold hover:bg-purple-700 shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2">
+                    <Sparkles className="w-5 h-5" />
+                    Get AI Trip Plans
                   </button>
-                  <button type="button" className="flex-1 min-w-52 px-10 py-3 bg-white text-purple-600 border-2 border-purple-600 rounded-lg text-base font-semibold hover:bg-purple-50 transition-all">
-                    Browse Destinations Manually
+                  <button type="button" onClick={handleBrowseManually} className="flex-1 min-w-52 px-10 py-3 bg-white text-purple-600 border-2 border-purple-600 rounded-lg text-base font-semibold hover:bg-purple-50 transition-all flex items-center justify-center gap-2">
+                    <Compass className="w-5 h-5" />
+                    Browse Manually
                   </button>
                 </div>
               </form>
