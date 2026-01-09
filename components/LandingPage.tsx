@@ -359,7 +359,7 @@ export default function LandingPage() {
                     Get My Personalized Recommendations
                   </button>
                   <button type="button" className="flex-1 min-w-52 px-10 py-3 bg-white text-purple-600 border-2 border-purple-600 rounded-lg text-base font-semibold hover:bg-purple-50 transition-all">
-                    Browse All Destinations
+                    Browse Destinations Manually
                   </button>
                 </div>
               </form>

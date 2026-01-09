@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { ImageIcon, MessageCircle, Star, Video } from 'lucide-react';
 
 export default function TripSummaryPage() {
   const router = useRouter();
@@ -68,6 +69,51 @@ export default function TripSummaryPage() {
   const totalBudget = '$2,000';
   const totalSpent = '$1,300';
   const remaining = '$700';
+
+  const collaborationStatus = [
+    {
+      id: 'flight1',
+      label: 'Flight LAX → JFK',
+      majority: 'Majority in favor',
+      color: 'text-green-600',
+      ownerNote: 'Pending seat upgrade confirmation'
+    },
+    {
+      id: 'hotel1',
+      label: 'Grand Central Hotel',
+      majority: 'Mixed feedback',
+      color: 'text-orange-500',
+      ownerNote: 'Waiting on Marco’s response'
+    },
+    {
+      id: 'activity1',
+      label: 'Metropolitan Museum Tour',
+      majority: 'Majority against',
+      color: 'text-red-600',
+      ownerNote: 'Need new option—Amy prefers MoMA'
+    }
+  ];
+
+  const travelerFeedback = [
+    {
+      id: 'fb1',
+      title: 'Flight LAX → JFK',
+      media: 'text',
+      rating: 4.8,
+      comment: 'Cabin felt refreshed and the earlier landing made customs quick. Sharing this so we can lock in the morning flight.',
+      author: 'Amy C.',
+      timestamp: 'Shared yesterday'
+    },
+    {
+      id: 'fb2',
+      title: 'Grand Central Hotel',
+      media: 'photo',
+      rating: 4.6,
+      comment: 'Uploaded lobby photos + room view. Location is unbeatable, but beds are on the firmer side.',
+      author: 'Marco L.',
+      timestamp: 'Shared this morning'
+    }
+  ];
 
   return (
     <>
@@ -199,6 +245,55 @@ export default function TripSummaryPage() {
                   >
                     Compare Options
                   </button>
+                </div>
+              </div>
+
+              {/* COLLABORATION STATUS */}
+              <div className="bg-white rounded-lg p-6 border border-gray-200">
+                <h4 className="font-semibold text-gray-800 mb-3 text-sm">Collaboration tracker</h4>
+                <p className="text-xs text-gray-500 mb-4">Shows majority vote per key item so you can act before checkout.</p>
+                <div className="space-y-3">
+                  {collaborationStatus.map(item => (
+                    <div key={item.id} className="border border-gray-100 rounded-lg p-3">
+                      <div className="flex justify-between items-center mb-1">
+                        <span className="text-xs font-semibold text-gray-800">{item.label}</span>
+                        <span className={`text-[11px] font-bold ${item.color}`}>{item.majority}</span>
+                      </div>
+                      <p className="text-[11px] text-gray-500">Owner note: {item.ownerNote}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* TRAVELER FEEDBACK */}
+              <div className="bg-white rounded-lg p-6 border border-gray-200">
+                <h4 className="font-semibold text-gray-800 mb-3 text-sm flex items-center gap-2">
+                  <MessageCircle className="w-4 h-4 text-purple-600" />
+                  Traveler feedback
+                </h4>
+                <p className="text-xs text-gray-500 mb-4">Latest media shared by collaborators. Use this to finalize swaps.</p>
+                <div className="space-y-3">
+                  {travelerFeedback.map(item => (
+                    <div key={item.id} className="border border-gray-100 rounded-lg p-3">
+                      <div className="flex items-center justify-between mb-1">
+                        <div>
+                          <p className="text-xs font-semibold text-gray-800">{item.title}</p>
+                          <p className="text-[11px] text-gray-500">{item.author} · {item.timestamp}</p>
+                        </div>
+                        <div className="flex items-center gap-1 text-xs font-semibold text-gray-800">
+                          <Star className="w-3.5 h-3.5 text-yellow-500" fill="#FACC15" />
+                          {item.rating.toFixed(1)}
+                        </div>
+                      </div>
+                      <p className="text-[11px] text-gray-500 flex items-center gap-1 mb-2">
+                        {item.media === 'photo' && <ImageIcon className="w-3.5 h-3.5 text-purple-600" />}
+                        {item.media === 'video' && <Video className="w-3.5 h-3.5 text-purple-600" />}
+                        {item.media === 'text' && <MessageCircle className="w-3.5 h-3.5 text-purple-600" />}
+                        <span className="capitalize">{item.media}</span>
+                      </p>
+                      <p className="text-xs text-gray-700">{item.comment}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>

@@ -2,9 +2,36 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { ImageIcon, MessageCircle, Star, Video } from 'lucide-react';
 
 export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState('overview');
+  const myReviews = [
+    {
+      id: 'rev1',
+      place: 'JFK Morning Non-stop',
+      rating: 4.8,
+      media: 'text',
+      content: 'Shared why the morning arrival is best for beating traffic + added seat tips.',
+      timestamp: 'Yesterday'
+    },
+    {
+      id: 'rev2',
+      place: 'Grand Central Hotel',
+      rating: 4.6,
+      media: 'photo',
+      content: 'Uploaded lobby + room walkthrough so the team can preview the vibe.',
+      timestamp: '2 days ago'
+    },
+    {
+      id: 'rev3',
+      place: 'Met Museum Private Tour',
+      rating: 4.9,
+      media: 'video',
+      content: '30-second clip of the guide + crowd level to justify premium pricing.',
+      timestamp: 'Last week'
+    }
+  ];
 
   return (
     <>
@@ -214,6 +241,33 @@ export default function ProfilePage() {
                   <button className="w-full py-2 text-sm bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition">
                     Amsterdam, Netherlands
                   </button>
+                </div>
+              </div>
+
+              {/* REVIEW CONTRIBUTIONS */}
+              <div className="bg-white rounded-lg p-6 shadow-md border border-gray-200">
+                <h3 className="text-base font-bold text-gray-800 mb-4">Your Review Contributions</h3>
+                <p className="text-xs text-gray-600 mb-4">These updates power trusted recommendations for your group.</p>
+                <div className="space-y-3">
+                  {myReviews.map(review => (
+                    <div key={review.id} className="border border-gray-100 rounded-lg p-3">
+                      <div className="flex items-center justify-between mb-1">
+                        <p className="text-sm font-semibold text-gray-800">{review.place}</p>
+                        <div className="flex items-center gap-1 text-xs font-semibold text-gray-800">
+                          <Star className="w-3.5 h-3.5 text-yellow-500" fill="#FACC15" />
+                          {review.rating.toFixed(1)}
+                        </div>
+                      </div>
+                      <p className="text-[11px] text-gray-500 flex items-center gap-1 mb-2">
+                        {review.media === 'photo' && <ImageIcon className="w-3.5 h-3.5 text-purple-600" />}
+                        {review.media === 'video' && <Video className="w-3.5 h-3.5 text-purple-600" />}
+                        {review.media === 'text' && <MessageCircle className="w-3.5 h-3.5 text-purple-600" />}
+                        <span className="capitalize">{review.media}</span>
+                        <span>• {review.timestamp}</span>
+                      </p>
+                      <p className="text-xs text-gray-700">{review.content}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>

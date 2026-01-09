@@ -99,6 +99,21 @@ export default function CompareItinerariesPage() {
     }));
   };
 
+  const voteSummaries = {
+    'nyc-holiday': {
+      majority: 'Majority in favor',
+      summary: '3/4 travelers voted YES · Owner approved'
+    },
+    'nyc-winter': {
+      majority: 'Mixed feedback',
+      summary: '2 YES · 1 NO · waiting on 1 traveler'
+    },
+    'nyc-budget': {
+      majority: 'Majority against',
+      summary: 'Budget option rejected due to redeye flight'
+    }
+  } as Record<string, { majority: string; summary: string }>;
+
   return (
     <>
       {/* HEADER */}
@@ -228,6 +243,11 @@ export default function CompareItinerariesPage() {
                     <h3 className="text-lg font-bold mb-2">{itinerary?.name}</h3>
                     <div className="text-2xl font-bold mb-2">{details?.cost}</div>
                     <p className="text-sm opacity-90">{itinerary?.duration} · {itinerary?.travelers}</p>
+                    <div className="mt-3 p-3 rounded-lg bg-white/10">
+                      <p className="text-xs uppercase tracking-wide opacity-80">Participant vote</p>
+                      <p className="text-sm font-semibold">{voteSummaries[itineraryId]?.majority || 'Awaiting votes'}</p>
+                      <p className="text-[11px] opacity-80">{voteSummaries[itineraryId]?.summary || 'No comments yet'}</p>
+                    </div>
                   </div>
 
                   {/* DAYS */}
@@ -272,6 +292,22 @@ export default function CompareItinerariesPage() {
                 </div>
               );
             })}
+          </div>
+
+          {/* PARTICIPANT SUMMARY */}
+          <div className="mt-12 bg-white border border-gray-200 rounded-lg p-6">
+            <h3 className="text-lg font-bold text-gray-800 mb-4">Participant consensus board</h3>
+            <p className="text-sm text-gray-600 mb-6">Track which itinerary currently leads so you can lock it in or ask for more feedback.</p>
+            <div className="grid grid-cols-3 gap-4 text-xs">
+              {savedItineraries.map(itinerary => (
+                <div key={itinerary.id} className="border border-gray-100 rounded-lg p-4">
+                  <p className="font-semibold text-gray-800 mb-1">{itinerary.name}</p>
+                  <p className="text-[11px] text-gray-500">{itinerary.dates}</p>
+                  <p className="text-[11px] font-bold text-purple-600 mt-2">{voteSummaries[itinerary.id]?.majority || 'Awaiting votes'}</p>
+                  <p className="text-[11px] text-gray-600 mt-1">{voteSummaries[itinerary.id]?.summary || '—'}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
