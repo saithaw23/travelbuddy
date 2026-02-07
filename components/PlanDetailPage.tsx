@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter, useParams } from "next/navigation";
+import { toast } from "sonner";
 import {
   ArrowLeft,
   MapPin,
@@ -334,7 +335,11 @@ export default function PlanDetailPage() {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const input = form.elements.namedItem("comment") as HTMLInputElement;
-    if (!input.value.trim()) return;
+    
+    if (!input.value.trim()) {
+      toast.error('Please enter a comment');
+      return;
+    }
 
     const newComment: Comment = {
       id: `c-${Date.now()}`,
@@ -348,6 +353,7 @@ export default function PlanDetailPage() {
       [itemId]: [...(prev[itemId] || []), newComment],
     }));
     input.value = "";
+    toast.success('Comment added');
   };
 
   const getVoteSummary = (itemId: string) => {
@@ -361,10 +367,23 @@ export default function PlanDetailPage() {
 
   const handleInvite = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!inviteEmail) {
+      toast.error('Please enter an email address');
+      return;
+    }
+    
+    const loadingToast = toast.loading('Sending invitation...');
+    
     // Mock invite
-    setShowInviteModal(false);
-    setInviteEmail("");
-    alert(`Invitation sent to ${inviteEmail}`);
+    setTimeout(() => {
+      toast.dismiss(loadingToast);
+      toast.success('Invitation sent!', {
+        description: `${inviteEmail} has been invited to collaborate`
+      });
+      setShowInviteModal(false);
+      setInviteEmail("");
+    }, 1000);
   };
 
   return (

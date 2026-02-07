@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { MapPin, Sparkles, Star, Users, Clock, DollarSign, ChevronRight, Plane, Hotel, Utensils, Camera } from 'lucide-react';
+import { ModeToggle } from './mode/mode-toggle';
 
 export default function PlansPage() {
   const router = useRouter();
@@ -84,8 +85,8 @@ export default function PlansPage() {
         <Link href="/" className="text-2xl font-bold text-purple-600">TravelBuddy</Link>
         <nav className="flex gap-10 items-center">
           <Link href="/my-plans" className="text-sm font-medium text-gray-800 hover:text-purple-600">My Plans</Link>
-          <a href="#how-it-works" className="text-sm font-medium text-gray-800 hover:text-purple-600">How It Works</a>
-          <a href="#contact" className="text-sm font-medium text-gray-800 hover:text-purple-600">Contact</a>
+          <Link href="/how-it-works" className="text-sm font-medium text-gray-800 hover:text-purple-600">How It Works</Link>
+          <Link href="/contact" className="text-sm font-medium text-gray-800 hover:text-purple-600">Contact</Link>
         </nav>
         <div className="flex gap-6 items-center">
           <Link href="/profile" className="flex items-center gap-4 px-3 py-1.5 rounded-full bg-gray-100 border border-gray-300 hover:bg-gray-200 transition cursor-pointer">

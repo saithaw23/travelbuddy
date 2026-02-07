@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { ImageIcon, MessageCircle, Star, Video } from 'lucide-react';
+import { ModeToggle } from './mode/mode-toggle';
 
 export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState('overview');
@@ -36,17 +37,18 @@ export default function ProfilePage() {
   return (
     <>
       {/* HEADER */}
-      <header className="fixed top-0 left-0 right-0 h-20 bg-white shadow-md z-1000 flex items-center justify-between px-10">
+      <header className="fixed top-0 left-0 right-0 h-20 bg-white dark:bg-gray-900 shadow-md z-1000 flex items-center justify-between px-10">
         <Link href="/" className="text-2xl font-bold text-purple-600">TravelBuddy</Link>
         <nav className="flex gap-10 items-center">
-          <a href="#about" className="text-sm font-medium text-gray-800 hover:text-purple-600">About</a>
-          <a href="#how-it-works" className="text-sm font-medium text-gray-800 hover:text-purple-600">How It Works</a>
-          <a href="#trust" className="text-sm font-medium text-gray-800 hover:text-purple-600">Trust & Safety</a>
-          <a href="#blog" className="text-sm font-medium text-gray-800 hover:text-purple-600">Blog</a>
-          <a href="#contact" className="text-sm font-medium text-gray-800 hover:text-purple-600">Contact</a>
+          <Link href="/about" className="text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-purple-600">About</Link>
+          <Link href="/how-it-works" className="text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-purple-600">How It Works</Link>
+          <Link href="/trust-safety" className="text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-purple-600">Trust & Safety</Link>
+          <Link href="/blog" className="text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-purple-600">Blog</Link>
+          <Link href="/contact" className="text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-purple-600">Contact</Link>
         </nav>
 
         <div className="flex gap-6 items-center">
+          <ModeToggle />
           <div className="flex items-center gap-4 px-3 py-1.5 rounded-full bg-gray-100 border border-gray-300">
             <div className="w-9 h-9 rounded-full bg-gradient-to-br from-purple-600 to-purple-900 flex items-center justify-center text-white font-semibold text-sm">JD</div>
             <div className="flex flex-col leading-tight">

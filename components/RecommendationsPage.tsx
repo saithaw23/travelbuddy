@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useEffect, useMemo, useState } from 'react';
 import { ArrowUpRight, Clock3, ImageIcon, MapPin, MessageCircle, SendHorizonal, Sparkles, Star, Video } from 'lucide-react';
+import { ModeToggle } from './mode/mode-toggle';
 
 export default function RecommendationsPage() {
   const router = useRouter();
@@ -315,22 +316,23 @@ export default function RecommendationsPage() {
   return (
     <>
       {/* HEADER */}
-      <header className="fixed top-0 left-0 right-0 h-20 bg-white shadow-md z-1000 flex items-center justify-between px-10">
+      <header className="fixed top-0 left-0 right-0 h-20 bg-white dark:bg-gray-900 shadow-md z-1000 flex items-center justify-between px-10">
         <Link href="/" className="text-2xl font-bold text-purple-600">TravelBuddy</Link>
         <nav className="flex gap-10 items-center">
-          <a href="#about" className="text-sm font-medium text-gray-800 hover:text-purple-600">About</a>
-          <a href="#how-it-works" className="text-sm font-medium text-gray-800 hover:text-purple-600">How It Works</a>
-          <a href="#trust" className="text-sm font-medium text-gray-800 hover:text-purple-600">Trust & Safety</a>
-          <a href="#blog" className="text-sm font-medium text-gray-800 hover:text-purple-600">Blog</a>
-          <a href="#contact" className="text-sm font-medium text-gray-800 hover:text-purple-600">Contact</a>
+          <Link href="/about" className="text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-purple-600">About</Link>
+          <Link href="/how-it-works" className="text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-purple-600">How It Works</Link>
+          <Link href="/trust-safety" className="text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-purple-600">Trust & Safety</Link>
+          <Link href="/blog" className="text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-purple-600">Blog</Link>
+          <Link href="/contact" className="text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-purple-600">Contact</Link>
         </nav>
 
         <div className="flex gap-6 items-center">
-          <Link href="/profile" className="flex items-center gap-4 px-3 py-1.5 rounded-full bg-gray-100 border border-gray-300 hover:bg-gray-200 transition cursor-pointer">
+          <ModeToggle />
+          <Link href="/profile" className="flex items-center gap-4 px-3 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 transition cursor-pointer">
             <div className="w-9 h-9 rounded-full bg-gradient-to-br from-purple-600 to-purple-900 flex items-center justify-center text-white font-semibold text-sm">JD</div>
             <div className="flex flex-col leading-tight">
-              <div className="font-semibold text-gray-800 text-sm">John Doe</div>
-              <div className="text-xs text-gray-500">Signed in</div>
+              <div className="font-semibold text-gray-800 dark:text-gray-200 text-sm">John Doe</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400">Signed in</div>
             </div>
           </Link>
         </div>

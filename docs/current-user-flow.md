@@ -12,60 +12,80 @@ _Last updated: 2026-01-08_
 ### Primary User Paths
 | Route | Component | Purpose | Primary Inbound Paths |
 | --- | --- | --- | --- |
-| `/` | [LandingPage.tsx](../components/LandingPage.tsx) | Trip intake form + marketing hero + "Near Me" toggle | Direct load, header logo |
-| `/ai-plans` | [AIPlansPage.tsx](../components/AIPlansPage.tsx) | **NEW:** AI-generated complete trip plans for selection | "Get AI Trip Plans" CTA from `/` |
-| `/browse` | [BrowsePage.tsx](../components/BrowsePage.tsx) | **NEW:** Manual category-based place browsing | "Browse Manually" CTA from `/` |
-| `/my-plans` | [MyPlansPage.tsx](../components/MyPlansPage.tsx) | **NEW:** Library of saved/created plans | Header nav, after plan selection |
-| `/plan/[id]` | [PlanDetailPage.tsx](../components/PlanDetailPage.tsx) | **NEW:** Individual plan with collaboration (voting, comments) | Selecting a plan from `/ai-plans` or creating from `/browse` |
+| `/` | [ChatLandingPage.tsx](../components/ChatLandingPage.tsx) | **NEW:** Chat-first AI trip planning interface with conversational intake | Direct load, header logo |
+| `/chat` | [ChatLandingPage.tsx](../components/ChatLandingPage.tsx) | **NEW:** Dedicated full-screen chat experience (same as landing) | Direct navigation, "Chat with AI" links |
+| `/ai-plans` | [AIPlansPage.tsx](../components/AIPlansPage.tsx) | AI-generated complete trip plans for selection | Chat conversation completion, "Get AI Trip Plans" CTA |
+| `/browse` | [BrowsePage.tsx](../components/BrowsePage.tsx) | Manual category-based place browsing (fallback option) | "Browse Manually" link from `/` or `/chat` |
+| `/my-plans` | [MyPlansPage.tsx](../components/MyPlansPage.tsx) | Library of saved/created plans | Header nav, after plan selection |
+| `/plan/[id]` | [PlanDetailPage.tsx](../components/PlanDetailPage.tsx) | Individual plan with collaboration (voting, comments) + chat widget | Selecting a plan from `/ai-plans` or creating from `/browse` |
 | `/compare-itineraries` | [CompareItinerariesPage.tsx](../components/CompareItinerariesPage.tsx) | Side-by-side plan comparison | Multi-select from `/my-plans` |
 | `/checkout` | [CheckoutPage.tsx](../components/CheckoutPage.tsx) | Traveler info + payment form + order summary | "Proceed to Checkout" from `/plan/[id]` |
 | `/profile` | [ProfilePage.tsx](../components/ProfilePage.tsx) | User profile, stats, preferences, review contributions | Header avatar chip |
 
-### Legacy Routes (May be deprecated)
+### Global Components
+| Component | Purpose | Availability |
+| --- | --- | --- |
+| [FloatingChatWidget.tsx](../components/FloatingChatWidget.tsx) | **NEW:** Persistent chat assistant accessible from any page | All pages (via layout) |
+
+### Legacy Routes (Deprecated)
 | Route | Component | Notes |
 | --- | --- | --- |
-| `/recommendations` | [RecommendationsPage.tsx](../components/RecommendationsPage.tsx) | Original category recommendations, still accessible |
-| `/trip-summary` | [TripSummaryPage.tsx](../components/TripSummaryPage.tsx) | Original summary view, still accessible |
+| `/recommendations` | [RecommendationsPage.tsx](../components/RecommendationsPage.tsx) | Original category recommendations, replaced by chat flow |
+| `/trip-summary` | [TripSummaryPage.tsx](../components/TripSummaryPage.tsx) | Original summary view, replaced by `/plan/[id]` |
 
-## 3. End-to-End User Flow (Updated)
+## 3. End-to-End User Flow (Updated - Chat-First)
 
-### Flow A: AI-Powered Trip Planning
-1. **Discovery & Intake (`/`)**  
-   - User lands on hero section describing AI-powered planning.
-   - Can toggle "Near Me" to auto-detect location and get local recommendations.
-   - Completes trip basics (destination, dates, traveler count), budget, travel style, interests.
-   - Clicks "Get AI Trip Plans" → routes to `/ai-plans`.
+### Flow A: AI-Powered Conversational Trip Planning (PRIMARY)
+1. **Chat-First Discovery (`/` or `/chat`)**  
+   - User lands on conversational AI interface with welcoming message.
+   - Sees starter prompts: "Plan a weekend getaway under $1000", "Find me a cultural trip to Asia", "Family vacation with kids", etc.
+   - Can type naturally: "I want to visit Japan for 2 weeks in spring with my partner, budget around $5000"
+   - AI asks clarifying questions conversationally:
+     - "What's most important to you - adventure, relaxation, or culture?"
+     - "Any dietary restrictions or special interests?"
+     - "Prefer luxury hotels or local experiences?"
+   - User responds naturally, building context through conversation.
+   - When enough information gathered, AI confirms: "Perfect! I've created 3 amazing trip plans for you" → routes to `/ai-plans`.
 
 2. **Browse AI Plans (`/ai-plans`)**  
-   - Displays complete trip plans curated by AI (e.g., "Tokyo Cultural Immersion", "Bali Wellness Retreat").
-   - Each plan card shows destination, duration, price, AI confidence score, what's included (flights, hotels, restaurants, activities), and key highlights.
+   - Displays complete trip plans curated by AI based on chat conversation context.
+   - Each plan card shows destination, duration, price, AI confidence score, what's included, and key highlights.
    - User clicks "Select Plan" → confirmation modal → adds to library → routes to `/plan/[id]`.
 
 3. **Plan Collaboration Hub (`/plan/[id]`)**  
    - Shows plan details with hero image, destination, dates, travelers, total cost.
+   - **NEW: Floating chat widget available** - users can ask questions about the plan without leaving the page.
    - Displays all included items (flights, hotels, restaurants, activities) in expandable cards.
-   - **Collaboration Features:**
-     - Invite collaborators via email
-     - Team voting (Yes/No/Maybe) on each item
-     - Comments section per item
-     - Owner notes/decisions log
+   - Collaboration features: invite collaborators, team voting, comments, owner notes.
    - Primary CTA: "Proceed to Checkout" → `/checkout`.
 
 4. **My Plans Library (`/my-plans`)**  
-   - Shows all saved plans with status badges (Draft, Planning, Confirmed, Completed).
+   - Shows all saved plans with status badges.
+   - **Chat widget available** for questions about managing plans.
    - Multi-select to compare plans → routes to `/compare-itineraries`.
-   - Quick actions: Share, Duplicate, Delete.
 
-### Flow B: Manual Browsing
-1. **Intake (`/`)** → User clicks "Browse Manually" → routes to `/browse`.
+### Flow B: Manual Browsing (FALLBACK)
+1. **Chat to Manual Transition (`/` or `/chat`)** 
+   - User sees "Prefer to browse on your own?" link.
+   - Clicks "Browse Destinations Manually" → routes to `/browse`.
 
 2. **Browse Destinations (`/browse`)**  
    - Category tabs: Flights, Hotels, Restaurants, Activities.
+   - **Chat widget available** for questions while browsing.
    - "Near Me" toggle to filter by distance.
    - Add individual items to cart.
    - Click "Create My Plan" → creates plan → routes to `/plan/custom-1`.
 
 3. **Continue with collaboration and checkout** (same as Flow A steps 3-4).
+
+### Persistent Chat Assistant (ALL PAGES)
+- **Floating chat widget** ([FloatingChatWidget.tsx](../components/FloatingChatWidget.tsx)) appears on all pages.
+- Users can ask contextual questions:
+  - On `/browse`: "Why is this hotel recommended?"
+  - On `/plan/[id]`: "Can I change the flight time?"
+  - On `/checkout`: "What's included in this price?"
+- Chat maintains context across pages for seamless assistance.
+- Minimizable and closable for users who prefer unassisted browsing.
 
 ### Compare Flow
 - From `/my-plans`, select 2+ plans → "Compare" button → `/compare-itineraries`.
@@ -73,7 +93,48 @@ _Last updated: 2026-01-08_
 
 ## 4. Feature Inventory by Screen
 
-### Landing Intake (`/`)
+### Chat Landing (`/` and `/chat`) — NEW PRIMARY INTERFACE
+- **Hero section** with AI-powered branding and value proposition.
+- **Large conversational chat interface** (60-70% of viewport):
+  - Welcome message from AI assistant
+  - Message history with user/assistant distinction
+  - Typing indicators during AI response
+  - Smooth auto-scroll to latest message
+- **Starter prompt buttons** (shown before first user message):
+  - 6 pre-written prompts covering common use cases
+  - Categories: budget, culture, family, adventure, romance, food
+  - One-click to start conversation
+- **Natural language input**:
+  - Text input field with send button
+  - Handles complex multi-part requests
+  - AI asks clarifying questions dynamically
+- **Conversation flow**:
+  - AI gathers: destination, dates, budget, travelers, interests, travel style
+  - Confirms understanding before generating plans
+  - Routes to `/ai-plans` when sufficient context collected
+- **Fallback option**: "Browse Manually" link for users preferring visual selection.
+- **Features section**: Why chat with AI (natural conversation, smart suggestions, budget aware, personalized).
+
+### Floating Chat Widget (Global) — NEW
+- **Persistent across all pages** via layout component.
+- **Floating button** in bottom-right corner:
+  - Purple circular button with message icon
+  - Red notification dot to draw attention
+  - Hover animation for discoverability
+- **Expandable chat panel**:
+  - 384px width × 600px height when open
+  - Minimizable to header-only view
+  - Closable to return to floating button
+- **Contextual assistance**:
+  - Provides page-specific help
+  - Answers questions about pricing, features, changes
+  - Maintains conversation context across pages
+- **Smart responses**:
+  - Detects keywords (price, change, hotel, flight, food)
+  - Provides relevant guidance based on current page
+  - Suggests next actions
+
+### Landing Intake (`/`) — DEPRECATED (replaced by chat)
 - Marketing hero + feature tiles for value proposition.
 - **NEW: "Near Me" toggle** to auto-detect location.
 - Multi-section form: destination input with location icon, date inputs + quick presets, traveler count, budget & currency, adventure slider, travel styles (chip toggles), interests (checkbox grid).
