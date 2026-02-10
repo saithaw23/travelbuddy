@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import {
@@ -16,66 +17,8 @@ import {
   GitCompare,
   Clock,
 } from "lucide-react";
-
-interface SavedPlan {
-  id: string;
-  name: string;
-  destination: string;
-  image: string;
-  dateRange: string;
-  travelers: number;
-  status: "draft" | "planning" | "confirmed" | "completed";
-  itemCount: number;
-  collaborators: { initials: string; name: string }[];
-  lastUpdated: string;
-  isAiGenerated: boolean;
-}
-
-const mockPlans: SavedPlan[] = [
-  {
-    id: "plan-1",
-    name: "Tokyo Cultural Immersion",
-    destination: "Tokyo, Japan",
-    image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=600",
-    dateRange: "Mar 15 - 22, 2025",
-    travelers: 4,
-    status: "planning",
-    itemCount: 28,
-    collaborators: [
-      { initials: "KR", name: "Krit" },
-      { initials: "SM", name: "Sarah" },
-      { initials: "JD", name: "John" },
-    ],
-    lastUpdated: "2 hours ago",
-    isAiGenerated: true,
-  },
-  {
-    id: "plan-2",
-    name: "Bali Wellness Retreat",
-    destination: "Bali, Indonesia",
-    image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600",
-    dateRange: "Apr 5 - 10, 2025",
-    travelers: 2,
-    status: "confirmed",
-    itemCount: 18,
-    collaborators: [{ initials: "KR", name: "Krit" }],
-    lastUpdated: "1 day ago",
-    isAiGenerated: true,
-  },
-  {
-    id: "custom-1",
-    name: "Weekend in San Francisco",
-    destination: "San Francisco, CA",
-    image: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=600",
-    dateRange: "Feb 28 - Mar 2, 2025",
-    travelers: 2,
-    status: "draft",
-    itemCount: 8,
-    collaborators: [{ initials: "KR", name: "Krit" }],
-    lastUpdated: "3 days ago",
-    isAiGenerated: false,
-  },
-];
+import { mockPlans } from "@/lib/mockData";
+import { Plan } from "@/lib/types";
 
 const statusConfig = {
   draft: { label: "Draft", color: "bg-gray-100 text-gray-700" },
@@ -86,7 +29,7 @@ const statusConfig = {
 
 export default function MyPlansPage() {
   const router = useRouter();
-  const [plans] = useState<SavedPlan[]>(mockPlans);
+  const [plans] = useState<Plan[]>(mockPlans);
   const [selectedPlans, setSelectedPlans] = useState<string[]>([]);
   const [showMenu, setShowMenu] = useState<string | null>(null);
 
@@ -100,7 +43,7 @@ export default function MyPlansPage() {
 
   const handleCompare = () => {
     if (selectedPlans.length >= 2) {
-      router.push("/compare-itineraries");
+      router.push("/compare");
     }
   };
 
@@ -128,15 +71,8 @@ export default function MyPlansPage() {
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <button
-              onClick={() => router.push("/ai-plans")}
-              className="flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg text-sm font-semibold hover:bg-purple-700 transition"
-            >
-              <Sparkles className="w-4 h-4" />
-              Get AI Plan
-            </button>
-            <button
               onClick={() => router.push("/browse")}
-              className="flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm font-semibold hover:border-gray-400 transition"
+              className="flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg text-sm font-semibold hover:bg-purple-700 transition"
             >
               <Plus className="w-4 h-4" />
               Build Custom
@@ -173,22 +109,15 @@ export default function MyPlansPage() {
               No plans yet
             </h3>
             <p className="text-gray-500 mb-6">
-              Start by getting AI recommendations or browsing destinations
+              Start by browsing destinations
             </p>
             <div className="flex items-center justify-center gap-3">
               <button
-                onClick={() => router.push("/ai-plans")}
-                className="flex items-center gap-2 px-5 py-2.5 bg-purple-600 text-white rounded-lg font-semibold"
-              >
-                <Sparkles className="w-4 h-4" />
-                Get AI Plan
-              </button>
-              <button
                 onClick={() => router.push("/browse")}
-                className="flex items-center gap-2 px-5 py-2.5 border border-gray-300 text-gray-700 rounded-lg font-semibold"
+                className="flex items-center gap-2 px-5 py-2.5 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition"
               >
                 <Plus className="w-4 h-4" />
-                Browse Manually
+                Browse Destinations
               </button>
             </div>
           </div>
@@ -243,14 +172,6 @@ export default function MyPlansPage() {
                         </svg>
                       )}
                     </div>
-
-                    {/* AI Badge */}
-                    {plan.isAiGenerated && (
-                      <div className="absolute top-3 right-3 flex items-center gap-1 px-2 py-1 bg-purple-600/90 backdrop-blur-sm rounded-full">
-                        <Sparkles className="w-3 h-3 text-white" />
-                        <span className="text-xs font-medium text-white">AI</span>
-                      </div>
-                    )}
 
                     {/* Status */}
                     <div className="absolute bottom-3 left-3">
@@ -337,7 +258,7 @@ export default function MyPlansPage() {
                           )}
                         </div>
                         <span className="ml-2 text-xs text-gray-500">
-                          {plan.itemCount} items
+                          {plan.items.length} items
                         </span>
                       </div>
 
@@ -356,7 +277,7 @@ export default function MyPlansPage() {
                     {/* Last Updated */}
                     <div className="mt-2 flex items-center gap-1 text-xs text-gray-400">
                       <Clock className="w-3 h-3" />
-                      Updated {plan.lastUpdated}
+                      Updated {plan.updatedAt}
                     </div>
                   </div>
                 </div>

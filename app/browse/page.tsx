@@ -1,7 +1,5 @@
-'use client';
-
 import BrowsePage from '@/components/BrowsePage';
 
-export default function Page() {
+export default function Browse() {
   return <BrowsePage />;
 }

@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import {
@@ -9,7 +10,6 @@ import {
   MapPin,
   Star,
   Clock,
-  DollarSign,
   Plus,
   Check,
   ShoppingBag,
@@ -18,189 +18,60 @@ import {
   Sparkles,
   ChevronRight,
   X,
+  Calendar,
+  Users,
 } from "lucide-react";
+import { ItemCategory, PlanItem } from "@/lib/types";
+import {
+  mockFlights,
+  mockHotels,
+  mockRestaurants,
+  mockActivities,
+} from "@/lib/mockData";
+import { useTripData } from "@/lib/useTripData";
 
-type Category = "flights" | "hotels" | "restaurants" | "activities";
-
-interface PlaceItem {
-  id: string;
-  name: string;
-  category: Category;
-  location: string;
-  rating: number;
-  reviewCount: number;
-  price: number;
-  priceLabel: string;
-  duration?: string;
-  image: string;
-  tags: string[];
-  distance?: string;
-}
-
-const categoryConfig = {
-  flights: { icon: Plane, label: "Flights", color: "text-blue-600", bg: "bg-blue-100" },
-  hotels: { icon: Hotel, label: "Hotels", color: "text-purple-600", bg: "bg-purple-100" },
-  restaurants: { icon: Utensils, label: "Restaurants", color: "text-orange-600", bg: "bg-orange-100" },
-  activities: { icon: Camera, label: "Activities", color: "text-green-600", bg: "bg-green-100" },
+const categoryConfig: Record<ItemCategory, { icon: any; label: string; color: string; bg: string }> = {
+  flight: { icon: Plane, label: "Flights", color: "text-blue-600", bg: "bg-blue-100" },
+  hotel: { icon: Hotel, label: "Hotels", color: "text-purple-600", bg: "bg-purple-100" },
+  restaurant: { icon: Utensils, label: "Restaurants", color: "text-orange-600", bg: "bg-orange-100" },
+  activity: { icon: Camera, label: "Activities", color: "text-green-600", bg: "bg-green-100" },
 };
 
-const mockItems: PlaceItem[] = [
-  // Flights
-  {
-    id: "f1",
-    name: "Direct Flight to Tokyo",
-    category: "flights",
-    location: "SFO → NRT",
-    rating: 4.5,
-    reviewCount: 892,
-    price: 850,
-    priceLabel: "round-trip",
-    duration: "11h 30m",
-    image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400",
-    tags: ["Non-stop", "Economy"],
-  },
-  {
-    id: "f2",
-    name: "Premium Economy to Bali",
-    category: "flights",
-    location: "LAX → DPS",
-    rating: 4.7,
-    reviewCount: 456,
-    price: 1200,
-    priceLabel: "round-trip",
-    duration: "17h 45m",
-    image: "https://images.unsplash.com/photo-1569629743817-70d8db6c323b?w=400",
-    tags: ["1 Stop", "Premium"],
-  },
-  // Hotels
-  {
-    id: "h1",
-    name: "Park Hyatt Tokyo",
-    category: "hotels",
-    location: "Shinjuku, Tokyo",
-    rating: 4.9,
-    reviewCount: 2341,
-    price: 450,
-    priceLabel: "/night",
-    image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400",
-    tags: ["Luxury", "City View"],
-    distance: "0.5 km",
-  },
-  {
-    id: "h2",
-    name: "Ubud Jungle Resort",
-    category: "hotels",
-    location: "Ubud, Bali",
-    rating: 4.8,
-    reviewCount: 1567,
-    price: 280,
-    priceLabel: "/night",
-    image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=400",
-    tags: ["Pool Villa", "Breakfast"],
-    distance: "2.3 km",
-  },
-  {
-    id: "h3",
-    name: "Santorini Cave Hotel",
-    category: "hotels",
-    location: "Oia, Santorini",
-    rating: 4.9,
-    reviewCount: 987,
-    price: 380,
-    priceLabel: "/night",
-    image: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=400",
-    tags: ["Sea View", "Romantic"],
-    distance: "1.1 km",
-  },
-  // Restaurants
-  {
-    id: "r1",
-    name: "Sukiyabashi Jiro",
-    category: "restaurants",
-    location: "Ginza, Tokyo",
-    rating: 4.9,
-    reviewCount: 4521,
-    price: 300,
-    priceLabel: "/person",
-    image: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=400",
-    tags: ["Michelin 3★", "Omakase"],
-    distance: "1.8 km",
-  },
-  {
-    id: "r2",
-    name: "Locavore Ubud",
-    category: "restaurants",
-    location: "Ubud, Bali",
-    rating: 4.7,
-    reviewCount: 1234,
-    price: 120,
-    priceLabel: "/person",
-    image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400",
-    tags: ["Farm-to-Table", "Tasting Menu"],
-    distance: "0.8 km",
-  },
-  // Activities
-  {
-    id: "a1",
-    name: "TeamLab Borderless",
-    category: "activities",
-    location: "Odaiba, Tokyo",
-    rating: 4.8,
-    reviewCount: 8765,
-    price: 35,
-    priceLabel: "/person",
-    duration: "2-3 hours",
-    image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=400",
-    tags: ["Digital Art", "Immersive"],
-    distance: "5.2 km",
-  },
-  {
-    id: "a2",
-    name: "Tegallalang Rice Terrace",
-    category: "activities",
-    location: "Tegallalang, Bali",
-    rating: 4.6,
-    reviewCount: 3421,
-    price: 15,
-    priceLabel: "/person",
-    duration: "2-4 hours",
-    image: "https://images.unsplash.com/photo-1531973576160-7125cd663d86?w=400",
-    tags: ["Nature", "Photography"],
-    distance: "8.1 km",
-  },
-  {
-    id: "a3",
-    name: "Sunrise Hike Mt. Batur",
-    category: "activities",
-    location: "Kintamani, Bali",
-    rating: 4.7,
-    reviewCount: 2156,
-    price: 45,
-    priceLabel: "/person",
-    duration: "6 hours",
-    image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=400",
-    tags: ["Adventure", "Guided"],
-    distance: "25 km",
-  },
-];
+const categoryItems: Record<ItemCategory, PlanItem[]> = {
+  flight: mockFlights,
+  hotel: mockHotels,
+  restaurant: mockRestaurants,
+  activity: mockActivities,
+};
 
 export default function BrowsePage() {
   const router = useRouter();
-  const [activeCategory, setActiveCategory] = useState<Category>("hotels");
+  const { tripData, isLoaded } = useTripData();
+  const [activeCategory, setActiveCategory] = useState<ItemCategory>("hotel");
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [showCart, setShowCart] = useState(false);
   const [nearMeEnabled, setNearMeEnabled] = useState(false);
   const [userLocation, setUserLocation] = useState<string | null>(null);
+  const [detectingLocation, setDetectingLocation] = useState(false);
 
+  // Check if trip data exists, if not redirect to setup
   useEffect(() => {
-    // Simulate location detection
-    const timer = setTimeout(() => {
-      setUserLocation("San Francisco, CA");
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, []);
+    if (isLoaded && !tripData.destination) {
+      router.push("/browse/setup");
+    }
+  }, [isLoaded, tripData, router]);
 
-  const filteredItems = mockItems.filter((item) => item.category === activeCategory);
+  // Load Near Me state from trip data
+  useEffect(() => {
+    if (tripData.useNearMe && tripData.userLocation) {
+      setNearMeEnabled(true);
+      setUserLocation(tripData.userLocation);
+    } else if (tripData.destination) {
+      setUserLocation(tripData.destination);
+    }
+  }, [tripData]);
+
+  const filteredItems = categoryItems[activeCategory];
 
   const toggleSelection = (itemId: string) => {
     setSelectedItems((prev) =>
@@ -208,15 +79,30 @@ export default function BrowsePage() {
     );
   };
 
-  const selectedItemsData = mockItems.filter((item) => selectedItems.includes(item.id));
+  const selectedItemsData = Object.values(categoryItems)
+    .flat()
+    .filter((item) => selectedItems.includes(item.id));
+
   const totalCost = selectedItemsData.reduce((sum, item) => sum + item.price, 0);
 
   const handleCreatePlan = () => {
     // In real app, this would create a plan and redirect
-    router.push("/plan/custom-1");
+    router.push("/my-plans");
   };
 
-  const categories = Object.entries(categoryConfig) as [Category, typeof categoryConfig.flights][];
+  const handleNearMeToggle = () => {
+    if (!nearMeEnabled) {
+      setDetectingLocation(true);
+      setTimeout(() => {
+        setDetectingLocation(false);
+        setNearMeEnabled(true);
+      }, 1000);
+    } else {
+      setNearMeEnabled(false);
+    }
+  };
+
+  const categories = Object.entries(categoryConfig) as [ItemCategory, typeof categoryConfig[ItemCategory]][];
 
   return (
     <>
@@ -235,7 +121,7 @@ export default function BrowsePage() {
               <h1 className="font-bold text-gray-900">Browse Destinations</h1>
               <button
                 onClick={() => setShowCart(true)}
-                className="relative flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-full text-sm font-semibold"
+                className="relative flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-full text-sm font-semibold hover:bg-purple-700 transition"
               >
                 <ShoppingBag className="w-4 h-4" />
                 <span>Cart</span>
@@ -249,27 +135,41 @@ export default function BrowsePage() {
 
             {/* Location & Near Me Toggle */}
             <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
-              <div className="flex items-center gap-2 text-sm text-gray-600">
-                <MapPin className="w-4 h-4 text-purple-500" />
-                <span>{userLocation || "Detecting location..."}</span>
+              <div className="flex items-center gap-4 text-sm">
+                <div className="flex items-center gap-2 text-gray-600">
+                  <MapPin className="w-4 h-4 text-purple-500" />
+                  <span className="font-medium">{tripData.destination || userLocation || "Detecting location..."}</span>
+                </div>
+                {tripData.fromDate && tripData.toDate && (
+                  <div className="flex items-center gap-2 text-gray-600">
+                    <Calendar className="w-4 h-4 text-purple-500" />
+                    <span>{new Date(tripData.fromDate).toLocaleDateString()} - {new Date(tripData.toDate).toLocaleDateString()}</span>
+                  </div>
+                )}
+                {tripData.travelers && (
+                  <div className="flex items-center gap-2 text-gray-600">
+                    <Users className="w-4 h-4 text-purple-500" />
+                    <span>{tripData.travelers} {tripData.travelers === 1 ? 'traveler' : 'travelers'}</span>
+                  </div>
+                )}
               </div>
               <button
-                onClick={() => setNearMeEnabled(!nearMeEnabled)}
+                onClick={handleNearMeToggle}
                 className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition ${
                   nearMeEnabled
                     ? "bg-purple-600 text-white"
                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }`}
               >
-                <Navigation className="w-4 h-4" />
-                <span>Near Me</span>
+                <Navigation className={`w-4 h-4 ${detectingLocation ? "animate-pulse" : ""}`} />
+                <span>{detectingLocation ? "Detecting..." : nearMeEnabled ? "Near Me ✓" : "Near Me"}</span>
               </button>
             </div>
           </div>
         </header>
 
         {/* Category Tabs */}
-        <div className="bg-white border-b border-gray-100 sticky top-[120px] z-30">
+        <div className="bg-white border-b border-gray-100 sticky top-[136px] z-30">
           <div className="max-w-6xl mx-auto px-6">
             <div className="flex gap-2 py-3 overflow-x-auto">
               {categories.map(([key, config]) => {
@@ -308,11 +208,14 @@ export default function BrowsePage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredItems.map((item) => {
               const isSelected = selectedItems.includes(item.id);
+              const config = categoryConfig[item.category];
+              const Icon = config.icon;
+
               return (
                 <div
                   key={item.id}
                   className={`bg-white rounded-2xl overflow-hidden border-2 transition-all ${
-                    isSelected ? "border-purple-500 shadow-lg" : "border-transparent shadow-sm"
+                    isSelected ? "border-purple-500 shadow-lg" : "border-transparent shadow-sm hover:shadow-md"
                   }`}
                 >
                   {/* Image */}
@@ -328,8 +231,14 @@ export default function BrowsePage() {
                         {item.distance}
                       </span>
                     )}
+                    {item.aiRecommended && (
+                      <span className="absolute top-3 right-3 px-2 py-1 bg-purple-600/90 backdrop-blur-sm rounded-full text-xs font-medium text-white flex items-center gap-1">
+                        <Sparkles className="w-3 h-3" />
+                        {item.matchScore}% Match
+                      </span>
+                    )}
                     {isSelected && (
-                      <div className="absolute top-3 right-3 w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center">
+                      <div className="absolute bottom-3 right-3 w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center">
                         <Check className="w-5 h-5 text-white" />
                       </div>
                     )}
@@ -338,8 +247,10 @@ export default function BrowsePage() {
                   {/* Content */}
                   <div className="p-4">
                     <div className="flex items-start justify-between mb-2">
-                      <div>
-                        <h3 className="font-semibold text-gray-900">{item.name}</h3>
+                      <div className="flex-1 min-w-0 pr-2">
+                        <h3 className="font-semibold text-gray-900 truncate">
+                          {item.name}
+                        </h3>
                         <p className="text-sm text-gray-500 flex items-center gap-1">
                           <MapPin className="w-3 h-3" />
                           {item.location}
@@ -348,13 +259,12 @@ export default function BrowsePage() {
                       <div className="flex items-center gap-1 text-sm">
                         <Star className="w-4 h-4 text-yellow-500" fill="#FACC15" />
                         <span className="font-medium text-gray-800">{item.rating}</span>
-                        <span className="text-gray-400">({item.reviewCount})</span>
                       </div>
                     </div>
 
                     {/* Tags */}
                     <div className="flex flex-wrap gap-2 mb-3">
-                      {item.tags.map((tag) => (
+                      {item.tags.slice(0, 2).map((tag) => (
                         <span
                           key={tag}
                           className="px-2 py-1 bg-gray-100 rounded-full text-xs text-gray-600"
@@ -376,7 +286,12 @@ export default function BrowsePage() {
                         <span className="text-lg font-bold text-gray-900">
                           ${item.price}
                         </span>
-                        <span className="text-sm text-gray-500">{item.priceLabel}</span>
+                        <span className="text-sm text-gray-500">
+                          {item.category === 'flight' && '/person'}
+                          {item.category === 'hotel' && '/night'}
+                          {item.category === 'restaurant' && '/person'}
+                          {item.category === 'activity' && '/person'}
+                        </span>
                       </div>
                       <button
                         onClick={() => toggleSelection(item.id)}
@@ -411,7 +326,7 @@ export default function BrowsePage() {
           <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-30">
             <button
               onClick={() => setShowCart(true)}
-              className="flex items-center gap-4 px-6 py-4 bg-gray-900 text-white rounded-2xl shadow-2xl"
+              className="flex items-center gap-4 px-6 py-4 bg-gray-900 text-white rounded-2xl shadow-2xl hover:bg-gray-800 transition"
             >
               <div className="flex items-center gap-2">
                 <ShoppingBag className="w-5 h-5" />
@@ -483,7 +398,7 @@ export default function BrowsePage() {
                               {item.name}
                             </p>
                             <p className="text-sm text-gray-500">
-                              ${item.price}{item.priceLabel}
+                              ${item.price}
                             </p>
                           </div>
                           <button
