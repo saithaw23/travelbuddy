@@ -1,0 +1,1685 @@
+================================================================================
+TRAVELBUDDY - COMPLETE FEATURES & FUNCTIONS LIST
+================================================================================
+Last Updated: February 9, 2026
+Purpose: Comprehensive inventory of all features in the current branch
+
+================================================================================
+1. LANDING PAGE (/) - Trip Intake & Configuration
+================================================================================
+
+HERO SECTION:
+- Marketing hero with gradient background (purple theme)
+- Value proposition messaging
+- Feature tiles explaining AI-powered recommendations
+
+TRIP BASICS FORM:
+- Destination input with location icon
+- "Near Me" toggle button with location detection
+  - Auto-detects user location (simulated: San Francisco, CA)
+  - Shows "Detecting..." animation during location fetch
+  - Updates destination field automatically when enabled
+  - Displays detected location with accuracy indicator
+- Date range picker (From/To dates)
+- Quick date presets:
+  - "This Weekend" - auto-calculates next weekend
+  - "Next Month" - sets dates for next month
+  - "Flexible Dates" - suggests 2-week window
+- Traveler count input (number field, 1-10 people)
+- Budget input field with currency selector
+- Currency dropdown (USD, EUR, GBP, JPY, AUD)
+
+PREFERENCES SECTION:
+- Adventure level slider (1-5 scale: Relaxed to Extreme)
+  - Visual labels showing current selection
+- Travel style multi-select chips:
+  - Luxury, Budget-Friendly, Local Experiences
+  - Adventure Sports, Cultural Tours, Relaxation
+  - Nightlife, Family-Friendly
+- Interests checkbox grid (12 options):
+  - Food & Dining, Outdoor Activities, Museums & Culture
+  - Nightlife & Entertainment, Shopping, Photography
+  - Beach & Water, Mountain & Hiking, Historical Sites
+  - Wildlife & Nature, Adventure Sports, Art & Design
+
+MULTI-TRAVELER PREFERENCES:
+- Appears when traveler count > 1
+- Collapsible sections for each additional traveler
+- Per-traveler configuration:
+  - Individual adventure level slider
+  - Personal travel style preferences
+  - Individual interest selections
+
+ACTION BUTTONS:
+- Primary: "Get AI Trip Plans" (with Sparkles icon) → routes to /ai-plans
+- Secondary: "Browse Manually" (with Compass icon) → routes to /browse
+
+HEADER NAVIGATION:
+- TravelBuddy logo (links to home)
+- Navigation links: About, How It Works, Trust & Safety, Blog, Contact
+- User profile chip showing:
+  - Avatar with initials
+  - User name (John Doe)
+  - "Signed in" status
+  - Links to /profile
+
+FEATURES SECTION:
+- 4 feature cards explaining:
+  - Smart Matching (AI-powered)
+  - Budget Control (real-time tracking)
+  - Curated Options (no overwhelming lists)
+  - Expert Tips (hidden gems)
+
+FOOTER:
+- Copyright notice
+- Links: Privacy Policy, Terms of Service, Contact Us
+
+
+================================================================================
+2. AI PLANS PAGE (/ai-plans) - AI-Generated Complete Trip Plans
+================================================================================
+
+HERO SECTION:
+- "Powered by AI" badge with Sparkles icon
+- Title: "Complete Trip Plans"
+- Description explaining AI-curated itineraries
+
+PLAN CARDS (Grid Display):
+- Destination image with gradient overlay
+- AI confidence match percentage badge (e.g., "98% Match")
+- Plan name and tagline
+- Destination and duration info
+- Group size recommendation
+- Total cost and per-person breakdown
+- Star rating with review count
+- Tags (Culture, Food, Art, etc.)
+- What's included icons:
+  - Flights count
+  - Hotels count
+  - Restaurants count
+  - Activities count
+- Key highlights checklist (4 items per plan)
+- "Select Plan" button
+
+PLAN EXAMPLES SHOWN:
+1. Tokyo Cultural Immersion ($4,850)
+2. Bali Wellness Retreat ($2,980)
+3. Swiss Alps Adventure ($5,200)
+4. Greek Island Hopping ($3,650)
+
+CONFIRMATION MODAL:
+- Appears when selecting a plan
+- Shows plan summary card
+- "Add to Plans" and "Cancel" buttons
+- Explains collaboration features available
+
+BOTTOM CTA:
+- "Want to build your own?" section
+- "Browse Manually" button → routes to /browse
+
+NAVIGATION:
+- Back button → returns to /
+- "My Plans" link in header
+
+
+================================================================================
+3. BROWSE PAGE (/browse) - Manual Destination Browsing
+================================================================================
+
+HEADER:
+- Back button → returns to /
+- Page title: "Browse Destinations"
+- Cart button with item count badge
+- Location display with "Near Me" toggle
+
+LOCATION FEATURES:
+- Auto-detects user location (simulated)
+- Shows current location (e.g., "San Francisco, CA")
+- "Near Me" toggle button to filter by distance
+- Distance badges on items when enabled (e.g., "0.5 km from you")
+
+CATEGORY TABS (Sticky):
+- Flights (with icon and count)
+- Hotels (with icon and count)
+- Restaurants (with icon and count)
+- Activities (with icon and count)
+
+ITEM CARDS (Grid Layout):
+- High-quality destination image
+- Distance badge (when Near Me enabled)
+- Selection checkmark (when added)
+- Item name and location
+- Star rating with review count
+- Price with unit label (/night, /person, round-trip)
+- Duration (for flights and activities)
+- Tags/features (Non-stop, Economy, Luxury, etc.)
+- Add/Added toggle button
+
+MOCK DATA INCLUDES:
+Flights:
+- Direct Flight to Tokyo (SFO → NRT, $850)
+- Premium Economy to Bali (LAX → DPS, $1,200)
+
+Hotels:
+- Park Hyatt Tokyo ($450/night)
+- Ubud Jungle Resort ($280/night)
+- Santorini Cave Hotel ($380/night)
+
+Restaurants:
+- Sukiyabashi Jiro ($300/person)
+- Locavore Ubud ($120/person)
+
+Activities:
+- TeamLab Borderless ($35/person)
+- Tegallalang Rice Terrace ($15/person)
+- Sunrise Hike Mt. Batur ($45/person)
+
+FLOATING CART SUMMARY:
+- Shows when items selected
+- Displays item count and total cost
+- Click to open cart drawer
+
+CART DRAWER (Slide-out):
+- Close button
+- List of selected items with:
+  - Item image
+  - Category icon
+  - Name and price
+  - Remove button
+- Budget breakdown section
+- Estimated total
+- "Create My Plan" button → routes to /plan/custom-1
+
+
+================================================================================
+4. MY PLANS PAGE (/my-plans) - Saved Plans Library
+================================================================================
+
+ACTION BAR:
+- "Get AI Plan" button → routes to /ai-plans
+- "Build Custom" button → routes to /browse
+- "Compare" button (appears when 2+ plans selected)
+
+PLAN CARDS (Grid Display):
+- Selection checkbox for comparison
+- Destination image with hover zoom effect
+- AI-generated badge (if applicable)
+- Status badge with colors:
+  - Draft (gray)
+  - Planning (yellow)
+  - Confirmed (green)
+  - Completed (blue)
+- Plan name and destination
+- Date range
+- Traveler count
+- Collaborator avatars (stacked)
+- Item count
+- Last updated timestamp
+- Menu button (3 dots) with options:
+  - Share
+  - Duplicate
+  - Delete
+- "Open" button → routes to /plan/[id]
+
+MOCK PLANS SHOWN:
+1. Tokyo Cultural Immersion (Planning, 4 travelers, 28 items)
+2. Bali Wellness Retreat (Confirmed, 2 travelers, 18 items)
+3. Weekend in San Francisco (Draft, 2 travelers, 8 items)
+
+EMPTY STATE:
+- Icon and message when no plans
+- CTAs to get started:
+  - "Get AI Plan"
+  - "Browse Manually"
+
+MULTI-SELECT FEATURES:
+- Click cards to select for comparison
+- Visual indication (purple border, shadow)
+- Compare button shows count
+- Routes to /compare-itineraries
+
+
+================================================================================
+5. PLAN DETAIL PAGE (/plan/[id]) - Collaboration Hub
+================================================================================
+
+PLAN HERO SECTION:
+- Plan destination image
+- AI-generated badge (if applicable)
+- Plan name
+- Destination with location icon
+- Date range with calendar icon
+- Traveler count with users icon
+- Total cost per person with dollar icon
+
+PARTICIPANTS SECTION:
+- Avatar row showing all collaborators
+- Participant initials in colored circles
+- "+" button to invite more
+- Collaborator count display
+
+INVITE MODAL:
+- Email input field
+- List of collaborator capabilities:
+  - Vote on plan items
+  - Leave comments
+  - View all details
+- "Send Invite" and "Cancel" buttons
+
+ITINERARY ITEMS (Expandable Cards):
+Each item shows:
+- Category icon (Plane, Hotel, Utensils, Camera)
+- Item image
+- Name and location
+- Date and time
+- Star rating
+- Price (with quantity calculation)
+- Quantity indicator (seats, nights, guests, tickets)
+- Vote summary badges (thumbs up/down counts)
+- Comment count badge
+- Info button → opens details modal
+- Settings button → opens edit modal
+- Expand/collapse button
+
+EXPANDED ITEM VIEW:
+1. Team Votes Section:
+   - Grid of all participants
+   - Avatar and name for each
+   - Yes/No/Maybe button group per person
+   - Visual indication of current vote
+   - Real-time vote tracking
+
+2. Comments Section:
+   - List of existing comments with:
+     - Participant name and avatar
+     - Timestamp
+     - Comment text
+   - Add comment form with:
+     - Text input field
+     - "Post" button
+   - Empty state message
+
+3. Owner Notes Section:
+   - Textarea for decision logging
+   - Placeholder text
+   - Auto-saves on change
+
+ITEM CATEGORIES SHOWN:
+- Flights (with seat count)
+- Hotels (with night count and guest count)
+- Restaurants (with guest count)
+- Activities (with ticket count)
+
+DETAILS MODAL (Info Button):
+- Item image header
+- Close button
+- Rating summary (average + total reviews)
+- Description text
+- Facilities & Amenities grid:
+  - WiFi, Parking, Coffee, Accessibility
+  - Pool, Gym, Room Service
+  - Visual indicators (available/not available)
+- Recent reviews from travelers:
+  - User avatar and name
+  - Star rating (1-5)
+  - Review text
+  - Date posted
+- "Close" button
+
+EDIT BOOKING MODAL (Settings Button):
+- Item info summary
+- Quantity controls with +/- buttons:
+  - Flights: Number of seats
+  - Hotels: Number of nights + guests
+  - Restaurants: Number of guests
+  - Activities: Number of tickets
+- Price per unit display
+- Updated total price calculation
+- "Save Changes" button
+
+SUMMARY FOOTER:
+- Total estimated cost display
+- Per person breakdown
+- "Proceed to Checkout" button → routes to /checkout
+
+HEADER ACTIONS:
+- Back button → returns to /my-plans
+- "Invite" button
+- "Checkout" button
+
+
+================================================================================
+6. COMPARE ITINERARIES PAGE (/compare-itineraries)
+================================================================================
+
+SAVED ITINERARIES SELECTOR:
+- Grid of saved itinerary cards
+- Click to select/deselect
+- Visual indication (purple border when selected)
+- Each card shows:
+  - Plan name
+  - Destination
+  - Dates and duration
+  - Total cost
+  - Traveler count
+- "Compare Selected" button
+- "Clear Selection" button
+
+COMPARISON TABLE:
+- Header row with plan names
+- Total cost row
+- Budget status row:
+  - "Within Budget" (green checkmark)
+  - "Over Budget" (orange warning)
+
+SIDE-BY-SIDE PLAN DETAILS:
+Each plan column shows:
+- Gradient header with plan name
+- Total cost (large display)
+- Duration and traveler count
+- Participant vote summary:
+  - Majority label (in favor/against/mixed)
+  - Vote breakdown
+  - Comments summary
+- Expandable day-by-day itinerary:
+  - Day headers (clickable to expand)
+  - Time-based item list:
+    - Time
+    - Item title
+    - Description
+    - Price
+- Action buttons:
+  - "Book This Plan" → routes to /checkout
+  - "Edit Comparison"
+
+PARTICIPANT CONSENSUS BOARD:
+- Shows all compared plans
+- Vote status for each:
+  - Majority in favor
+  - Mixed feedback
+  - Majority against
+- Vote breakdown (e.g., "3/4 travelers voted YES")
+- Owner approval status
+- Comments summary
+
+MOCK PLANS COMPARED:
+1. NYC Holiday Deluxe ($2,400)
+   - Majority in favor
+   - 3/4 travelers voted YES
+2. NYC Winter Getaway ($1,645)
+   - Mixed feedback
+   - 2 YES, 1 NO, waiting on 1
+3. NYC Budget-Friendly ($1,200)
+   - Majority against
+   - Rejected due to redeye flight
+
+
+================================================================================
+7. CHECKOUT PAGE (/checkout) - Payment & Booking
+================================================================================
+
+TRAVELER DETAILS FORM:
+- First name input (pre-filled: John)
+- Last name input (pre-filled: Doe)
+- Email input (pre-filled: john.doe@example.com)
+- Phone number input (placeholder format)
+
+PAYMENT DETAILS FORM:
+- Card number input (placeholder: 1234 5678 9012 3456)
+- Expiry date input (MM/YY format)
+- CVV input (3-digit)
+
+TERMS & CONDITIONS:
+- Checkbox for agreement
+- Links to privacy policy and terms
+- Validation before checkout
+
+ORDER SUMMARY SIDEBAR:
+- Trip details:
+  - Destination (New York City)
+  - Dates (Dec 15-22, 2025)
+  - Duration (7 nights)
+  - Traveler count (2 people)
+- Itemized breakdown:
+  - Flight: $450
+  - Hotel (7 nights): $1,200
+  - Activities & Tours: $400
+  - Meals & Dining: $350
+- Total cost: $2,400 (large display)
+- Budget status indicator
+
+ACTION BUTTONS:
+- "Complete Booking" (primary, with credit card icon)
+  - Shows processing animation
+  - Disabled during processing
+- "Save for Later" (secondary, with save icon)
+  - Routes to /my-plans
+
+BOOKING CONFIRMATION:
+- Success screen with checkmark
+- Confirmation message
+- Email notification mention
+- Transitions to rating modal
+
+RATING MODAL (Post-Booking):
+- Appears after successful booking
+- Star rating widget (1-5 stars) for each item:
+  - Flight
+  - Hotel
+  - Activities
+  - Restaurants
+- Item details:
+  - Name
+  - Type/category
+  - Current rating display
+- "Submit Ratings" button
+- "Skip" button → routes to /profile
+
+MOCK BOOKING ITEMS:
+1. Flight to NYC
+2. The Plaza Hotel
+3. Statue of Liberty Tour
+4. Le Bernardin restaurant
+
+
+================================================================================
+8. PROFILE PAGE (/profile) - User Account & Preferences
+================================================================================
+
+PROFILE HEADER:
+- Large avatar with initials (JD)
+- User name (John Doe)
+- Email address
+- Stats dashboard:
+  - Total trips (8)
+  - Countries visited (24)
+  - Total spent ($18.5K)
+- "Edit Profile" button
+- "Settings" button
+
+TRAVEL PREFERENCES SECTION:
+- Adventure Level display (Balanced 3/5)
+- Travel Style chips (selected):
+  - Luxury
+  - Budget-Friendly
+  - Local Experiences
+- Interests chips (selected):
+  - Food & Dining
+  - Museums & Culture
+  - Photography
+  - Art & Design
+- Budget Range display ($2,000 - $5,000 per trip)
+- "Edit" button for each section
+
+AI INSIGHT CARD:
+- Gradient background (purple)
+- Personalized analysis based on past trips:
+  - Preferred hotel types
+  - Average trip length (6-8 nights)
+  - Best booking window (4-6 weeks)
+  - Location preferences
+
+PAST TRAVELS SECTION:
+- Featured trip card with:
+  - Destination flag emoji
+  - Location name (Tokyo, Japan)
+  - Date and duration (Mar 2024, 8 nights)
+- "View All" button
+
+ACCOUNT SUMMARY SIDEBAR:
+- Email (truncated with ...)
+- Member since date (Jan 2022)
+- Account status (Verified)
+- Loyalty status (Gold)
+
+TRAVEL INSIGHTS SIDEBAR:
+- Average trip cost ($2,831)
+- Favorite region (Asia)
+- Trips per year (2.7)
+- Best rated trip (Rome 4.9★)
+
+PERSONALIZED RECOMMENDATIONS:
+- AI-suggested destinations:
+  - Barcelona, Spain
+  - Kyoto, Japan
+  - Amsterdam, Netherlands
+- Clickable buttons for each
+
+REVIEW CONTRIBUTIONS SECTION:
+- List of user's reviews with:
+  - Place name
+  - Star rating
+  - Media type icon (text/photo/video)
+  - Review content preview
+  - Timestamp
+  - Media label (e.g., "3 photos", "0:37 video")
+
+MOCK REVIEWS SHOWN:
+1. JFK Morning Non-stop (4.8★, text)
+   - Shared seat tips and arrival timing
+2. Grand Central Hotel (4.6★, photo)
+   - Uploaded lobby + room walkthrough
+3. Met Museum Private Tour (4.9★, video)
+   - 30-second clip of guide + crowd level
+
+
+================================================================================
+9. RECOMMENDATIONS PAGE (/recommendations) - Legacy Feature
+================================================================================
+
+CATEGORY TABS:
+- Flights (8 options)
+- Hotels (12 options)
+- Restaurants (24 options)
+- Attractions (18 options)
+- Car Rentals (5 options)
+
+LOCATION FEATURES:
+- Auto-location detection (Brooklyn, NY)
+- Accuracy indicator (±1.5 mi)
+- "Near Me" personalization status
+- Distance calculation from user location
+- "Adjust radius" link
+
+FILTERS SIDEBAR:
+- AI Match Score slider (0-100%)
+- Price Range slider
+- "Within budget" checkbox
+- Sort by dropdown:
+  - Best Match
+  - Price: Low to High
+  - Price: High to Low
+  - Departure Time
+- "Clear Filters" button
+
+RECOMMENDATION CARDS:
+Each card shows:
+- Destination image (gradient background)
+- AI match score badge (color-coded: green/yellow)
+- Route/name
+- Time and duration details
+- Price (large display)
+- Consensus status:
+  - Majority in favor (green)
+  - Mixed feedback (orange)
+  - Majority against (red)
+- Distance from user (when location enabled)
+- Average rating from reviews
+- Participant voting section:
+  - Grid of all participants
+  - Avatar and name
+  - Role (Owner/Traveler)
+  - Yes/No/Later buttons
+  - Visual vote indication
+- Comments section:
+  - Existing comments list
+  - Add comment form
+  - "Post" button
+- Owner decision log:
+  - Textarea for notes
+  - Auto-saves
+- "Select" button
+- "View Details" button
+
+MOCK FLIGHTS SHOWN:
+1. LAX → NYC Morning (8:00 AM, $450)
+   - 95% match, JFK International
+   - Majority in favor
+2. LAX → NYC Evening (2:30 PM, $380)
+   - 88% match, Newark Liberty
+   - Mixed feedback
+
+TRIP SELECTIONS SIDEBAR:
+- Selected items list
+- Budget breakdown by category:
+  - Flights
+  - Hotels
+  - Restaurants
+  - Attractions
+- Total and remaining budget
+- "Save and Review Trip" button → routes to /trip-summary
+
+PARTICIPANT PULSE:
+- Summary cards for each option
+- Majority vote status
+- Owner notes preview
+
+PLACE DETAILS MODAL:
+Opens when clicking "View Details":
+- Category label
+- Place name
+- Close button
+- Location personalization box:
+  - User's city
+  - Distance calculation
+  - Accuracy indicator
+- AI Insight section with summary
+- Live Essentials:
+  - Terminal info
+  - Baggage claim ETA
+  - Crowd level
+- Map preview placeholder
+- "From the internet" highlights:
+  - FlightAware data
+  - Traffic reports
+  - Reddit tips
+  - Weather info
+- Traveler Reviews section:
+  - Filter chips (All/Text/Photo/Video)
+  - Average rating display
+  - Review count
+  - Individual reviews with:
+    - User avatar and name
+    - Star rating
+    - Media type icon
+    - Review text
+    - Timestamp
+- Add review form:
+  - Media type selector (Text/Photo/Video)
+  - Textarea for content
+  - "Share update" button
+- "Add to Trip with this Context" button
+
+
+================================================================================
+10. TRIP SUMMARY PAGE (/trip-summary) - Legacy Feature
+================================================================================
+
+TRIP SUMMARY HERO:
+- Gradient background (purple)
+- Trip title
+- Destination and date range
+- Duration (7 nights)
+- Traveler count (2 travelers)
+- Progress indicator (Step 4 of 5)
+
+ITINERARY ACCORDION:
+Expandable day sections:
+- Day 1 - Arrival
+- Days 2-6 - Main activities
+- Day 7 - Departure
+
+Each day item shows:
+- Time
+- Item title
+- Description
+- Price
+- Action buttons:
+  - "Change"
+  - "Remove"
+
+MOCK ITINERARY:
+Day 1:
+- 8:00 AM: Flight LAX → JFK ($450)
+- 3:45 PM: Airport Transfer (Free)
+- 4:30 PM: Check-in Grand Central Hotel
+
+Day 7:
+- 11:00 AM: Check-out ($850 for 7 nights)
+
+BUDGET SUMMARY SIDEBAR:
+- Total Budget card (gradient):
+  - Total budget amount ($2,000)
+  - Total spent ($1,300)
+  - Remaining ($700)
+- Budget Breakdown:
+  - Flights: $450
+  - Hotels: $850
+  - Restaurants: $300
+  - Attractions: $45
+  - Car Rentals: $0
+  - Total: $1,300
+- Budget Status indicator:
+  - "Within budget" (green)
+  - Remaining amount display
+
+ACTION BUTTONS:
+- "Continue to Checkout" (green) → routes to /checkout
+- "Compare Options" (purple outline) → routes to /compare-itineraries
+
+COLLABORATION TRACKER:
+Shows consensus for key items:
+- Item name
+- Majority vote status (color-coded)
+- Owner notes preview
+
+MOCK COLLABORATION STATUS:
+1. Flight LAX → JFK
+   - Majority in favor (green)
+   - Note: "Pending seat upgrade confirmation"
+2. Grand Central Hotel
+   - Mixed feedback (orange)
+   - Note: "Waiting on Marco's response"
+3. Metropolitan Museum Tour
+   - Majority against (red)
+   - Note: "Need new option—Amy prefers MoMA"
+
+TRAVELER FEEDBACK SECTION:
+Recent media shared by collaborators:
+- Item name
+- Author and timestamp
+- Media type icon (text/photo/video)
+- Star rating
+- Feedback content
+
+MOCK FEEDBACK:
+1. Flight LAX → JFK (4.8★, text)
+   - Amy C.: Cabin refreshed, customs quick
+2. Grand Central Hotel (4.6★, photo)
+   - Marco L.: Lobby photos, firm beds note
+
+
+================================================================================
+11. GLOBAL FEATURES & UI COMPONENTS
+================================================================================
+
+HEADER (All Pages):
+- TravelBuddy logo (purple, links to /)
+- Navigation menu:
+  - About
+  - How It Works
+  - Trust & Safety
+  - Blog
+  - Contact
+- User profile chip:
+  - Avatar with initials
+  - User name
+  - "Signed in" status
+  - Clickable → routes to /profile
+
+FOOTER (All Pages):
+- Copyright notice (© 2025 TravelBuddy)
+- Links:
+  - Privacy Policy
+  - Terms of Service
+  - Contact Us
+- Purple link hover effects
+
+DESIGN SYSTEM:
+- Primary color: Purple (#9333ea, #a855f7, #c084fc)
+- Secondary colors: Blue, Green, Orange, Red (for status)
+- Typography: Sans-serif, multiple weights
+- Border radius: Rounded corners (8px, 12px, 16px, 24px)
+- Shadows: Subtle to prominent (sm, md, lg, xl, 2xl)
+- Transitions: Smooth hover effects (200-300ms)
+
+ICONS (Lucide React):
+- MapPin, Calendar, Users, DollarSign
+- Plane, Hotel, Utensils, Camera
+- Star, ThumbsUp, ThumbsDown, MessageCircle
+- Sparkles, Navigation, Compass
+- ArrowLeft, ChevronRight, ChevronDown, ChevronUp
+- Plus, Minus, Check, X
+- Share2, UserPlus, Edit3, Settings
+- CreditCard, ShoppingBag, Clock, Info
+- And many more...
+
+RESPONSIVE DESIGN:
+- Desktop-first approach
+- Grid layouts (2-4 columns)
+- Sticky headers and sidebars
+- Mobile-friendly breakpoints
+- Collapsible sections
+
+LOADING STATES:
+- Skeleton loaders
+- Spinner animations
+- "Detecting..." status messages
+- Processing indicators
+
+EMPTY STATES:
+- Icon + message
+- Call-to-action buttons
+- Helpful guidance text
+
+MODALS & OVERLAYS:
+- Backdrop blur effect
+- Centered or slide-out positioning
+- Close buttons (X icon)
+- Smooth animations
+- Escape key support
+
+
+================================================================================
+12. COLLABORATION FEATURES (Cross-Page)
+================================================================================
+
+PARTICIPANT MANAGEMENT:
+- Invite collaborators via email
+- Display participant avatars
+- Show participant roles (Owner/Collaborator)
+- Track participant count
+- Participant initials in colored circles
+
+VOTING SYSTEM:
+- Three-option voting (Yes/No/Maybe or Undecided)
+- Per-item voting
+- Per-participant vote tracking
+- Vote summary display:
+  - Count of Yes votes
+  - Count of No votes
+  - Count of undecided
+- Majority calculation:
+  - "Majority in favor"
+  - "Majority against"
+  - "Mixed feedback"
+- Visual vote indicators (color-coded)
+- Real-time vote updates
+
+COMMENTING SYSTEM:
+- Per-item comment threads
+- Comment display with:
+  - Participant avatar
+  - Participant name
+  - Timestamp
+  - Comment text
+- Add comment form
+- Empty state messages
+- Comment count badges
+
+OWNER CONTROLS:
+- Owner notes/decision log
+- Override capabilities
+- Final decision authority
+- Activity tracking
+
+CONSENSUS TRACKING:
+- Vote summaries per item
+- Participant pulse dashboard
+- Collaboration tracker
+- Status indicators
+
+
+================================================================================
+13. AI & PERSONALIZATION FEATURES
+================================================================================
+
+AI-POWERED RECOMMENDATIONS:
+- Match score calculation (percentage)
+- Confidence indicators
+- "Powered by AI" badges
+- Personalized plan generation
+- Interest-based filtering
+- Budget-aware suggestions
+
+LOCATION-BASED FEATURES:
+- Auto-location detection
+- "Near Me" toggle
+- Distance calculation (km)
+- Accuracy indicators
+- Radius adjustment
+- Location-aware sorting
+
+SMART MATCHING:
+- Travel style matching
+- Interest alignment
+- Budget compatibility
+- Adventure level matching
+- Group size optimization
+
+AI INSIGHTS:
+- Place-specific summaries
+- Live essentials data
+- Internet highlights aggregation
+- Crowd level predictions
+- Weather considerations
+- Traffic reports
+- Historical performance data
+
+PERSONALIZED PROFILE:
+- Travel behavior analysis
+- Preference learning
+- Trip pattern recognition
+- Destination recommendations
+- Booking window optimization
+- Budget trend analysis
+
+
+================================================================================
+14. REVIEW & RATING FEATURES
+================================================================================
+
+REVIEW SUBMISSION:
+- Multi-format support:
+  - Text reviews
+  - Photo uploads (mocked)
+  - Video clips (mocked)
+- Star rating (1-5 scale)
+- Review form with textarea
+- Media type selector
+- Timestamp tracking
+- User attribution
+
+REVIEW DISPLAY:
+- Average rating calculation
+- Total review count
+- Individual review cards with:
+  - User avatar and initials
+  - User name
+  - Star rating visualization
+  - Media type icon
+  - Review content
+  - Timestamp
+  - Media label (e.g., "3 photos")
+- Filter by media type:
+  - All
+  - Text only
+  - Photos only
+  - Videos only
+
+RATING FEATURES:
+- Star rating widget (interactive)
+- Half-star support
+- Rating distribution
+- Verified traveler badges
+- Review authenticity signals
+
+POST-BOOKING RATINGS:
+- Automatic rating prompt after booking
+- Multi-item rating form
+- Per-item star selection
+- Optional skip functionality
+- Submission confirmation
+
+REVIEW CONTRIBUTIONS (Profile):
+- User's review history
+- Review count
+- Average ratings given
+- Media type breakdown
+- Recent reviews showcase
+
+
+================================================================================
+15. BUDGET & PRICING FEATURES
+================================================================================
+
+BUDGET TRACKING:
+- Total budget input
+- Currency selection (5 currencies)
+- Per-person calculations
+- Real-time budget updates
+- Remaining budget display
+- Budget status indicators:
+  - Within budget (green)
+  - Over budget (orange/red)
+
+PRICE DISPLAY:
+- Per-unit pricing:
+  - /night (hotels)
+  - /person (restaurants, activities)
+  - round-trip (flights)
+  - /ticket (activities)
+- Quantity-based calculations
+- Total cost aggregation
+- Price breakdown by category
+
+BUDGET BREAKDOWN:
+- Category-wise spending:
+  - Flights
+  - Hotels
+  - Restaurants
+  - Activities
+  - Car Rentals
+- Subtotals per category
+- Grand total
+- Remaining budget
+
+COST OPTIMIZATION:
+- Budget-friendly options
+- Price range filters
+- Sort by price
+- Within-budget filtering
+- Cost comparison tools
+
+DYNAMIC PRICING:
+- Quantity adjustments:
+  - Seats (flights)
+  - Nights (hotels)
+  - Guests (restaurants, hotels)
+  - Tickets (activities)
+- Real-time price updates
+- Updated total display
+
+
+================================================================================
+16. DATA & STATE MANAGEMENT
+================================================================================
+
+MOCK DATA STRUCTURE:
+- User profiles (John Doe, Krit)
+- Trip plans with full details
+- Destination items (flights, hotels, restaurants, activities)
+- Participant data
+- Vote records
+- Comments
+- Reviews
+- Budget information
+- Itinerary data
+
+STATE MANAGEMENT:
+- Form state (intake page)
+- Selection state (browse, recommendations)
+- Vote state (per item, per participant)
+- Comment state (per item)
+- Modal visibility state
+- Expanded/collapsed state
+- Filter state
+- Location state
+- Cart state
+
+LOCAL STORAGE:
+- Not currently implemented
+- All state resets on navigation
+
+ROUTING:
+- Next.js App Router
+- Dynamic routes (/plan/[id])
+- Query parameters (tripId)
+- Programmatic navigation
+- Back button support
+
+
+================================================================================
+17. USER FLOWS & JOURNEYS
+================================================================================
+
+FLOW A: AI-POWERED TRIP PLANNING
+1. Land on / (intake form)
+2. Fill trip basics (destination, dates, travelers)
+3. Set budget and currency
+4. Configure preferences (adventure, styles, interests)
+5. Optional: Add preferences for additional travelers
+6. Click "Get AI Trip Plans"
+7. View AI-generated plans on /ai-plans
+8. Select a plan (confirmation modal)
+9. Plan added to library → /plan/[id]
+10. Collaborate (vote, comment, edit)
+11. Invite collaborators
+12. Proceed to /checkout
+13. Complete booking
+14. Rate experience
+15. View in /profile
+
+FLOW B: MANUAL BROWSING
+1. Land on / (intake form)
+2. Click "Browse Manually"
+3. Browse categories on /browse
+4. Toggle "Near Me" for location-based results
+5. Add items to cart
+6. Review cart drawer
+7. Click "Create My Plan"
+8. Plan created → /plan/custom-1
+9. Continue with collaboration and checkout (same as Flow A)
+
+FLOW C: PLAN COMPARISON
+1. Navigate to /my-plans
+2. Select 2+ plans (checkboxes)
+3. Click "Compare" button
+4. View side-by-side on /compare-itineraries
+5. Review vote summaries
+6. Check consensus board
+7. Select preferred plan
+8. Book or edit
+
+FLOW D: PROFILE MANAGEMENT
+1. Click profile chip in header
+2. View /profile page
+3. Review stats and insights
+4. Check past travels
+5. View review contributions
+6. Edit preferences (future)
+7. Explore recommendations
+
+
+================================================================================
+18. TECHNICAL FEATURES & ARCHITECTURE
+================================================================================
+
+FRAMEWORK & LIBRARIES:
+- Next.js 14+ (App Router)
+- React 18+
+- TypeScript
+- Tailwind CSS
+- Lucide React (icons)
+
+COMPONENT STRUCTURE:
+- Page components in /app directory
+- Reusable components in /components directory
+- Client-side components ('use client')
+- Server components (default)
+
+STYLING:
+- Tailwind utility classes
+- Custom gradients
+- Responsive breakpoints
+- Hover effects
+- Transitions and animations
+- Custom color palette
+
+ROUTING:
+- File-based routing
+- Dynamic routes ([id])
+- Nested routes
+- Route groups
+- Programmatic navigation (useRouter)
+
+HOOKS USED:
+- useState (state management)
+- useEffect (side effects)
+- useRouter (navigation)
+- useParams (route parameters)
+- useMemo (memoization)
+
+TYPE SAFETY:
+- TypeScript interfaces
+- Type definitions for:
+  - Plan items
+  - Participants
+  - Comments
+  - Votes
+  - Reviews
+  - Place details
+
+PERFORMANCE:
+- Image optimization (Next.js Image)
+- Code splitting
+- Lazy loading
+- Memoization
+- Efficient re-renders
+
+
+================================================================================
+19. MISSING/FUTURE FEATURES (Not Yet Implemented)
+================================================================================
+
+BACKEND INTEGRATION:
+- No API calls (all mock data)
+- No database persistence
+- No authentication system
+- No payment processing
+- No email notifications
+
+DATA PERSISTENCE:
+- No local storage
+- No session management
+- State resets on page refresh
+- No cross-page state sharing
+
+REAL-TIME FEATURES:
+- No WebSocket connections
+- No live collaboration updates
+- No real-time notifications
+- No presence indicators
+
+ADVANCED FEATURES:
+- No actual location services (simulated)
+- No real map integration
+- No actual media uploads
+- No search functionality
+- No filtering on most pages
+- No sorting on most pages
+- No pagination
+- No infinite scroll
+
+SOCIAL FEATURES:
+- No friend system
+- No social sharing
+- No activity feed
+- No notifications center
+
+ANALYTICS:
+- No tracking
+- No metrics
+- No A/B testing
+- No error logging
+
+ACCESSIBILITY:
+- Limited ARIA labels
+- No keyboard navigation optimization
+- No screen reader optimization
+- No high contrast mode
+
+INTERNATIONALIZATION:
+- English only
+- No language selection
+- No locale-specific formatting
+- No RTL support
+
+MOBILE OPTIMIZATION:
+- Desktop-first design
+- Limited mobile testing
+- No native app features
+- No offline support
+
+
+================================================================================
+20. KEY DIFFERENTIATORS & UNIQUE FEATURES
+================================================================================
+
+COLLABORATION-FIRST DESIGN:
+- Multi-participant voting on every item
+- Per-item comment threads
+- Owner decision logging
+- Consensus tracking
+- Majority vote calculations
+- Mixed feedback indicators
+
+AI-POWERED PERSONALIZATION:
+- Complete trip plan generation
+- Match score calculations
+- Interest-based recommendations
+- Budget-aware suggestions
+- Personalized insights
+
+LOCATION INTELLIGENCE:
+- "Near Me" toggle on multiple pages
+- Distance calculations
+- Location-aware sorting
+- Accuracy indicators
+- Radius customization
+
+COMPREHENSIVE REVIEW SYSTEM:
+- Multi-format reviews (text/photo/video)
+- In-app review submission
+- Review filtering by media type
+- Verified traveler indicators
+- Post-booking rating prompts
+
+FLEXIBLE PLANNING MODES:
+- AI-generated complete plans
+- Manual browsing and building
+- Hybrid approach support
+- Plan comparison tools
+
+TRANSPARENT BUDGET TRACKING:
+- Real-time budget calculations
+- Category-wise breakdowns
+- Within/over budget indicators
+- Remaining budget display
+- Dynamic pricing updates
+
+DETAILED PLACE INFORMATION:
+- AI-generated insights
+- Live essentials data
+- Internet highlights aggregation
+- Facilities and amenities
+- User reviews and ratings
+- Map previews
+
+QUANTITY MANAGEMENT:
+- Adjustable seats (flights)
+- Adjustable nights (hotels)
+- Adjustable guests (restaurants, hotels)
+- Adjustable tickets (activities)
+- Real-time price recalculation
+
+
+================================================================================
+21. VISUAL DESIGN ELEMENTS
+================================================================================
+
+COLOR SCHEME:
+- Primary: Purple (#9333ea, #a855f7, #c084fc)
+- Success: Green (#10b981, #22c55e)
+- Warning: Orange/Yellow (#f59e0b, #eab308)
+- Error: Red (#ef4444, #dc2626)
+- Neutral: Gray scale (#f9fafb to #111827)
+- White: #ffffff
+- Black: #000000
+
+GRADIENTS:
+- Purple gradients (from-purple-600 to-purple-800)
+- Multi-color gradients (purple to pink, blue to purple)
+- Overlay gradients (black/transparent)
+- Background gradients
+
+TYPOGRAPHY:
+- Font family: Sans-serif (system fonts)
+- Sizes: xs (0.75rem) to 5xl (3rem)
+- Weights: normal, medium, semibold, bold
+- Line heights: tight, normal, relaxed
+- Letter spacing: tight, normal, wide, wider
+
+SPACING:
+- Padding: 1-16 (0.25rem to 4rem)
+- Margin: 1-16 (0.25rem to 4rem)
+- Gap: 1-12 (0.25rem to 3rem)
+
+BORDERS:
+- Widths: 1px, 2px, 4px
+- Radius: rounded (0.25rem) to rounded-3xl (1.5rem)
+- Colors: gray-100 to gray-300, purple variants
+
+SHADOWS:
+- sm: subtle shadow
+- md: medium shadow
+- lg: large shadow
+- xl: extra large shadow
+- 2xl: prominent shadow
+
+ANIMATIONS:
+- Transitions: 200-300ms
+- Hover effects: scale, color, shadow
+- Loading spinners
+- Pulse effects
+- Slide animations
+
+LAYOUT:
+- Max widths: 4xl (56rem), 6xl (72rem), 7xl (80rem)
+- Grid columns: 2, 3, 4
+- Flexbox layouts
+- Sticky positioning
+- Fixed positioning
+- Z-index layers
+
+
+================================================================================
+22. INTERACTION PATTERNS
+================================================================================
+
+BUTTONS:
+- Primary: Purple background, white text
+- Secondary: White background, purple border
+- Tertiary: Gray background
+- Icon buttons: Icon only, circular
+- Hover states: Darker shade, scale effect
+- Disabled states: Reduced opacity, cursor not-allowed
+- Loading states: Spinner animation
+
+FORMS:
+- Text inputs with borders
+- Number inputs with steppers
+- Date inputs
+- Select dropdowns
+- Textareas
+- Checkboxes (custom styled)
+- Radio buttons (as button groups)
+- Sliders (range inputs)
+- Focus states: Purple border, ring effect
+- Validation: Not implemented
+- Error messages: Not implemented
+
+CARDS:
+- Rounded corners (lg to 3xl)
+- Border or shadow
+- Hover effects: Shadow increase, scale
+- Clickable cards: Cursor pointer
+- Selection states: Border color change
+- Image headers
+- Content sections
+- Action footers
+
+MODALS:
+- Backdrop: Black with opacity, blur
+- Container: White, rounded, shadow
+- Header: Title, close button
+- Content: Scrollable if needed
+- Footer: Action buttons
+- Animations: Fade in/out
+- Close on backdrop click
+- Close on X button
+
+ACCORDIONS:
+- Expandable sections
+- Chevron indicators
+- Smooth transitions
+- Single or multiple open
+
+TABS:
+- Horizontal tab bar
+- Active indicator (border or background)
+- Click to switch
+- Icon + label
+
+TOOLTIPS:
+- Title attributes (basic)
+- No custom tooltip component
+
+DROPDOWNS:
+- Menu button
+- Floating menu
+- Click outside to close
+- List of options
+
+BADGES:
+- Small colored pills
+- Status indicators
+- Count indicators
+- Icon badges
+
+AVATARS:
+- Circular
+- Initials display
+- Colored backgrounds
+- Stacked avatars (overlapping)
+
+
+================================================================================
+23. CONTENT & COPY
+================================================================================
+
+BRAND VOICE:
+- Friendly and approachable
+- Helpful and informative
+- Confident but not pushy
+- Clear and concise
+
+KEY MESSAGING:
+- "Your Perfect Trip, Effortlessly"
+- "AI-powered recommendations tailored to your budget, interests, and travel style"
+- "Complete Trip Plans"
+- "Powered by AI"
+- "Tell Us About Your Trip"
+
+CALL-TO-ACTION PHRASES:
+- "Get AI Trip Plans"
+- "Browse Manually"
+- "Select Plan"
+- "Add to Plans"
+- "Create My Plan"
+- "Proceed to Checkout"
+- "Complete Booking"
+- "Compare Selected"
+- "Invite Collaborators"
+- "View Details"
+- "Save and Review Trip"
+
+EMPTY STATES:
+- "No plans yet"
+- "No items selected yet"
+- "No comments yet. Start the conversation!"
+- "No reviews for this filter yet. Be the first to share."
+
+ERROR STATES:
+- Not implemented (no error messages shown)
+
+SUCCESS MESSAGES:
+- "Booking Confirmed!"
+- "Invitation sent to [email]"
+- "Thank you for your ratings!"
+
+HELPER TEXT:
+- "Per person for entire trip"
+- "Can't decide? Choose flexible dates for more options"
+- "You can invite others and collaborate after creating"
+- "Collaborators can: Vote on plan items, Leave comments, View all details"
+
+PLACEHOLDERS:
+- "Enter destination"
+- "friend@example.com"
+- "+1 (555) 123-4567"
+- "Add a comment..."
+- "Add a note for the group"
+- "Capture final decision or action items"
+- "Drop your tip, upload context, or paste a short video link."
+
+
+================================================================================
+24. MOCK DATA EXAMPLES
+================================================================================
+
+DESTINATIONS:
+- Tokyo, Japan
+- Bali, Indonesia
+- Interlaken, Switzerland
+- Greece (Santorini, Mykonos, Athens)
+- New York City, USA
+- San Francisco, CA, USA
+
+USERS:
+- John Doe (JD) - Primary user
+- Krit (KR) - Alternative user
+- Amy Chen (AC) - Collaborator
+- Marco Li (ML) - Collaborator
+- Sarah Miller (SM) - Collaborator
+- Emily Chen (EC) - Collaborator
+
+TRIP PLANS:
+1. Tokyo Cultural Immersion
+   - 7 days, 4 travelers, $4,850
+   - 28 items, Planning status
+2. Bali Wellness Retreat
+   - 5 days, 2 travelers, $2,980
+   - 18 items, Confirmed status
+3. Swiss Alps Adventure
+   - 6 days, 4 travelers, $5,200
+4. Greek Island Hopping
+   - 8 days, 6 travelers, $3,650
+5. Weekend in San Francisco
+   - 3 days, 2 travelers, custom
+   - 8 items, Draft status
+
+FLIGHTS:
+- LAX → JFK (American Airlines, $450)
+- SFO → NRT Tokyo (JetBlue, $850)
+- LAX → DPS Bali (Premium Economy, $1,200)
+
+HOTELS:
+- Park Hyatt Tokyo ($450/night, 5-star)
+- Grand Central Hotel NYC ($850/7 nights, 4-star)
+- Ubud Jungle Resort ($280/night)
+- Santorini Cave Hotel ($380/night)
+- The Plaza Hotel NYC (luxury)
+
+RESTAURANTS:
+- Sukiyabashi Jiro Tokyo ($300/person, 3 Michelin stars)
+- Locavore Ubud ($120/person)
+- Le Bernardin NYC (fine dining)
+
+ACTIVITIES:
+- TeamLab Borderless Tokyo ($35/person)
+- Tegallalang Rice Terrace Bali ($15/person)
+- Sunrise Hike Mt. Batur ($45/person)
+- Private Tea Ceremony Kyoto ($120/person)
+- Statue of Liberty Tour NYC
+- Metropolitan Museum NYC
+
+BUDGET EXAMPLES:
+- Total: $2,000 - $5,000
+- Spent: $1,300 - $2,400
+- Remaining: $700 - $2,600
+
+DATES:
+- Dec 15-22, 2025 (7 nights)
+- Mar 15-22, 2025 (7 nights)
+- Apr 5-10, 2025 (5 nights)
+- Feb 28 - Mar 2, 2025 (weekend)
+
+
+================================================================================
+25. SUMMARY & STATISTICS
+================================================================================
+
+TOTAL PAGES: 10
+1. Landing Page (/)
+2. AI Plans (/ai-plans)
+3. Browse (/browse)
+4. My Plans (/my-plans)
+5. Plan Detail (/plan/[id])
+6. Compare Itineraries (/compare-itineraries)
+7. Checkout (/checkout)
+8. Profile (/profile)
+9. Recommendations (/recommendations) - Legacy
+10. Trip Summary (/trip-summary) - Legacy
+
+TOTAL COMPONENTS: 12
+- LandingPage.tsx
+- AIPlansPage.tsx
+- BrowsePage.tsx
+- MyPlansPage.tsx
+- PlanDetailPage.tsx
+- CompareItinerariesPage.tsx
+- CheckoutPage.tsx
+- ProfilePage.tsx
+- RecommendationsPage.tsx
+- TripSummaryPage.tsx
+- PlansPage.tsx (not in use)
+
+MAJOR FEATURE CATEGORIES:
+1. Trip Planning & Intake
+2. AI-Powered Recommendations
+3. Manual Browsing
+4. Plan Management
+5. Collaboration (Voting, Comments, Notes)
+6. Budget Tracking
+7. Reviews & Ratings
+8. Location Services
+9. Comparison Tools
+10. Checkout & Booking
+11. User Profile & Preferences
+12. Place Details & Information
+
+KEY TECHNOLOGIES:
+- Next.js 14+ (App Router)
+- React 18+
+- TypeScript
+- Tailwind CSS
+- Lucide React Icons
+
+INTERACTION TYPES:
+- Forms (7+ different forms)
+- Modals (6+ types)
+- Accordions/Expandables
+- Tabs
+- Cards (10+ variations)
+- Buttons (20+ variations)
+- Sliders
+- Toggles
+- Checkboxes
+- Dropdowns
+
+DATA ENTITIES:
+- Users
+- Trips/Plans
+- Items (Flights, Hotels, Restaurants, Activities)
+- Participants
+- Votes
+- Comments
+- Reviews
+- Budgets
+- Preferences
+
+CURRENT STATE:
+- Frontend-only prototype
+- Mock data throughout
+- No backend integration
+- No database
+- No authentication
+- No payment processing
+- Desktop-first responsive design
+- Production-ready UI/UX
+- Comprehensive feature set for demo
+
+================================================================================
+END OF FEATURES LIST
+================================================================================
+
+This comprehensive list documents all features, functions, and capabilities
+present in the current branch. Use this as a reference when implementing
+features in the new branch or when comparing functionality between branches.
+
+For questions or clarifications, refer to:
+- docs/current-user-flow.md
+- docs/implementation-plan.md
+- Individual component files in /components directory
+

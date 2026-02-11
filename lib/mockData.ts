@@ -1,0 +1,230 @@
+import { Plan, PlanItem, Participant, UserProfile } from './types';
+
+// Mock User
+export const mockUser: UserProfile = {
+  id: 'user-1',
+  name: 'John Doe',
+  email: 'john.doe@example.com',
+  initials: 'JD',
+  stats: {
+    totalTrips: 8,
+    countriesVisited: 24,
+    totalSpent: 18500,
+  },
+  preferences: {
+    adventureLevel: 3,
+    travelStyles: ['Luxury', 'Budget-Friendly', 'Local Experiences'],
+    interests: ['Food & Dining', 'Museums & Culture', 'Photography', 'Art & Design'],
+    budgetRange: { min: 2000, max: 5000 },
+  },
+  memberSince: '2022-01-15',
+};
+
+// Mock Participants
+export const mockParticipants: Participant[] = [
+  { id: 'p1', name: 'John Doe (You)', initials: 'JD', role: 'owner', email: 'john@example.com' },
+  { id: 'p2', name: 'Sarah Miller', initials: 'SM', role: 'collaborator', email: 'sarah@example.com' },
+  { id: 'p3', name: 'Mike Chen', initials: 'MC', role: 'collaborator', email: 'mike@example.com' },
+];
+
+// Mock Browse Items - Flights
+export const mockFlights: PlanItem[] = [
+  {
+    id: 'flight-1',
+    category: 'flight',
+    name: 'Direct Flight to Tokyo',
+    location: 'SFO → NRT',
+    date: '2025-03-15',
+    time: '10:30 AM',
+    price: 850,
+    image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400',
+    rating: 4.5,
+    reviewCount: 892,
+    description: 'Non-stop flight with excellent service',
+    tags: ['Non-stop', 'Economy', 'JetBlue'],
+    aiRecommended: true,
+    matchScore: 95,
+    duration: '11h 30m',
+    seats: 2,
+  },
+  {
+    id: 'flight-2',
+    category: 'flight',
+    name: 'Premium Economy to Bali',
+    location: 'LAX → DPS',
+    date: '2025-04-05',
+    time: '2:30 PM',
+    price: 1200,
+    image: 'https://images.unsplash.com/photo-1569629743817-70d8db6c323b?w=400',
+    rating: 4.7,
+    reviewCount: 456,
+    description: 'Comfortable premium seating',
+    tags: ['1 Stop', 'Premium', 'Singapore Airlines'],
+    aiRecommended: true,
+    matchScore: 88,
+    duration: '17h 45m',
+    seats: 2,
+  },
+];
+
+// Mock Browse Items - Hotels
+export const mockHotels: PlanItem[] = [
+  {
+    id: 'hotel-1',
+    category: 'hotel',
+    name: 'Park Hyatt Tokyo',
+    location: 'Shinjuku, Tokyo',
+    date: '2025-03-15',
+    price: 450,
+    image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400',
+    rating: 4.9,
+    reviewCount: 2341,
+    description: 'Luxury 5-star hotel with city views',
+    tags: ['Luxury', 'City View', '5-Star'],
+    aiRecommended: true,
+    matchScore: 96,
+    distance: '0.5 km',
+    nights: 6,
+    guests: 2,
+  },
+  {
+    id: 'hotel-2',
+    category: 'hotel',
+    name: 'Ubud Jungle Resort',
+    location: 'Ubud, Bali',
+    date: '2025-04-05',
+    price: 280,
+    image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=400',
+    rating: 4.8,
+    reviewCount: 1567,
+    description: 'Peaceful resort surrounded by nature',
+    tags: ['Pool Villa', 'Breakfast', 'Spa'],
+    aiRecommended: true,
+    matchScore: 92,
+    distance: '2.3 km',
+    nights: 4,
+    guests: 2,
+  },
+];
+
+// Mock Browse Items - Restaurants
+export const mockRestaurants: PlanItem[] = [
+  {
+    id: 'restaurant-1',
+    category: 'restaurant',
+    name: 'Sukiyabashi Jiro',
+    location: 'Ginza, Tokyo',
+    date: '2025-03-16',
+    time: '7:00 PM',
+    price: 300,
+    image: 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=400',
+    rating: 4.9,
+    reviewCount: 4521,
+    description: 'World-famous 3-Michelin-star sushi',
+    tags: ['Michelin 3★', 'Omakase', 'Reservation Required'],
+    aiRecommended: true,
+    matchScore: 98,
+    distance: '1.8 km',
+    guests: 2,
+  },
+  {
+    id: 'restaurant-2',
+    category: 'restaurant',
+    name: 'Locavore Ubud',
+    location: 'Ubud, Bali',
+    date: '2025-04-06',
+    time: '6:30 PM',
+    price: 120,
+    image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400',
+    rating: 4.7,
+    reviewCount: 1234,
+    description: 'Farm-to-table fine dining',
+    tags: ['Farm-to-Table', 'Tasting Menu', 'Local'],
+    aiRecommended: true,
+    matchScore: 94,
+    distance: '0.8 km',
+    guests: 2,
+  },
+];
+
+// Mock Browse Items - Activities
+export const mockActivities: PlanItem[] = [
+  {
+    id: 'activity-1',
+    category: 'activity',
+    name: 'TeamLab Borderless',
+    location: 'Odaiba, Tokyo',
+    date: '2025-03-17',
+    time: '2:00 PM',
+    price: 35,
+    image: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=400',
+    rating: 4.8,
+    reviewCount: 8765,
+    description: 'Immersive digital art museum',
+    tags: ['Digital Art', 'Immersive', 'Family-Friendly'],
+    aiRecommended: true,
+    matchScore: 93,
+    duration: '2-3 hours',
+    distance: '5.2 km',
+    quantity: 2,
+  },
+  {
+    id: 'activity-2',
+    category: 'activity',
+    name: 'Sunrise Hike Mt. Batur',
+    location: 'Kintamani, Bali',
+    date: '2025-04-07',
+    time: '3:00 AM',
+    price: 45,
+    image: 'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=400',
+    rating: 4.7,
+    reviewCount: 2156,
+    description: 'Guided sunrise trek with breakfast',
+    tags: ['Adventure', 'Guided', 'Sunrise'],
+    aiRecommended: true,
+    matchScore: 89,
+    duration: '6 hours',
+    distance: '25 km',
+    quantity: 2,
+  },
+];
+
+// All browse items combined
+export const allBrowseItems: PlanItem[] = [
+  ...mockFlights,
+  ...mockHotels,
+  ...mockRestaurants,
+  ...mockActivities,
+];
+
+// Mock Plans
+export const mockPlans: Plan[] = [
+  {
+    id: 'plan-1',
+    name: 'Tokyo Cultural Immersion',
+    destination: 'Tokyo, Japan',
+    dateRange: 'Mar 15 - 22, 2025',
+    travelers: 4,
+    totalCost: 4850,
+    status: 'planning',
+    items: [mockFlights[0], mockHotels[0], mockRestaurants[0], mockActivities[0]],
+    collaborators: mockParticipants,
+    createdAt: '2025-02-01',
+    updatedAt: '2 hours ago',
+    image: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=600',
+  },
+  {
+    id: 'plan-2',
+    name: 'Bali Wellness Retreat',
+    destination: 'Bali, Indonesia',
+    dateRange: 'Apr 5 - 10, 2025',
+    travelers: 2,
+    totalCost: 2980,
+    status: 'confirmed',
+    items: [mockFlights[1], mockHotels[1], mockRestaurants[1], mockActivities[1]],
+    collaborators: [mockParticipants[0]],
+    createdAt: '2025-01-28',
+    updatedAt: '1 day ago',
+    image: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600',
+  },
+];

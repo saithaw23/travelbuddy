@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { MessageCircle, X, Send, Minimize2 } from 'lucide-react';
 
 interface Message {
@@ -11,6 +12,7 @@ interface Message {
 }
 
 export default function FloatingChatWidget() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
@@ -34,6 +36,11 @@ export default function FloatingChatWidget() {
       scrollToBottom();
     }
   }, [messages, isOpen]);
+
+  // Hide the widget on the main chat page (after all hooks)
+  if (pathname === '/') {
+    return null;
+  }
 
   const handleSendMessage = async (message: string) => {
     if (!message.trim()) return;

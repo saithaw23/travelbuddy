@@ -277,7 +277,7 @@ export default function ChatLandingPage() {
           <div className="text-center mt-8">
             <p className="text-sm text-gray-600 mb-3">Prefer to browse on your own?</p>
             <button
-              onClick={() => router.push('/browse')}
+              onClick={() => router.push('/browse/setup')}
               className="inline-flex items-center gap-2 px-6 py-3 bg-white border-2 border-purple-600 text-purple-600 rounded-lg font-semibold hover:bg-purple-50 transition-all"
             >
               <Compass className="w-5 h-5" />
