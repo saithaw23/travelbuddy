@@ -262,6 +262,15 @@ export default function PlanDetailPage() {
   const params = useParams();
   const planId = params?.id as string;
 
+  // Load selected plan from sessionStorage (set by AIPlansPage)
+  const [activePlan, setActivePlan] = React.useState(() => {
+    try {
+      const stored = typeof window !== 'undefined' ? sessionStorage.getItem('selectedPlan') : null;
+      if (stored) return { ...mockPlan, ...JSON.parse(stored) };
+    } catch { /* ignore */ }
+    return mockPlan;
+  });
+
   const [expandedItem, setExpandedItem] = useState<string | null>(null);
   const [votes, setVotes] = useState<Record<string, Record<string, VoteOption>>>({});
   const [comments, setComments] = useState<Record<string, Comment[]>>({
@@ -335,7 +344,7 @@ export default function PlanDetailPage() {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const input = form.elements.namedItem("comment") as HTMLInputElement;
-    
+
     if (!input.value.trim()) {
       toast.error('Please enter a comment');
       return;
@@ -367,14 +376,14 @@ export default function PlanDetailPage() {
 
   const handleInvite = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!inviteEmail) {
       toast.error('Please enter an email address');
       return;
     }
-    
+
     const loadingToast = toast.loading('Sending invitation...');
-    
+
     // Mock invite
     setTimeout(() => {
       toast.dismiss(loadingToast);
@@ -425,13 +434,13 @@ export default function PlanDetailPage() {
           <div className="max-w-4xl mx-auto px-6 py-6">
             <div className="flex items-start gap-6">
               <img
-                src={mockPlan.image}
-                alt={mockPlan.name}
+                src={activePlan.image}
+                alt={activePlan.name}
                 className="w-32 h-24 rounded-xl object-cover"
               />
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
-                  {mockPlan.isAiGenerated && (
+                  {activePlan.isAiGenerated && (
                     <span className="flex items-center gap-1 px-2 py-0.5 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold">
                       <Sparkles className="w-3 h-3" />
                       AI Generated
@@ -439,24 +448,24 @@ export default function PlanDetailPage() {
                   )}
                 </div>
                 <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-                  {mockPlan.name}
+                  {activePlan.name}
                 </h1>
                 <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600">
                   <span className="flex items-center gap-1">
                     <MapPin className="w-4 h-4 text-purple-500" />
-                    {mockPlan.destination}
+                    {activePlan.destination}
                   </span>
                   <span className="flex items-center gap-1">
                     <Calendar className="w-4 h-4 text-purple-500" />
-                    {mockPlan.dateRange}
+                    {activePlan.dateRange ?? 'Dates TBD'}
                   </span>
                   <span className="flex items-center gap-1">
                     <Users className="w-4 h-4 text-purple-500" />
-                    {mockPlan.travelers} travelers
+                    {activePlan.travelers ?? activePlan.groupSize ?? '2'} travelers
                   </span>
                   <span className="flex items-center gap-1">
                     <DollarSign className="w-4 h-4 text-purple-500" />
-                    ${mockPlan.totalCost}/person
+                    ${activePlan.totalCost?.toLocaleString()}/person
                   </span>
                 </div>
               </div>
@@ -589,14 +598,14 @@ export default function PlanDetailPage() {
                       </div>
                       {/* Action buttons */}
                       <div className="flex flex-col gap-1">
-                        <button 
+                        <button
                           onClick={(e) => { e.stopPropagation(); setShowDetailsModal(item.id); }}
                           className="p-2 hover:bg-blue-50 rounded-full text-blue-600"
                           title="View Details"
                         >
                           <Info className="w-5 h-5" />
                         </button>
-                        <button 
+                        <button
                           onClick={(e) => { e.stopPropagation(); setShowEditModal(item.id); }}
                           className="p-2 hover:bg-purple-50 rounded-full text-purple-600"
                           title="Edit Booking"
@@ -647,21 +656,20 @@ export default function PlanDetailPage() {
                                         onClick={() =>
                                           handleVote(item.id, p.id, option)
                                         }
-                                        className={`px-3 py-1.5 rounded-full text-xs font-semibold transition ${
-                                          isActive
+                                        className={`px-3 py-1.5 rounded-full text-xs font-semibold transition ${isActive
                                             ? option === "yes"
                                               ? "bg-green-600 text-white"
                                               : option === "no"
-                                              ? "bg-red-600 text-white"
-                                              : "bg-gray-600 text-white"
+                                                ? "bg-red-600 text-white"
+                                                : "bg-gray-600 text-white"
                                             : "border border-gray-300 text-gray-600 dark:text-gray-400 hover:border-gray-400"
-                                        }`}
+                                          }`}
                                       >
                                         {option === "yes"
                                           ? "Yes"
                                           : option === "no"
-                                          ? "No"
-                                          : "Maybe"}
+                                            ? "No"
+                                            : "Maybe"}
                                       </button>
                                     );
                                   }
@@ -886,9 +894,8 @@ export default function PlanDetailPage() {
                     {details.facilities.map((facility, idx) => (
                       <div
                         key={idx}
-                        className={`flex items-center gap-2 p-2 rounded-lg ${
-                          facility.available ? 'bg-green-50 text-green-700' : 'bg-gray-100 text-gray-400'
-                        }`}
+                        className={`flex items-center gap-2 p-2 rounded-lg ${facility.available ? 'bg-green-50 text-green-700' : 'bg-gray-100 text-gray-400'
+                          }`}
                       >
                         {getFacilityIcon(facility.icon)}
                         <span className="text-sm">{facility.name}</span>

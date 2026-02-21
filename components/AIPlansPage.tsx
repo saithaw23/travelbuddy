@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import {
   Sparkles,
@@ -7,7 +7,6 @@ import {
   Calendar,
   Users,
   DollarSign,
-  Clock,
   Star,
   ChevronRight,
   Plane,
@@ -16,6 +15,7 @@ import {
   Camera,
   Check,
   ArrowLeft,
+  Wand2,
 } from "lucide-react";
 
 interface TripPlan {
@@ -40,7 +40,17 @@ interface TripPlan {
   aiConfidence: number;
 }
 
-const mockPlans: TripPlan[] = [
+interface TravelPreferences {
+  destination: string;
+  duration: string;
+  budget: string;
+  groupSize: string;
+  travelStyle: string;
+  interests: string[];
+  conversationSummary: string;
+}
+
+const FALLBACK_PLANS: TripPlan[] = [
   {
     id: "plan-1",
     name: "Tokyo Cultural Immersion",
@@ -131,6 +141,29 @@ export default function AIPlansPage() {
   const router = useRouter();
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [plans, setPlans] = useState<TripPlan[]>(FALLBACK_PLANS);
+  const [preferences, setPreferences] = useState<TravelPreferences | null>(null);
+  const [isAIGenerated, setIsAIGenerated] = useState(false);
+
+  useEffect(() => {
+    try {
+      const storedPrefs = sessionStorage.getItem('travelPreferences');
+      const storedPlans = sessionStorage.getItem('aiPlans');
+
+      if (storedPrefs && storedPlans) {
+        const parsedPrefs: TravelPreferences = JSON.parse(storedPrefs);
+        const parsedPlans: TripPlan[] = JSON.parse(storedPlans);
+
+        if (parsedPlans && parsedPlans.length > 0) {
+          setPreferences(parsedPrefs);
+          setPlans(parsedPlans);
+          setIsAIGenerated(true);
+        }
+      }
+    } catch {
+      // Silently fall back to default plans
+    }
+  }, []);
 
   const handleSelectPlan = (planId: string) => {
     setSelectedPlan(planId);
@@ -138,11 +171,15 @@ export default function AIPlansPage() {
   };
 
   const handleConfirmPlan = () => {
-    // In real app, this would save to user's plans and redirect
+    // Save the selected plan data so PlanDetailPage can load it
+    const planData = plans.find((p) => p.id === selectedPlan);
+    if (planData) {
+      sessionStorage.setItem('selectedPlan', JSON.stringify(planData));
+    }
     router.push(`/plan/${selectedPlan}`);
   };
 
-  const selectedPlanData = mockPlans.find((p) => p.id === selectedPlan);
+  const selectedPlanData = plans.find((p) => p.id === selectedPlan);
 
   return (
     <>
@@ -173,20 +210,63 @@ export default function AIPlansPage() {
         {/* Hero Section */}
         <section className="py-12 px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 rounded-full mb-6">
-              <Sparkles className="w-4 h-4 text-purple-600" />
-              <span className="text-sm font-semibold text-purple-700">
-                Powered by AI
-              </span>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-              Complete Trip Plans
-            </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              Based on your preferences, our AI has curated these complete
-              itineraries. Each plan includes flights, hotels, restaurants, and
-              activities—ready to book.
-            </p>
+            {isAIGenerated ? (
+              <>
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 rounded-full mb-6">
+                  <Wand2 className="w-4 h-4 text-green-600" />
+                  <span className="text-sm font-semibold text-green-700">
+                    Personalized Just For You
+                  </span>
+                </div>
+                <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+                  Your Tailored Trip Plans
+                </h1>
+                {preferences && (
+                  <div className="max-w-2xl mx-auto mb-4">
+                    <p className="text-base text-gray-600 dark:text-gray-400 italic leading-relaxed">
+                      &quot;{preferences.conversationSummary}&quot;
+                    </p>
+                    <div className="flex flex-wrap justify-center gap-2 mt-4">
+                      {preferences.destination !== 'Flexible' && (
+                        <span className="inline-flex items-center gap-1 px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold">
+                          <MapPin className="w-3 h-3" /> {preferences.destination}
+                        </span>
+                      )}
+                      {preferences.duration !== 'Flexible' && (
+                        <span className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">
+                          <Calendar className="w-3 h-3" /> {preferences.duration}
+                        </span>
+                      )}
+                      {preferences.budget !== 'Flexible' && (
+                        <span className="inline-flex items-center gap-1 px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">
+                          <DollarSign className="w-3 h-3" /> {preferences.budget}
+                        </span>
+                      )}
+                      {preferences.groupSize && (
+                        <span className="inline-flex items-center gap-1 px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-semibold">
+                          <Users className="w-3 h-3" /> {preferences.groupSize}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </>
+            ) : (
+              <>
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 rounded-full mb-6">
+                  <Sparkles className="w-4 h-4 text-purple-600" />
+                  <span className="text-sm font-semibold text-purple-700">
+                    Powered by AI
+                  </span>
+                </div>
+                <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+                  Complete Trip Plans
+                </h1>
+                <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                  Our AI has curated these complete itineraries. Each plan includes flights, hotels, restaurants, and activities—ready to book.
+                </p>
+              </>
+            )}
           </div>
         </section>
 
@@ -194,7 +274,7 @@ export default function AIPlansPage() {
         <section className="px-6 pb-16">
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 gap-6">
-              {mockPlans.map((plan) => (
+              {plans.map((plan) => (
                 <div
                   key={plan.id}
                   className="bg-white dark:bg-gray-800 rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-300 group"
@@ -212,7 +292,7 @@ export default function AIPlansPage() {
                         {plan.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="px-2 py-1 bg-white dark:bg-gray-800/20 backdrop-blur-md rounded-full text-xs font-medium text-white"
+                            className="px-2 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-medium text-white"
                           >
                             {tag}
                           </span>
@@ -228,6 +308,12 @@ export default function AIPlansPage() {
                         {plan.aiConfidence}% Match
                       </span>
                     </div>
+                    {isAIGenerated && (
+                      <div className="absolute top-4 left-4 flex items-center gap-1 px-2 py-1 bg-purple-600 rounded-full">
+                        <Wand2 className="w-3 h-3 text-white" />
+                        <span className="text-xs font-bold text-white">AI Pick</span>
+                      </div>
+                    )}
                   </div>
 
                   {/* Content */}
@@ -236,41 +322,39 @@ export default function AIPlansPage() {
 
                     {/* Meta Info */}
                     <div className="grid grid-cols-2 gap-3 mb-4">
-                      <div className="flex items-center gap-2 text-sm text-gray-700">
+                      <div className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
                         <MapPin className="w-4 h-4 text-purple-500" />
                         <span>{plan.destination}</span>
                       </div>
-                      <div className="flex items-center gap-2 text-sm text-gray-700">
+                      <div className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
                         <Calendar className="w-4 h-4 text-purple-500" />
                         <span>{plan.duration}</span>
                       </div>
-                      <div className="flex items-center gap-2 text-sm text-gray-700">
+                      <div className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
                         <Users className="w-4 h-4 text-purple-500" />
                         <span>{plan.groupSize}</span>
                       </div>
-                      <div className="flex items-center gap-2 text-sm text-gray-700">
+                      <div className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
                         <Star className="w-4 h-4 text-yellow-500" fill="#FACC15" />
-                        <span>
-                          {plan.rating} ({plan.reviewCount})
-                        </span>
+                        <span>{plan.rating} ({plan.reviewCount})</span>
                       </div>
                     </div>
 
                     {/* Included */}
-                    <div className="flex items-center gap-4 py-3 border-y border-gray-100 mb-4">
-                      <div className="flex items-center gap-1 text-xs text-gray-600">
+                    <div className="flex items-center gap-4 py-3 border-y border-gray-100 dark:border-gray-700 mb-4">
+                      <div className="flex items-center gap-1 text-xs text-gray-600 dark:text-gray-400">
                         <Plane className="w-4 h-4 text-gray-400" />
                         <span>{plan.included.flights}</span>
                       </div>
-                      <div className="flex items-center gap-1 text-xs text-gray-600">
+                      <div className="flex items-center gap-1 text-xs text-gray-600 dark:text-gray-400">
                         <Hotel className="w-4 h-4 text-gray-400" />
                         <span>{plan.included.hotels}</span>
                       </div>
-                      <div className="flex items-center gap-1 text-xs text-gray-600">
+                      <div className="flex items-center gap-1 text-xs text-gray-600 dark:text-gray-400">
                         <Utensils className="w-4 h-4 text-gray-400" />
                         <span>{plan.included.restaurants}</span>
                       </div>
-                      <div className="flex items-center gap-1 text-xs text-gray-600">
+                      <div className="flex items-center gap-1 text-xs text-gray-600 dark:text-gray-400">
                         <Camera className="w-4 h-4 text-gray-400" />
                         <span>{plan.included.activities}</span>
                       </div>
@@ -281,7 +365,7 @@ export default function AIPlansPage() {
                       {plan.highlights.slice(0, 3).map((highlight, idx) => (
                         <div
                           key={idx}
-                          className="flex items-center gap-2 text-sm text-gray-700"
+                          className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300"
                         >
                           <Check className="w-4 h-4 text-green-500" />
                           <span>{highlight}</span>
@@ -293,7 +377,7 @@ export default function AIPlansPage() {
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="text-xs text-gray-500">Total from</p>
-                        <p className="text-2xl font-bold text-gray-900">
+                        <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                           ${plan.totalCost.toLocaleString()}
                         </p>
                         <p className="text-xs text-gray-500">per person</p>
@@ -317,16 +401,18 @@ export default function AIPlansPage() {
         <section className="px-6 pb-16">
           <div className="max-w-4xl mx-auto text-center py-10 px-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-3xl">
             <h3 className="text-2xl font-bold text-white mb-3">
-              Want to build your own?
+              {isAIGenerated ? 'Want to refine your plans?' : 'Want us to personalize these?'}
             </h3>
             <p className="text-purple-100 mb-6">
-              Browse destinations and create a custom itinerary from scratch.
+              {isAIGenerated
+                ? 'Chat with our AI again to adjust your preferences and get new recommendations.'
+                : 'Chat with our AI assistant to get plans tailored specifically to your interests and budget.'}
             </p>
             <button
-              onClick={() => router.push("/browse")}
+              onClick={() => router.push("/chat")}
               className="px-8 py-3 bg-white dark:bg-gray-800 text-purple-700 rounded-xl font-semibold hover:bg-purple-50 transition"
             >
-              Browse Manually
+              {isAIGenerated ? 'Chat Again' : 'Chat with AI'}
             </button>
           </div>
         </section>
@@ -343,13 +429,13 @@ export default function AIPlansPage() {
               <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">
                 Add to Your Plans?
               </h3>
-              <p className="text-sm text-gray-600">
-                "{selectedPlanData.name}" will be added to your library. You can
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                &quot;{selectedPlanData.name}&quot; will be added to your library. You can
                 invite others and collaborate on the details.
               </p>
             </div>
 
-            <div className="bg-gray-50 dark:bg-gray-950 rounded-2xl p-4 mb-6">
+            <div className="bg-gray-50 dark:bg-gray-900 rounded-2xl p-4 mb-6">
               <div className="flex items-center gap-3">
                 <img
                   src={selectedPlanData.image}
@@ -357,7 +443,7 @@ export default function AIPlansPage() {
                   className="w-16 h-16 rounded-xl object-cover"
                 />
                 <div>
-                  <p className="font-semibold text-gray-900">
+                  <p className="font-semibold text-gray-900 dark:text-gray-100">
                     {selectedPlanData.name}
                   </p>
                   <p className="text-sm text-gray-500">

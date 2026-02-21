@@ -43,7 +43,7 @@ export default function MyPlansPage() {
 
   const handleCompare = () => {
     if (selectedPlans.length >= 2) {
-      router.push("/compare");
+      router.push("/compare-itineraries");
     }
   };
 
@@ -130,11 +130,10 @@ export default function MyPlansPage() {
               return (
                 <div
                   key={plan.id}
-                  className={`bg-white rounded-2xl overflow-hidden border-2 transition-all cursor-pointer group ${
-                    isSelected
+                  className={`bg-white rounded-2xl overflow-hidden border-2 transition-all cursor-pointer group ${isSelected
                       ? "border-purple-500 shadow-lg"
                       : "border-transparent shadow-sm hover:shadow-md"
-                  }`}
+                    }`}
                 >
                   {/* Image */}
                   <div
@@ -150,11 +149,10 @@ export default function MyPlansPage() {
 
                     {/* Selection Checkbox */}
                     <div
-                      className={`absolute top-3 left-3 w-6 h-6 rounded-full border-2 flex items-center justify-center transition ${
-                        isSelected
+                      className={`absolute top-3 left-3 w-6 h-6 rounded-full border-2 flex items-center justify-center transition ${isSelected
                           ? "bg-purple-600 border-purple-600"
                           : "border-white bg-white/20 backdrop-blur-sm"
-                      }`}
+                        }`}
                     >
                       {isSelected && (
                         <svg

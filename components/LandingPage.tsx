@@ -25,7 +25,7 @@ export default function LandingPage() {
   const [detectingLocation, setDetectingLocation] = useState(false);
 
   const adventureLabels = ['', 'Relaxed', 'Moderate', 'Balanced', 'Adventurous', 'Extreme'];
-  
+
   const travelStyles = ['Luxury', 'Budget-Friendly', 'Local Experiences', 'Adventure Sports', 'Cultural Tours', 'Relaxation', 'Nightlife', 'Family-Friendly'];
   const interests = ['Food & Dining', 'Outdoor Activities', 'Museums & Culture', 'Nightlife & Entertainment', 'Shopping', 'Photography', 'Beach & Water', 'Mountain & Hiking', 'Historical Sites', 'Wildlife & Nature', 'Adventure Sports', 'Art & Design'];
 
@@ -59,8 +59,8 @@ export default function LandingPage() {
     const today = new Date();
     let from: Date = new Date();
     let to: Date = new Date();
-    
-    switch(preset) {
+
+    switch (preset) {
       case 'weekend':
         from = new Date(today);
         from.setDate(from.getDate() + (5 - from.getDay()));
@@ -81,18 +81,21 @@ export default function LandingPage() {
         to.setDate(to.getDate() + 14);
         break;
     }
-    
+
     setFromDate(from.toISOString().split('T')[0]);
     setToDate(to.toISOString().split('T')[0]);
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    router.push('/ai-plans');
+    // Save preferences to sessionStorage so the chat page can use them as a head start
+    const prefs = { destination, fromDate, toDate, travelers, budget, selectedTravelStyles, selectedInterests };
+    sessionStorage.setItem('landingPreferences', JSON.stringify(prefs));
+    router.push('/chat');
   };
 
   const handleBrowseManually = () => {
-    router.push('/browse');
+    router.push('/browse/setup');
   };
 
   const handleNearMeToggle = () => {
@@ -137,7 +140,7 @@ export default function LandingPage() {
       </header>
 
       {/* HERO SECTION */}
-      <section 
+      <section
         className="mt-20 flex items-start justify-center text-center relative overflow-hidden pt-20"
         style={{
           background: 'linear-gradient(135deg, #9333ea 0%, #a855f7 50%, #c084fc 100%)',
@@ -184,11 +187,10 @@ export default function LandingPage() {
                     <button
                       type="button"
                       onClick={handleNearMeToggle}
-                      className={`flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold transition-all ${
-                        nearMeEnabled
+                      className={`flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold transition-all ${nearMeEnabled
                           ? 'bg-purple-600 text-white'
                           : 'bg-gray-100 text-gray-700 dark:text-gray-300 hover:bg-purple-100 hover:text-purple-700 border border-gray-300'
-                      }`}
+                        }`}
                     >
                       <Navigation className={`w-4 h-4 ${detectingLocation ? 'animate-pulse' : ''}`} />
                       {detectingLocation ? 'Detecting...' : nearMeEnabled ? 'Near Me ✓' : 'Near Me'}
@@ -351,7 +353,7 @@ export default function LandingPage() {
                                 min="1"
                                 max="5"
                                 value={additionalAdventureLevels[index + 2] || 3}
-                                onChange={(e) => setAdditionalAdventureLevels({...additionalAdventureLevels, [index + 2]: parseInt(e.target.value)})}
+                                onChange={(e) => setAdditionalAdventureLevels({ ...additionalAdventureLevels, [index + 2]: parseInt(e.target.value) })}
                                 className="w-full accent-purple-600"
                               />
                               <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-2">
@@ -368,11 +370,10 @@ export default function LandingPage() {
                                   <button
                                     key={style}
                                     type="button"
-                                    className={`px-4 py-2 rounded-full text-xs font-semibold transition-all ${
-                                      selectedTravelStyles.includes(style)
+                                    className={`px-4 py-2 rounded-full text-xs font-semibold transition-all ${selectedTravelStyles.includes(style)
                                         ? 'bg-purple-600 text-white'
                                         : 'bg-gray-200 text-gray-800 dark:text-gray-200 hover:bg-gray-300'
-                                    }`}
+                                      }`}
                                   >
                                     {style}
                                   </button>
@@ -442,9 +443,9 @@ export default function LandingPage() {
 
       {/* FOOTER */}
       <footer className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 text-center py-10 text-sm border-t border-gray-200 dark:border-gray-700 dark:border-gray-800">
-        <p>&copy; 2025 TravelBuddy. All rights reserved. | 
-          <a href="#privacy" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Privacy Policy</a> | 
-          <a href="#terms" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Terms of Service</a> | 
+        <p>&copy; 2025 TravelBuddy. All rights reserved. |
+          <a href="#privacy" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Privacy Policy</a> |
+          <a href="#terms" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Terms of Service</a> |
           <a href="#contact" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Contact Us</a>
         </p>
       </footer>

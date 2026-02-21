@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState, useRef, useEffect } from 'react';
-import { Send, Sparkles, Compass, MapPin, Calendar, DollarSign, Users, Heart } from 'lucide-react';
+import { Send, Sparkles, Compass, MapPin, DollarSign, Users, Heart, CheckCircle2 } from 'lucide-react';
 import { ModeToggle } from './mode/mode-toggle';
 
 interface Message {
@@ -14,26 +14,56 @@ interface Message {
 }
 
 const STARTER_PROMPTS = [
-  { icon: '🏖️', text: 'Plan a weekend getaway under $1000', category: 'budget' },
-  { icon: '🎭', text: 'Find me a cultural trip to Asia', category: 'culture' },
-  { icon: '👨‍👩‍👧‍👦', text: 'I need a family vacation with kids', category: 'family' },
-  { icon: '🌄', text: 'Adventure trip for thrill seekers', category: 'adventure' },
-  { icon: '💑', text: 'Romantic getaway for two', category: 'romance' },
-  { icon: '🍜', text: 'Food tour across Europe', category: 'food' },
+  { icon: '🏖️', text: 'Weekend getaway under $1000' },
+  { icon: '🎭', text: 'Cultural trip to Asia' },
+  { icon: '👨‍👩‍👧‍👦', text: 'Family vacation with kids' },
+  { icon: '🌄', text: 'Adventure trip for thrill seekers' },
+  { icon: '💑', text: 'Romantic getaway for two' },
+  { icon: '🍜', text: 'Food tour across Europe' },
 ];
+
+const CONFIRM_KEYWORDS = ['confirm', 'confirmed', 'go ahead', "that's it", "that's all", 'finalize', 'looks good', 'proceed'];
+
+function isConfirmMessage(msg: string): boolean {
+  const lower = msg.toLowerCase().trim();
+  return CONFIRM_KEYWORDS.some(kw => lower === kw || lower.startsWith(kw + ' ') || lower.endsWith(' ' + kw));
+}
 
 export default function ChatLandingPage() {
   const router = useRouter();
-  const [messages, setMessages] = useState<Message[]>([
-    {
+  const [messages, setMessages] = useState<Message[]>(() => {
+    // Build initial greeting — may be enhanced with landing form prefs
+    let openingContent = "Hi! I'm your AI travel assistant 🌍 Tell me about your dream trip and I'll help you plan it perfectly. Where would you like to go?";
+
+    if (typeof window !== 'undefined') {
+      try {
+        const stored = sessionStorage.getItem('landingPreferences');
+        if (stored) {
+          const prefs = JSON.parse(stored);
+          sessionStorage.removeItem('landingPreferences'); // consume it once
+          const parts: string[] = [];
+          if (prefs.destination) parts.push(`going to **${prefs.destination}**`);
+          if (prefs.fromDate && prefs.toDate) parts.push(`traveling ${prefs.fromDate} → ${prefs.toDate}`);
+          if (prefs.travelers > 1) parts.push(`with ${prefs.travelers} travelers`);
+          if (prefs.budget) parts.push(`budget of ${prefs.budget}`);
+          if (parts.length > 0) {
+            openingContent = `Hi! I can see you're interested in ${parts.join(', ')}. I'm your AI travel assistant — let's refine this into the perfect trip! 🌍\n\nTell me more: what kind of experience are you looking for? (e.g., adventure, relaxation, food, culture...)`;
+          }
+        }
+      } catch { /* ignore */ }
+    }
+
+    return [{
       id: '1',
       role: 'assistant',
-      content: "Hi! I'm your AI travel assistant. Tell me about your dream trip and I'll help you plan it perfectly. Where would you like to go?",
+      content: openingContent,
       timestamp: new Date(),
-    }
-  ]);
+    }];
+  });
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [isSummarizing, setIsSummarizing] = useState(false);
+  const [hasUserMessages, setHasUserMessages] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -45,8 +75,12 @@ export default function ChatLandingPage() {
     scrollToBottom();
   }, [messages]);
 
+  const addMessage = (msg: Message) => {
+    setMessages(prev => [...prev, msg]);
+  };
+
   const handleSendMessage = async (message: string) => {
-    if (!message.trim()) return;
+    if (!message.trim() || isTyping || isSummarizing) return;
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -55,85 +89,110 @@ export default function ChatLandingPage() {
       timestamp: new Date(),
     };
 
-    setMessages(prev => [...prev, userMessage]);
+    const updatedMessages = [...messages, userMessage];
+    setMessages(updatedMessages);
     setInputValue('');
-    setIsTyping(true);
+    setHasUserMessages(true);
 
-    // Simulate AI response (replace with actual API call)
-    setTimeout(() => {
-      const aiResponse = generateAIResponse(message, messages.length);
-      setMessages(prev => [...prev, aiResponse]);
-      setIsTyping(false);
-    }, 1500);
-  };
-
-  const generateAIResponse = (userMessage: string, messageCount: number): Message => {
-    // Simple mock logic - replace with actual AI API
-    const lowerMessage = userMessage.toLowerCase();
-    
-    if (messageCount === 1) {
-      // First response - ask for more details
-      if (lowerMessage.includes('budget') || lowerMessage.includes('$')) {
-        return {
-          id: Date.now().toString(),
-          role: 'assistant',
-          content: "Great! I can help you plan a budget-friendly trip. What's your ideal destination, and how many days are you thinking?",
-          timestamp: new Date(),
-        };
-      } else if (lowerMessage.includes('family') || lowerMessage.includes('kids')) {
-        return {
-          id: Date.now().toString(),
-          role: 'assistant',
-          content: "Perfect! Family trips are my specialty. How many people will be traveling, and what are the ages of your kids? Also, what's your budget range?",
-          timestamp: new Date(),
-        };
-      } else if (lowerMessage.includes('romantic') || lowerMessage.includes('couple')) {
-        return {
-          id: Date.now().toString(),
-          role: 'assistant',
-          content: "How lovely! A romantic getaway. Are you thinking beach, mountains, or city? And what's your budget for this special trip?",
-          timestamp: new Date(),
-        };
-      } else {
-        return {
-          id: Date.now().toString(),
-          role: 'assistant',
-          content: "That sounds exciting! To create the perfect itinerary, I need a few more details:\n\n• What's your budget range?\n• How many days?\n• Traveling solo or with others?\n• Any specific interests? (food, adventure, culture, relaxation)",
-          timestamp: new Date(),
-        };
-      }
-    } else if (messageCount === 3) {
-      // Second response - gather final details
-      return {
-        id: Date.now().toString(),
-        role: 'assistant',
-        content: "Excellent! I have enough information now. Let me create some personalized trip plans for you. This will take just a moment...",
-        timestamp: new Date(),
-      };
-    } else if (messageCount === 5) {
-      // Final response - redirect to plans
-      setTimeout(() => {
-        router.push('/ai-plans');
-      }, 2000);
-      
-      return {
-        id: Date.now().toString(),
-        role: 'assistant',
-        content: "✨ Perfect! I've created 3 amazing trip plans tailored just for you. Taking you to your personalized recommendations now...",
-        timestamp: new Date(),
-      };
+    if (isConfirmMessage(message)) {
+      await handleConfirm(updatedMessages);
+      return;
     }
 
-    return {
-      id: Date.now().toString(),
-      role: 'assistant',
-      content: "Got it! What else can you tell me about your preferences?",
-      timestamp: new Date(),
-    };
+    setIsTyping(true);
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message,
+          conversationHistory: updatedMessages.map(m => ({ role: m.role, content: m.content })),
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        addMessage({
+          id: (Date.now() + 1).toString(),
+          role: 'assistant',
+          content: data.response,
+          timestamp: new Date(),
+        });
+      } else {
+        addMessage({
+          id: (Date.now() + 1).toString(),
+          role: 'assistant',
+          content: "Sorry, I'm having trouble connecting right now. Please try again in a moment.",
+          timestamp: new Date(),
+        });
+      }
+    } catch {
+      addMessage({
+        id: (Date.now() + 1).toString(),
+        role: 'assistant',
+        content: "Sorry, something went wrong. Please try again.",
+        timestamp: new Date(),
+      });
+    } finally {
+      setIsTyping(false);
+    }
   };
 
-  const handleStarterPrompt = (prompt: string) => {
-    handleSendMessage(prompt);
+  const handleConfirm = async (currentMessages: Message[]) => {
+    setIsSummarizing(true);
+
+    addMessage({
+      id: (Date.now() + 1).toString(),
+      role: 'assistant',
+      content: "✨ Perfect! Let me put together a summary of your travel preferences and create some personalized plans just for you...",
+      timestamp: new Date(),
+    });
+
+    try {
+      const response = await fetch('/api/chat/summarize', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          conversationHistory: currentMessages.map(m => ({ role: m.role, content: m.content })),
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        sessionStorage.setItem('travelPreferences', JSON.stringify(data.preferences));
+        sessionStorage.setItem('aiPlans', JSON.stringify(data.plans));
+
+        addMessage({
+          id: (Date.now() + 2).toString(),
+          role: 'assistant',
+          content: `🗺️ **Here's what I've got for you:**\n\n${data.preferences.conversationSummary}\n\nI've created **3 personalized trip plans** tailored to your preferences. Taking you there now...`,
+          timestamp: new Date(),
+        });
+
+        setTimeout(() => {
+          router.push('/ai-plans');
+        }, 2500);
+      } else {
+        addMessage({
+          id: (Date.now() + 2).toString(),
+          role: 'assistant',
+          content: "I had trouble generating your plans. Could you tell me a bit more and try confirming again?",
+          timestamp: new Date(),
+        });
+        setIsSummarizing(false);
+      }
+    } catch {
+      addMessage({
+        id: (Date.now() + 2).toString(),
+        role: 'assistant',
+        content: "Something went wrong generating your plans. Please try again.",
+        timestamp: new Date(),
+      });
+      setIsSummarizing(false);
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -141,179 +200,186 @@ export default function ChatLandingPage() {
     handleSendMessage(inputValue);
   };
 
-  return (
-    <>
-      {/* HEADER */}
-      <header className="fixed top-0 left-0 right-0 h-20 bg-white dark:bg-gray-900 shadow-md z-50 flex items-center justify-between px-10">
-        <Link href="/" className="text-2xl font-bold text-purple-600">TravelBuddy</Link>
-        <nav className="flex gap-10 items-center">
-          <Link href="/about" className="text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-purple-600">About</Link>
-          <Link href="/how-it-works" className="text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-purple-600">How It Works</Link>
-          <Link href="/trust-safety" className="text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-purple-600">Trust & Safety</Link>
-          <Link href="/blog" className="text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-purple-600">Blog</Link>
-          <Link href="/contact" className="text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-purple-600">Contact</Link>
-        </nav>
+  const isLoading = isTyping || isSummarizing;
 
-        <div className="flex gap-6 items-center">
+  return (
+    <div className="flex flex-col h-screen bg-gradient-to-br from-purple-50 via-white to-purple-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 overflow-hidden">
+
+      {/* HEADER */}
+      <header className="shrink-0 h-16 bg-white dark:bg-gray-900 shadow-sm z-50 flex items-center justify-between px-8 border-b border-gray-100 dark:border-gray-800">
+        <Link href="/" className="text-xl font-bold text-purple-600">TravelBuddy</Link>
+        <nav className="flex gap-8 items-center">
+          <Link href="/about" className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-purple-600">About</Link>
+          <Link href="/how-it-works" className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-purple-600">How It Works</Link>
+          <Link href="/trust-safety" className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-purple-600">Trust &amp; Safety</Link>
+          <Link href="/blog" className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-purple-600">Blog</Link>
+          <Link href="/contact" className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-purple-600">Contact</Link>
+        </nav>
+        <div className="flex gap-4 items-center">
           <ModeToggle />
-          <Link href="/profile" className="flex items-center gap-4 px-3 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 transition cursor-pointer">
-            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-purple-600 to-purple-900 flex items-center justify-center text-white font-semibold text-sm">JD</div>
+          <Link href="/profile" className="flex items-center gap-3 px-3 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-600 to-purple-900 flex items-center justify-center text-white font-semibold text-xs">JD</div>
             <div className="flex flex-col leading-tight">
-              <div className="font-semibold text-gray-800 dark:text-gray-200 text-sm">John Doe</div>
-              <div className="text-xs text-gray-500 dark:text-gray-400">Signed in</div>
+              <div className="font-semibold text-gray-800 dark:text-gray-200 text-xs">John Doe</div>
+              <div className="text-[10px] text-gray-500">Signed in</div>
             </div>
           </Link>
         </div>
       </header>
 
-      {/* MAIN CHAT SECTION */}
-      <div className="mt-20 min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-50">
-        <div className="max-w-5xl mx-auto px-6 py-12">
-          
-          {/* Hero Text */}
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 rounded-full mb-4">
-              <Sparkles className="w-4 h-4 text-purple-600" />
-              <span className="text-sm font-semibold text-purple-600">AI-Powered Travel Planning</span>
+      {/* BODY — fills remaining height */}
+      <div className="flex flex-1 min-h-0 gap-0">
+
+        {/* LEFT PANEL — branding strip */}
+        <div className="hidden lg:flex flex-col justify-center px-10 w-72 shrink-0 bg-gradient-to-b from-purple-600 to-purple-800 text-white">
+          <div className="mb-6">
+            <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center mb-4">
+              <Sparkles className="w-6 h-6 text-white" />
             </div>
-            <h1 className="text-5xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-              Chat Your Way to the <span className="text-purple-600">Perfect Trip</span>
+            <h1 className="text-2xl font-bold mb-2 leading-snug">
+              Chat Your Way to the<br />
+              <span className="text-purple-200">Perfect Trip</span>
             </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              Just tell me what you're looking for, and I'll create personalized itineraries that match your style, budget, and interests
+            <p className="text-sm text-purple-100 leading-relaxed">
+              Tell me what you&apos;re dreaming of and I&apos;ll create personalized itineraries just for you.
             </p>
           </div>
 
-          {/* Chat Container */}
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-            
-            {/* Messages Area */}
-            <div className="h-[500px] overflow-y-auto p-6 space-y-4">
-              {messages.map((message) => (
-                <div
-                  key={message.id}
-                  className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                >
-                  <div
-                    className={`max-w-[75%] rounded-2xl px-5 py-3 ${
-                      message.role === 'user'
-                        ? 'bg-purple-600 text-white'
-                        : 'bg-gray-100 text-gray-800 dark:text-gray-200'
-                    }`}
-                  >
-                    {message.role === 'assistant' && (
-                      <div className="flex items-center gap-2 mb-1">
-                        <Sparkles className="w-4 h-4 text-purple-600" />
-                        <span className="text-xs font-semibold text-purple-600">AI Assistant</span>
-                      </div>
-                    )}
-                    <p className="text-sm leading-relaxed whitespace-pre-line">{message.content}</p>
-                  </div>
-                </div>
-              ))}
-
-              {isTyping && (
-                <div className="flex justify-start">
-                  <div className="bg-gray-100 rounded-2xl px-5 py-3">
-                    <div className="flex items-center gap-2">
-                      <div className="flex gap-1">
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
-                      </div>
-                      <span className="text-xs text-gray-500">AI is thinking...</span>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              <div ref={messagesEndRef} />
-            </div>
-
-            {/* Starter Prompts (show only if no user messages yet) */}
-            {messages.filter(m => m.role === 'user').length === 0 && (
-              <div className="px-6 pb-4 border-t border-gray-200 dark:border-gray-700 pt-4">
-                <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">Try asking:</p>
-                <div className="grid grid-cols-2 gap-2">
-                  {STARTER_PROMPTS.map((prompt, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => handleStarterPrompt(prompt.text)}
-                      className="flex items-center gap-2 px-4 py-3 bg-gray-50 dark:bg-gray-950 hover:bg-purple-50 border border-gray-200 dark:border-gray-700 hover:border-purple-300 rounded-lg text-left text-sm text-gray-700 dark:text-gray-300 hover:text-purple-700 transition-all group"
-                    >
-                      <span className="text-xl">{prompt.icon}</span>
-                      <span className="font-medium">{prompt.text}</span>
-                    </button>
-                  ))}
-                </div>
+          <div className="space-y-3 text-sm">
+            {[
+              { icon: <MapPin className="w-4 h-4" />, label: 'Smart destination matching' },
+              { icon: <DollarSign className="w-4 h-4" />, label: 'Budget-aware planning' },
+              { icon: <Users className="w-4 h-4" />, label: 'Group & solo trips' },
+              { icon: <Heart className="w-4 h-4" />, label: 'Personalized to your style' },
+            ].map((item, i) => (
+              <div key={i} className="flex items-center gap-2 text-purple-100">
+                {item.icon}
+                <span>{item.label}</span>
               </div>
-            )}
-
-            {/* Input Area */}
-            <form onSubmit={handleSubmit} className="border-t border-gray-200 dark:border-gray-700 p-4 bg-gray-50 dark:bg-gray-950">
-              <div className="flex gap-3">
-                <input
-                  ref={inputRef}
-                  type="text"
-                  value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)}
-                  placeholder="Describe your dream trip..."
-                  className="flex-1 px-5 py-3 border border-gray-300 rounded-xl text-sm focus:outline-none focus:border-purple-600 focus:ring-2 focus:ring-purple-100"
-                  disabled={isTyping}
-                />
-                <button
-                  type="submit"
-                  disabled={!inputValue.trim() || isTyping}
-                  className="px-6 py-3 bg-purple-600 text-white rounded-xl font-semibold hover:bg-purple-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-all flex items-center gap-2"
-                >
-                  <Send className="w-4 h-4" />
-                  Send
-                </button>
-              </div>
-            </form>
+            ))}
           </div>
 
-          {/* Alternative Option */}
-          <div className="text-center mt-8">
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Prefer to browse on your own?</p>
+          <div className="mt-8 pt-6 border-t border-purple-500">
+            <p className="text-xs text-purple-200 mb-3">Prefer manual browsing?</p>
             <button
               onClick={() => router.push('/browse/setup')}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-white dark:bg-gray-800 border-2 border-purple-600 text-purple-600 rounded-lg font-semibold hover:bg-purple-50 transition-all"
+              className="flex items-center gap-2 text-sm font-semibold text-white bg-white/15 hover:bg-white/25 px-4 py-2 rounded-lg transition w-full"
             >
-              <Compass className="w-5 h-5" />
-              Browse Destinations Manually
+              <Compass className="w-4 h-4" />
+              Browse Destinations
             </button>
           </div>
         </div>
 
-        {/* Features Section */}
-        <div className="max-w-6xl mx-auto px-10 py-16">
-          <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-gray-100 mb-12">Why Chat With Our AI?</h2>
-          <div className="grid grid-cols-4 gap-6">
-            {[
-              { icon: <Sparkles className="w-8 h-8 text-purple-600" />, title: 'Natural Conversation', desc: 'Just talk like you would with a friend' },
-              { icon: <MapPin className="w-8 h-8 text-purple-600" />, title: 'Smart Suggestions', desc: 'Get personalized recommendations instantly' },
-              { icon: <DollarSign className="w-8 h-8 text-purple-600" />, title: 'Budget Aware', desc: 'Plans that fit your spending limits' },
-              { icon: <Heart className="w-8 h-8 text-purple-600" />, title: 'Your Preferences', desc: 'Matches your interests and travel style' }
-            ].map((feature, idx) => (
-              <div key={idx} className="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md text-center border border-gray-100 hover:shadow-lg transition-shadow">
-                <div className="flex justify-center mb-3">{feature.icon}</div>
-                <h4 className="text-base font-semibold text-gray-800 dark:text-gray-200 mb-2">{feature.title}</h4>
-                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{feature.desc}</p>
+        {/* CHAT PANEL */}
+        <div className="flex flex-col flex-1 min-h-0">
+
+          {/* Page title bar */}
+          <div className="shrink-0 flex items-center gap-2 px-6 py-3 border-b border-gray-100 dark:border-gray-800 bg-white/70 dark:bg-gray-900/70 backdrop-blur-md">
+            <Sparkles className="w-4 h-4 text-purple-600" />
+            <span className="text-sm font-semibold text-purple-600">AI-Powered Travel Planning</span>
+            <span className="ml-auto text-xs text-gray-400">Powered by Gemini</span>
+          </div>
+
+          {/* Messages — scrollable */}
+          <div className="flex-1 min-h-0 overflow-y-auto p-5 space-y-3">
+            {messages.map((message) => (
+              <div
+                key={message.id}
+                className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+              >
+                <div
+                  className={`max-w-[76%] rounded-2xl px-4 py-3 ${message.role === 'user'
+                    ? 'bg-purple-600 text-white'
+                    : 'bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 shadow-sm'
+                    }`}
+                >
+                  {message.role === 'assistant' && (
+                    <div className="flex items-center gap-1.5 mb-1">
+                      <Sparkles className="w-3.5 h-3.5 text-purple-600" />
+                      <span className="text-[11px] font-semibold text-purple-600">AI Assistant</span>
+                    </div>
+                  )}
+                  <p className="text-sm leading-relaxed whitespace-pre-line">{message.content}</p>
+                </div>
               </div>
             ))}
+
+            {isLoading && (
+              <div className="flex justify-start">
+                <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl px-4 py-3 shadow-sm">
+                  <div className="flex items-center gap-2">
+                    <div className="flex gap-1">
+                      <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                      <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                      <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                    </div>
+                    <span className="text-xs text-gray-500">
+                      {isSummarizing ? 'Creating your personalized plans...' : 'AI is thinking...'}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <div ref={messagesEndRef} />
           </div>
+
+          {/* STARTER PROMPTS */}
+          {!hasUserMessages && (
+            <div className="shrink-0 px-5 pb-2">
+              <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide mb-2">Try asking:</p>
+              <div className="flex flex-wrap gap-2">
+                {STARTER_PROMPTS.map((prompt, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => handleSendMessage(prompt.text)}
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-white dark:bg-gray-800 hover:bg-purple-50 dark:hover:bg-purple-900/30 border border-gray-200 dark:border-gray-700 hover:border-purple-300 rounded-full text-xs text-gray-600 dark:text-gray-300 hover:text-purple-700 transition-all"
+                  >
+                    <span>{prompt.icon}</span>
+                    <span className="font-medium">{prompt.text}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* CONFIRM HINT */}
+          {hasUserMessages && !isSummarizing && (
+            <div className="shrink-0 px-5 pb-2">
+              <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 bg-purple-50 dark:bg-purple-900/20 border border-purple-100 dark:border-purple-800 rounded-lg px-4 py-2">
+                <CheckCircle2 className="w-3.5 h-3.5 text-purple-500 shrink-0" />
+                <span>
+                  Happy with your trip details? Type <strong className="text-purple-600">&quot;confirm&quot;</strong> to generate your personalized travel plans!
+                </span>
+              </div>
+            </div>
+          )}
+
+          {/* INPUT */}
+          <form onSubmit={handleSubmit} className="shrink-0 border-t border-gray-200 dark:border-gray-700 p-4 bg-white dark:bg-gray-900">
+            <div className="flex gap-3">
+              <input
+                ref={inputRef}
+                type="text"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                placeholder={isSummarizing ? 'Generating your plans...' : 'Describe your dream trip...'}
+                className="flex-1 px-4 py-2.5 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-xl text-sm focus:outline-none focus:border-purple-600 focus:ring-2 focus:ring-purple-100 dark:focus:ring-purple-900"
+                disabled={isLoading}
+              />
+              <button
+                type="submit"
+                disabled={!inputValue.trim() || isLoading}
+                className="px-5 py-2.5 bg-purple-600 text-white rounded-xl font-semibold hover:bg-purple-700 disabled:bg-gray-300 dark:disabled:bg-gray-600 disabled:cursor-not-allowed transition-all flex items-center gap-2 text-sm"
+              >
+                <Send className="w-4 h-4" />
+                Send
+              </button>
+            </div>
+          </form>
         </div>
       </div>
-
-      {/* FOOTER */}
-      <footer className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 text-center py-10 text-sm border-t border-gray-200 dark:border-gray-700 dark:border-gray-800">
-        <p>&copy; 2025 TravelBuddy. All rights reserved. | 
-          <a href="#privacy" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Privacy Policy</a> | 
-          <a href="#terms" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Terms of Service</a> | 
-          <a href="#contact" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Contact Us</a>
-        </p>
-      </footer>
-    </>
+    </div>
   );
 }

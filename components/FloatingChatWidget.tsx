@@ -37,8 +37,8 @@ export default function FloatingChatWidget() {
     }
   }, [messages, isOpen]);
 
-  // Hide the widget on the main chat page (after all hooks)
-  if (pathname === '/') {
+  // Hide the widget on the home page and the dedicated chat page
+  if (pathname === '/' || pathname === '/chat') {
     return null;
   }
 
@@ -52,42 +52,40 @@ export default function FloatingChatWidget() {
       timestamp: new Date(),
     };
 
-    setMessages(prev => [...prev, userMessage]);
+    const updatedMessages = [...messages, userMessage];
+    setMessages(updatedMessages);
     setInputValue('');
     setIsTyping(true);
 
-    // Simulate AI response (replace with actual API call)
-    setTimeout(() => {
-      const aiResponse: Message = {
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message,
+          conversationHistory: updatedMessages.map(m => ({ role: m.role, content: m.content })),
+        }),
+      });
+      const data = await response.json();
+      const aiMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: generateContextualResponse(message),
+        content: data.success ? data.response : "I'm having trouble right now. Try the main chat for help!",
         timestamp: new Date(),
       };
-      setMessages(prev => [...prev, aiResponse]);
+      setMessages(prev => [...prev, aiMessage]);
+    } catch {
+      setMessages(prev => [...prev, {
+        id: (Date.now() + 1).toString(),
+        role: 'assistant',
+        content: "Something went wrong. Try the main chat page!",
+        timestamp: new Date(),
+      }]);
+    } finally {
       setIsTyping(false);
-    }, 1000);
+    }
   };
 
-  const generateContextualResponse = (userMessage: string): string => {
-    const lowerMessage = userMessage.toLowerCase();
-    
-    if (lowerMessage.includes('price') || lowerMessage.includes('cost') || lowerMessage.includes('budget')) {
-      return "All our prices include detailed breakdowns showing base fare, taxes, and fees. You can see the full breakdown by hovering over any price tag. Need help adjusting your budget?";
-    } else if (lowerMessage.includes('change') || lowerMessage.includes('edit') || lowerMessage.includes('swap')) {
-      return "You can easily swap individual items in your itinerary! Just click on any flight, hotel, or activity and select 'Change' to see alternatives without rebuilding your entire trip.";
-    } else if (lowerMessage.includes('hotel') || lowerMessage.includes('accommodation')) {
-      return "Looking for hotel recommendations? I can help you find options that match your budget and preferences. What's most important to you - location, amenities, or price?";
-    } else if (lowerMessage.includes('flight')) {
-      return "I can help you find the best flights! Are you looking for the cheapest option, most convenient times, or a balance of both?";
-    } else if (lowerMessage.includes('restaurant') || lowerMessage.includes('food')) {
-      return "Food is a huge part of travel! I can recommend restaurants based on your cuisine preferences, budget, and dietary restrictions. What type of food are you craving?";
-    } else if (lowerMessage.includes('help') || lowerMessage.includes('how')) {
-      return "I'm here to help! You can ask me about:\n• Changing your itinerary\n• Understanding pricing\n• Finding specific places\n• Travel tips and recommendations\n\nWhat would you like to know?";
-    }
-    
-    return "I'm here to help with your travel planning! Could you tell me more about what you're looking for?";
-  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -109,9 +107,8 @@ export default function FloatingChatWidget() {
 
   return (
     <div
-      className={`fixed bottom-6 right-6 bg-white rounded-2xl shadow-2xl border border-gray-200 z-50 transition-all ${
-        isMinimized ? 'w-80 h-16' : 'w-96 h-[600px]'
-      }`}
+      className={`fixed bottom-6 right-6 bg-white rounded-2xl shadow-2xl border border-gray-200 z-50 transition-all ${isMinimized ? 'w-80 h-16' : 'w-96 h-[600px]'
+        }`}
     >
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-gradient-to-r from-purple-600 to-purple-700 rounded-t-2xl">
@@ -152,11 +149,10 @@ export default function FloatingChatWidget() {
                 className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 <div
-                  className={`max-w-[80%] rounded-xl px-4 py-2 ${
-                    message.role === 'user'
-                      ? 'bg-purple-600 text-white'
-                      : 'bg-white text-gray-800 border border-gray-200'
-                  }`}
+                  className={`max-w-[80%] rounded-xl px-4 py-2 ${message.role === 'user'
+                    ? 'bg-purple-600 text-white'
+                    : 'bg-white text-gray-800 border border-gray-200'
+                    }`}
                 >
                   <p className="text-sm leading-relaxed whitespace-pre-line">{message.content}</p>
                 </div>
