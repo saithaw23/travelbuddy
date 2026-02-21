@@ -133,11 +133,11 @@ export default function BlogPage() {
       </section>
 
       {/* MAIN CONTENT */}
-      <div className="bg-gray-50 pb-16">
+      <div className="bg-gray-50 dark:bg-gray-950 pb-16">
         <div className="max-w-6xl mx-auto px-10 -mt-10 relative z-20">
           
           {/* FEATURED POST */}
-          <div className="bg-white rounded-2xl p-12 shadow-lg border border-gray-200 mb-12 hover:shadow-xl transition-shadow cursor-pointer">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-12 shadow-lg border border-gray-200 dark:border-gray-700 mb-12 hover:shadow-xl transition-shadow cursor-pointer">
             <div className="flex items-start gap-8">
               <div className="text-8xl">{featuredPost.image}</div>
               <div className="flex-1">
@@ -145,17 +145,17 @@ export default function BlogPage() {
                   <span className="px-3 py-1 bg-purple-100 text-purple-600 rounded-full text-sm font-semibold">
                     Featured
                   </span>
-                  <span className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm font-semibold">
+                  <span className="px-3 py-1 bg-gray-100 text-gray-600 dark:text-gray-400 rounded-full text-sm font-semibold">
                     {featuredPost.category}
                   </span>
                 </div>
-                <h2 className="text-4xl font-bold text-gray-900 mb-4 hover:text-purple-600 transition">
+                <h2 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4 hover:text-purple-600 transition">
                   {featuredPost.title}
                 </h2>
-                <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+                <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                   {featuredPost.excerpt}
                 </p>
-                <div className="flex items-center gap-6 text-sm text-gray-600 mb-6">
+                <div className="flex items-center gap-6 text-sm text-gray-600 dark:text-gray-400 mb-6">
                   <div className="flex items-center gap-2">
                     <User className="w-4 h-4" />
                     <span>{featuredPost.author}</span>
@@ -183,7 +183,7 @@ export default function BlogPage() {
                   className={`px-5 py-2 rounded-full text-sm font-semibold transition-all ${
                     idx === 0
                       ? 'bg-purple-600 text-white'
-                      : 'bg-white text-gray-700 border border-gray-300 hover:border-purple-600 hover:text-purple-600'
+                      : 'bg-white text-gray-700 dark:text-gray-300 border border-gray-300 hover:border-purple-600 hover:text-purple-600'
                   }`}
                 >
                   {category}
@@ -201,20 +201,20 @@ export default function BlogPage() {
             
             <div className="grid grid-cols-2 gap-6">
               {recentPosts.map((post, idx) => (
-                <div key={idx} className="bg-white rounded-xl p-8 shadow-md border border-gray-200 hover:shadow-lg transition-all cursor-pointer group">
+                <div key={idx} className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-md border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all cursor-pointer group">
                   <div className="text-5xl mb-4">{post.image}</div>
                   <div className="mb-3">
-                    <span className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs font-semibold">
+                    <span className="px-3 py-1 bg-gray-100 text-gray-600 dark:text-gray-400 rounded-full text-xs font-semibold">
                       {post.category}
                     </span>
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-purple-600 transition">
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3 group-hover:text-purple-600 transition">
                     {post.title}
                   </h3>
-                  <p className="text-gray-600 mb-4 leading-relaxed">
+                  <p className="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
                     {post.excerpt}
                   </p>
-                  <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
+                  <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400 mb-4">
                     <div className="flex items-center gap-1">
                       <User className="w-3 h-3" />
                       <span>{post.author}</span>
@@ -246,9 +246,9 @@ export default function BlogPage() {
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 px-6 py-4 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-white"
+                className="flex-1 px-6 py-4 rounded-lg text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-white"
               />
-              <button className="px-8 py-4 bg-white text-purple-600 rounded-lg font-semibold hover:bg-gray-100 transition-all">
+              <button className="px-8 py-4 bg-white dark:bg-gray-800 text-purple-600 rounded-lg font-semibold hover:bg-gray-100 transition-all">
                 Subscribe
               </button>
             </div>
@@ -261,11 +261,11 @@ export default function BlogPage() {
       </div>
 
       {/* FOOTER */}
-      <footer className="bg-gray-900 text-white text-center py-10 text-sm">
+      <footer className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 text-center py-10 text-sm border-t border-gray-200 dark:border-gray-700 dark:border-gray-800">
         <p>&copy; 2026 TravelBuddy. All rights reserved. | 
-          <Link href="/trust-safety" className="text-purple-400 hover:text-purple-300 transition"> Privacy Policy</Link> | 
-          <Link href="/trust-safety" className="text-purple-400 hover:text-purple-300 transition"> Terms of Service</Link> | 
-          <Link href="/contact" className="text-purple-400 hover:text-purple-300 transition"> Contact Us</Link>
+          <Link href="/trust-safety" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Privacy Policy</Link> | 
+          <Link href="/trust-safety" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Terms of Service</Link> | 
+          <Link href="/contact" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Contact Us</Link>
         </p>
       </footer>
     </>

@@ -38,7 +38,7 @@ export default function PrivacyPolicyPage() {
         }}
       >
         <div className="relative z-10 max-w-4xl px-8">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white bg-opacity-20 rounded-full mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 bg-opacity-20 rounded-full mb-6">
             <Shield className="w-5 h-5 text-white" />
             <span className="text-sm font-semibold text-white">Legal Document</span>
           </div>
@@ -52,12 +52,12 @@ export default function PrivacyPolicyPage() {
       </section>
 
       {/* MAIN CONTENT */}
-      <div className="bg-gray-50 pb-16">
+      <div className="bg-gray-50 dark:bg-gray-950 pb-16">
         <div className="max-w-4xl mx-auto px-10 -mt-10 relative z-20">
           
           {/* QUICK LINKS */}
-          <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Quick Navigation</h2>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">Quick Navigation</h2>
             <div className="grid grid-cols-3 gap-4">
               {[
                 { title: 'Information We Collect', id: 'collect' },
@@ -79,9 +79,9 @@ export default function PrivacyPolicyPage() {
           </div>
 
           {/* INTRODUCTION */}
-          <div className="bg-white rounded-2xl p-10 shadow-lg border border-gray-200 mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">Introduction</h2>
-            <div className="space-y-4 text-gray-700 leading-relaxed">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-10 shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">Introduction</h2>
+            <div className="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed">
               <p>
                 Welcome to TravelBuddy. We respect your privacy and are committed to protecting your personal data. This privacy policy explains how we collect, use, store, and protect your information when you use our AI-powered travel planning platform.
               </p>
@@ -95,7 +95,7 @@ export default function PrivacyPolicyPage() {
           </div>
 
           {/* INFORMATION WE COLLECT */}
-          <div id="collect" className="bg-white rounded-2xl p-10 shadow-lg border border-gray-200 mb-8">
+          <div id="collect" className="bg-white dark:bg-gray-800 rounded-2xl p-10 shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
             <div className="flex items-center gap-3 mb-6">
               <Database className="w-8 h-8 text-purple-600" />
               <h2 className="text-3xl font-bold text-gray-900">1. Information We Collect</h2>
@@ -103,8 +103,8 @@ export default function PrivacyPolicyPage() {
             
             <div className="space-y-6">
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">1.1 Information You Provide</h3>
-                <ul className="list-disc list-inside space-y-2 text-gray-700 ml-4">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3">1.1 Information You Provide</h3>
+                <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 ml-4">
                   <li><strong>Account Information:</strong> Name, email address, password, phone number</li>
                   <li><strong>Profile Data:</strong> Travel preferences, interests, budget ranges, travel style</li>
                   <li><strong>Trip Information:</strong> Destinations, dates, traveler details, special requests</li>
@@ -115,8 +115,8 @@ export default function PrivacyPolicyPage() {
               </div>
 
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">1.2 Information Collected Automatically</h3>
-                <ul className="list-disc list-inside space-y-2 text-gray-700 ml-4">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3">1.2 Information Collected Automatically</h3>
+                <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 ml-4">
                   <li><strong>Device Information:</strong> IP address, browser type, operating system, device identifiers</li>
                   <li><strong>Usage Data:</strong> Pages visited, features used, time spent, click patterns</li>
                   <li><strong>Location Data:</strong> Approximate location based on IP address (with your consent for precise location)</li>
@@ -126,8 +126,8 @@ export default function PrivacyPolicyPage() {
               </div>
 
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">1.3 Information from Third Parties</h3>
-                <ul className="list-disc list-inside space-y-2 text-gray-700 ml-4">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3">1.3 Information from Third Parties</h3>
+                <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 ml-4">
                   <li><strong>Social Media:</strong> Profile information if you sign in via Google, Facebook, or other OAuth providers</li>
                   <li><strong>Travel Partners:</strong> Booking confirmations, flight status, hotel reservations</li>
                   <li><strong>Payment Processors:</strong> Transaction status and payment verification</li>
@@ -137,7 +137,7 @@ export default function PrivacyPolicyPage() {
           </div>
 
           {/* HOW WE USE DATA */}
-          <div id="use" className="bg-white rounded-2xl p-10 shadow-lg border border-gray-200 mb-8">
+          <div id="use" className="bg-white dark:bg-gray-800 rounded-2xl p-10 shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
             <div className="flex items-center gap-3 mb-6">
               <Eye className="w-8 h-8 text-purple-600" />
               <h2 className="text-3xl font-bold text-gray-900">2. How We Use Your Data</h2>
@@ -148,45 +148,45 @@ export default function PrivacyPolicyPage() {
               
               <div className="space-y-3">
                 <div className="border-l-4 border-purple-600 pl-4">
-                  <h4 className="font-bold text-gray-900 mb-1">Provide Our Services</h4>
-                  <p className="text-gray-700 text-sm">Create and manage your account, process bookings, generate AI recommendations, facilitate group collaboration</p>
+                  <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-1">Provide Our Services</h4>
+                  <p className="text-gray-700 dark:text-gray-300 text-sm">Create and manage your account, process bookings, generate AI recommendations, facilitate group collaboration</p>
                 </div>
                 
                 <div className="border-l-4 border-purple-600 pl-4">
-                  <h4 className="font-bold text-gray-900 mb-1">Personalization</h4>
-                  <p className="text-gray-700 text-sm">Tailor trip recommendations based on your preferences, past trips, and behavior patterns</p>
+                  <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-1">Personalization</h4>
+                  <p className="text-gray-700 dark:text-gray-300 text-sm">Tailor trip recommendations based on your preferences, past trips, and behavior patterns</p>
                 </div>
                 
                 <div className="border-l-4 border-purple-600 pl-4">
-                  <h4 className="font-bold text-gray-900 mb-1">Communication</h4>
-                  <p className="text-gray-700 text-sm">Send booking confirmations, trip updates, customer support responses, and service announcements</p>
+                  <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-1">Communication</h4>
+                  <p className="text-gray-700 dark:text-gray-300 text-sm">Send booking confirmations, trip updates, customer support responses, and service announcements</p>
                 </div>
                 
                 <div className="border-l-4 border-purple-600 pl-4">
-                  <h4 className="font-bold text-gray-900 mb-1">Improve Our Services</h4>
-                  <p className="text-gray-700 text-sm">Analyze usage patterns, test new features, train our AI models, fix bugs and technical issues</p>
+                  <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-1">Improve Our Services</h4>
+                  <p className="text-gray-700 dark:text-gray-300 text-sm">Analyze usage patterns, test new features, train our AI models, fix bugs and technical issues</p>
                 </div>
                 
                 <div className="border-l-4 border-purple-600 pl-4">
-                  <h4 className="font-bold text-gray-900 mb-1">Security & Fraud Prevention</h4>
-                  <p className="text-gray-700 text-sm">Detect and prevent fraudulent transactions, protect against security threats, verify user identity</p>
+                  <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-1">Security & Fraud Prevention</h4>
+                  <p className="text-gray-700 dark:text-gray-300 text-sm">Detect and prevent fraudulent transactions, protect against security threats, verify user identity</p>
                 </div>
                 
                 <div className="border-l-4 border-purple-600 pl-4">
-                  <h4 className="font-bold text-gray-900 mb-1">Legal Compliance</h4>
-                  <p className="text-gray-700 text-sm">Comply with legal obligations, respond to law enforcement requests, enforce our terms of service</p>
+                  <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-1">Legal Compliance</h4>
+                  <p className="text-gray-700 dark:text-gray-300 text-sm">Comply with legal obligations, respond to law enforcement requests, enforce our terms of service</p>
                 </div>
                 
                 <div className="border-l-4 border-purple-600 pl-4">
-                  <h4 className="font-bold text-gray-900 mb-1">Marketing (With Your Consent)</h4>
-                  <p className="text-gray-700 text-sm">Send promotional emails, travel deals, and personalized offers (you can opt out anytime)</p>
+                  <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-1">Marketing (With Your Consent)</h4>
+                  <p className="text-gray-700 dark:text-gray-300 text-sm">Send promotional emails, travel deals, and personalized offers (you can opt out anytime)</p>
                 </div>
               </div>
             </div>
           </div>
 
           {/* DATA SHARING */}
-          <div id="sharing" className="bg-white rounded-2xl p-10 shadow-lg border border-gray-200 mb-8">
+          <div id="sharing" className="bg-white dark:bg-gray-800 rounded-2xl p-10 shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
             <div className="flex items-center gap-3 mb-6">
               <UserCheck className="w-8 h-8 text-purple-600" />
               <h2 className="text-3xl font-bold text-gray-900">3. How We Share Your Data</h2>
@@ -199,7 +199,7 @@ export default function PrivacyPolicyPage() {
               
               <div className="space-y-4">
                 <div>
-                  <h4 className="font-bold text-gray-900 mb-2">Service Providers</h4>
+                  <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-2">Service Providers</h4>
                   <p className="text-sm">Third-party companies that help us operate our Services:</p>
                   <ul className="list-disc list-inside text-sm ml-4 mt-2 space-y-1">
                     <li>Payment processors (Stripe) for secure transactions</li>
@@ -211,22 +211,22 @@ export default function PrivacyPolicyPage() {
                 </div>
                 
                 <div>
-                  <h4 className="font-bold text-gray-900 mb-2">Travel Partners</h4>
+                  <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-2">Travel Partners</h4>
                   <p className="text-sm">Airlines, hotels, and restaurants to complete your bookings. We only share information necessary for reservations.</p>
                 </div>
                 
                 <div>
-                  <h4 className="font-bold text-gray-900 mb-2">Group Collaborators</h4>
+                  <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-2">Group Collaborators</h4>
                   <p className="text-sm">Other users you invite to collaborate on trip planning can see shared trip details, comments, and votes.</p>
                 </div>
                 
                 <div>
-                  <h4 className="font-bold text-gray-900 mb-2">Legal Requirements</h4>
+                  <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-2">Legal Requirements</h4>
                   <p className="text-sm">Law enforcement, government agencies, or courts when required by law or to protect our rights and safety.</p>
                 </div>
                 
                 <div>
-                  <h4 className="font-bold text-gray-900 mb-2">Business Transfers</h4>
+                  <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-2">Business Transfers</h4>
                   <p className="text-sm">In the event of a merger, acquisition, or sale of assets, your data may be transferred to the new entity.</p>
                 </div>
               </div>
@@ -234,7 +234,7 @@ export default function PrivacyPolicyPage() {
           </div>
 
           {/* YOUR RIGHTS */}
-          <div id="rights" className="bg-white rounded-2xl p-10 shadow-lg border border-gray-200 mb-8">
+          <div id="rights" className="bg-white dark:bg-gray-800 rounded-2xl p-10 shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
             <div className="flex items-center gap-3 mb-6">
               <FileText className="w-8 h-8 text-purple-600" />
               <h2 className="text-3xl font-bold text-gray-900">4. Your Privacy Rights</h2>
@@ -279,7 +279,7 @@ export default function PrivacyPolicyPage() {
                   }
                 ].map((right, idx) => (
                   <div key={idx} className="p-4 bg-purple-50 rounded-lg border border-purple-200">
-                    <h4 className="font-bold text-gray-900 mb-1">{right.title}</h4>
+                    <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-1">{right.title}</h4>
                     <p className="text-sm text-gray-700">{right.description}</p>
                   </div>
                 ))}
@@ -294,7 +294,7 @@ export default function PrivacyPolicyPage() {
           </div>
 
           {/* DATA SECURITY */}
-          <div id="security" className="bg-white rounded-2xl p-10 shadow-lg border border-gray-200 mb-8">
+          <div id="security" className="bg-white dark:bg-gray-800 rounded-2xl p-10 shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
             <div className="flex items-center gap-3 mb-6">
               <Lock className="w-8 h-8 text-purple-600" />
               <h2 className="text-3xl font-bold text-gray-900">5. Data Security & Retention</h2>
@@ -302,8 +302,8 @@ export default function PrivacyPolicyPage() {
             
             <div className="space-y-6">
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Security Measures</h3>
-                <ul className="list-disc list-inside space-y-2 text-gray-700 ml-4">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3">Security Measures</h3>
+                <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 ml-4">
                   <li>256-bit SSL/TLS encryption for all data transmission</li>
                   <li>Encrypted data storage at rest</li>
                   <li>Regular security audits and penetration testing</li>
@@ -314,15 +314,15 @@ export default function PrivacyPolicyPage() {
               </div>
               
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Data Retention</h3>
-                <p className="text-gray-700 mb-3">We retain your personal data for as long as necessary to:</p>
-                <ul className="list-disc list-inside space-y-2 text-gray-700 ml-4">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3">Data Retention</h3>
+                <p className="text-gray-700 dark:text-gray-300 mb-3">We retain your personal data for as long as necessary to:</p>
+                <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 ml-4">
                   <li>Provide our Services and maintain your account</li>
                   <li>Comply with legal obligations (e.g., tax records for 7 years)</li>
                   <li>Resolve disputes and enforce our agreements</li>
                   <li>Improve our Services through analytics</li>
                 </ul>
-                <p className="text-gray-700 mt-3">
+                <p className="text-gray-700 dark:text-gray-300 mt-3">
                   When you delete your account, we permanently remove your personal data within 30 days, except where retention is required by law.
                 </p>
               </div>
@@ -330,22 +330,22 @@ export default function PrivacyPolicyPage() {
           </div>
 
           {/* COOKIES */}
-          <div className="bg-white rounded-2xl p-10 shadow-lg border border-gray-200 mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">6. Cookies & Tracking Technologies</h2>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-10 shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">6. Cookies & Tracking Technologies</h2>
             <div className="space-y-4 text-gray-700">
               <p>We use cookies and similar technologies to enhance your experience. See our <Link href="/cookie-policy" className="text-purple-600 font-semibold hover:underline">Cookie Policy</Link> for details.</p>
               
               <div className="grid grid-cols-3 gap-4 mt-4">
-                <div className="p-4 bg-gray-50 rounded-lg">
-                  <h4 className="font-bold text-gray-900 mb-2">Essential Cookies</h4>
+                <div className="p-4 bg-gray-50 dark:bg-gray-950 rounded-lg">
+                  <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-2">Essential Cookies</h4>
                   <p className="text-sm">Required for basic functionality (cannot be disabled)</p>
                 </div>
-                <div className="p-4 bg-gray-50 rounded-lg">
-                  <h4 className="font-bold text-gray-900 mb-2">Analytics Cookies</h4>
+                <div className="p-4 bg-gray-50 dark:bg-gray-950 rounded-lg">
+                  <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-2">Analytics Cookies</h4>
                   <p className="text-sm">Help us understand usage patterns (can be disabled)</p>
                 </div>
-                <div className="p-4 bg-gray-50 rounded-lg">
-                  <h4 className="font-bold text-gray-900 mb-2">Marketing Cookies</h4>
+                <div className="p-4 bg-gray-50 dark:bg-gray-950 rounded-lg">
+                  <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-2">Marketing Cookies</h4>
                   <p className="text-sm">Personalize ads and content (can be disabled)</p>
                 </div>
               </div>
@@ -353,8 +353,8 @@ export default function PrivacyPolicyPage() {
           </div>
 
           {/* INTERNATIONAL TRANSFERS */}
-          <div className="bg-white rounded-2xl p-10 shadow-lg border border-gray-200 mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">7. International Data Transfers</h2>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-10 shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">7. International Data Transfers</h2>
             <div className="space-y-4 text-gray-700">
               <p>
                 TravelBuddy operates globally. Your data may be transferred to and processed in countries other than your own, including the United States.
@@ -371,8 +371,8 @@ export default function PrivacyPolicyPage() {
           </div>
 
           {/* CHILDREN'S PRIVACY */}
-          <div className="bg-white rounded-2xl p-10 shadow-lg border border-gray-200 mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">8. Children's Privacy</h2>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-10 shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">8. Children's Privacy</h2>
             <div className="space-y-4 text-gray-700">
               <p>
                 TravelBuddy is not intended for children under 13 years of age. We do not knowingly collect personal data from children under 13.
@@ -384,8 +384,8 @@ export default function PrivacyPolicyPage() {
           </div>
 
           {/* CHANGES TO POLICY */}
-          <div className="bg-white rounded-2xl p-10 shadow-lg border border-gray-200 mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">9. Changes to This Policy</h2>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-10 shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">9. Changes to This Policy</h2>
             <div className="space-y-4 text-gray-700">
               <p>
                 We may update this Privacy Policy from time to time. We will notify you of significant changes by:
@@ -432,16 +432,16 @@ export default function PrivacyPolicyPage() {
           </div>
 
           {/* OTHER LEGAL DOCS */}
-          <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 text-center">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">Related Legal Documents</h3>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700 text-center">
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Related Legal Documents</h3>
             <div className="flex gap-4 justify-center flex-wrap">
               <Link href="/terms-of-service" className="px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition-all">
                 Terms of Service
               </Link>
-              <Link href="/cookie-policy" className="px-6 py-3 bg-white text-purple-600 border-2 border-purple-600 rounded-lg font-semibold hover:bg-purple-50 transition-all">
+              <Link href="/cookie-policy" className="px-6 py-3 bg-white dark:bg-gray-800 text-purple-600 border-2 border-purple-600 rounded-lg font-semibold hover:bg-purple-50 transition-all">
                 Cookie Policy
               </Link>
-              <Link href="/data-processing" className="px-6 py-3 bg-white text-purple-600 border-2 border-purple-600 rounded-lg font-semibold hover:bg-purple-50 transition-all">
+              <Link href="/data-processing" className="px-6 py-3 bg-white dark:bg-gray-800 text-purple-600 border-2 border-purple-600 rounded-lg font-semibold hover:bg-purple-50 transition-all">
                 Data Processing Agreement
               </Link>
             </div>
@@ -451,11 +451,11 @@ export default function PrivacyPolicyPage() {
       </div>
 
       {/* FOOTER */}
-      <footer className="bg-gray-900 text-white text-center py-10 text-sm">
+      <footer className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 text-center py-10 text-sm border-t border-gray-200 dark:border-gray-700 dark:border-gray-800">
         <p>&copy; 2026 TravelBuddy. All rights reserved. | 
-          <Link href="/privacy-policy" className="text-purple-400 hover:text-purple-300 transition"> Privacy Policy</Link> | 
-          <Link href="/terms-of-service" className="text-purple-400 hover:text-purple-300 transition"> Terms of Service</Link> | 
-          <Link href="/contact" className="text-purple-400 hover:text-purple-300 transition"> Contact Us</Link>
+          <Link href="/privacy-policy" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Privacy Policy</Link> | 
+          <Link href="/terms-of-service" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Terms of Service</Link> | 
+          <Link href="/contact" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Contact Us</Link>
         </p>
       </footer>
     </>

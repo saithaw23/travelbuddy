@@ -79,14 +79,14 @@ export default function TripSetupPage() {
   const isFormValid = destination && fromDate && toDate && travelers > 0;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       {/* Header */}
       <header className="bg-white border-b border-gray-100 sticky top-0 z-40">
         <div className="max-w-4xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <button
               onClick={() => router.push("/")}
-              className="flex items-center gap-2 text-gray-600 hover:text-purple-600 transition"
+              className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-purple-600 transition"
             >
               <ArrowLeft className="w-5 h-5" />
               <span className="text-sm font-medium">Back</span>
@@ -99,7 +99,7 @@ export default function TripSetupPage() {
 
       {/* Main Content */}
       <main className="max-w-4xl mx-auto px-6 py-12">
-        <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-200">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-sm border border-gray-200">
           {/* Title */}
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 rounded-full mb-4">
@@ -108,7 +108,7 @@ export default function TripSetupPage() {
                 Browse Manually
               </span>
             </div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-3">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-3">
               Tell Us About Your Trip
             </h2>
             <p className="text-gray-600">
@@ -120,7 +120,7 @@ export default function TripSetupPage() {
           <div className="space-y-6">
             {/* Destination or Near Me */}
             <div>
-              <label className="block text-sm font-semibold text-gray-800 mb-2">
+              <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">
                 Where are you going?
               </label>
               <div className="flex gap-3">
@@ -132,7 +132,7 @@ export default function TripSetupPage() {
                     value={destination}
                     onChange={(e) => setDestination(e.target.value)}
                     disabled={useNearMe}
-                    className={`w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg text-sm font-sans text-gray-800 focus:outline-none focus:border-purple-600 focus:ring-2 focus:ring-purple-100 ${
+                    className={`w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg text-sm font-sans text-gray-800 dark:text-gray-200 focus:outline-none focus:border-purple-600 focus:ring-2 focus:ring-purple-100 ${
                       useNearMe ? "bg-purple-50 border-purple-300" : ""
                     }`}
                   />
@@ -143,7 +143,7 @@ export default function TripSetupPage() {
                   className={`flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold transition-all ${
                     useNearMe
                       ? "bg-purple-600 text-white"
-                      : "bg-gray-100 text-gray-700 hover:bg-purple-100 hover:text-purple-700 border border-gray-300"
+                      : "bg-gray-100 text-gray-700 dark:text-gray-300 hover:bg-purple-100 hover:text-purple-700 border border-gray-300"
                   }`}
                 >
                   <Navigation
@@ -167,7 +167,7 @@ export default function TripSetupPage() {
             {/* Dates */}
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-semibold text-gray-800 mb-2">
+                <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">
                   From
                 </label>
                 <div className="relative">
@@ -176,12 +176,12 @@ export default function TripSetupPage() {
                     type="date"
                     value={fromDate}
                     onChange={(e) => setFromDate(e.target.value)}
-                    className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg text-sm font-sans text-gray-800 focus:outline-none focus:border-purple-600 focus:ring-2 focus:ring-purple-100"
+                    className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg text-sm font-sans text-gray-800 dark:text-gray-200 focus:outline-none focus:border-purple-600 focus:ring-2 focus:ring-purple-100"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-semibold text-gray-800 mb-2">
+                <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">
                   To
                 </label>
                 <div className="relative">
@@ -191,7 +191,7 @@ export default function TripSetupPage() {
                     value={toDate}
                     onChange={(e) => setToDate(e.target.value)}
                     min={fromDate}
-                    className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg text-sm font-sans text-gray-800 focus:outline-none focus:border-purple-600 focus:ring-2 focus:ring-purple-100"
+                    className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg text-sm font-sans text-gray-800 dark:text-gray-200 focus:outline-none focus:border-purple-600 focus:ring-2 focus:ring-purple-100"
                   />
                 </div>
               </div>
@@ -199,7 +199,7 @@ export default function TripSetupPage() {
 
             {/* Travelers */}
             <div>
-              <label className="block text-sm font-semibold text-gray-800 mb-2">
+              <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">
                 How many travelers?
               </label>
               <div className="relative">
@@ -210,7 +210,7 @@ export default function TripSetupPage() {
                   max="20"
                   value={travelers}
                   onChange={(e) => setTravelers(parseInt(e.target.value) || 1)}
-                  className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg text-sm font-sans text-gray-800 focus:outline-none focus:border-purple-600 focus:ring-2 focus:ring-purple-100"
+                  className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg text-sm font-sans text-gray-800 dark:text-gray-200 focus:outline-none focus:border-purple-600 focus:ring-2 focus:ring-purple-100"
                 />
               </div>
             </div>
@@ -218,7 +218,7 @@ export default function TripSetupPage() {
             {/* Budget */}
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-semibold text-gray-800 mb-2">
+                <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">
                   Budget (per person)
                 </label>
                 <div className="relative">
@@ -228,18 +228,18 @@ export default function TripSetupPage() {
                     value={budget}
                     onChange={(e) => setBudget(e.target.value)}
                     placeholder="5000"
-                    className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg text-sm font-sans text-gray-800 focus:outline-none focus:border-purple-600 focus:ring-2 focus:ring-purple-100"
+                    className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg text-sm font-sans text-gray-800 dark:text-gray-200 focus:outline-none focus:border-purple-600 focus:ring-2 focus:ring-purple-100"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-semibold text-gray-800 mb-2">
+                <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">
                   Currency
                 </label>
                 <select
                   value={currency}
                   onChange={(e) => setCurrency(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm font-sans text-gray-800 focus:outline-none focus:border-purple-600 focus:ring-2 focus:ring-purple-100"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm font-sans text-gray-800 dark:text-gray-200 focus:outline-none focus:border-purple-600 focus:ring-2 focus:ring-purple-100"
                 >
                   <option value="USD">USD ($)</option>
                   <option value="EUR">EUR (€)</option>
@@ -258,14 +258,14 @@ export default function TripSetupPage() {
                 className={`w-full flex items-center justify-center gap-2 py-4 rounded-xl text-base font-semibold transition-all ${
                   isFormValid
                     ? "bg-purple-600 text-white hover:bg-purple-700 shadow-lg hover:shadow-xl"
-                    : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                    : "bg-gray-300 text-gray-500 dark:text-gray-400 cursor-not-allowed"
                 }`}
               >
                 Continue to Browse
                 <ChevronRight className="w-5 h-5" />
               </button>
               {!isFormValid && (
-                <p className="text-xs text-gray-500 text-center mt-2">
+                <p className="text-xs text-gray-500 dark:text-gray-400 text-center mt-2">
                   Please fill in all required fields
                 </p>
               )}
@@ -275,27 +275,27 @@ export default function TripSetupPage() {
 
         {/* Info Cards */}
         <div className="grid md:grid-cols-3 gap-4 mt-8">
-          <div className="bg-white rounded-xl p-4 border border-gray-200">
+          <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200">
             <div className="text-3xl mb-2">🎯</div>
-            <h3 className="font-semibold text-gray-900 text-sm mb-1">
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 text-sm mb-1">
               AI-Powered Matching
             </h3>
             <p className="text-xs text-gray-600">
               Get personalized recommendations based on your preferences
             </p>
           </div>
-          <div className="bg-white rounded-xl p-4 border border-gray-200">
+          <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200">
             <div className="text-3xl mb-2">💰</div>
-            <h3 className="font-semibold text-gray-900 text-sm mb-1">
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 text-sm mb-1">
               Budget Tracking
             </h3>
             <p className="text-xs text-gray-600">
               Stay within budget with real-time cost calculations
             </p>
           </div>
-          <div className="bg-white rounded-xl p-4 border border-gray-200">
+          <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200">
             <div className="text-3xl mb-2">🤝</div>
-            <h3 className="font-semibold text-gray-900 text-sm mb-1">
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 text-sm mb-1">
               Collaborate
             </h3>
             <p className="text-xs text-gray-600">

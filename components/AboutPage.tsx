@@ -52,13 +52,13 @@ export default function AboutPage() {
       </section>
 
       {/* MAIN CONTENT */}
-      <div className="bg-gray-50 pb-16">
+      <div className="bg-gray-50 dark:bg-gray-950 pb-16">
         <div className="max-w-6xl mx-auto px-10 -mt-10 relative z-20">
           
           {/* OUR STORY */}
-          <div className="bg-white rounded-2xl p-12 shadow-lg border border-gray-200 mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">Our Story</h2>
-            <div className="space-y-4 text-lg text-gray-700 leading-relaxed">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-12 shadow-lg border border-gray-200 dark:border-gray-700 mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-6">Our Story</h2>
+            <div className="space-y-4 text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
               <p>
                 TravelBuddy was born from a simple frustration: planning a trip shouldn't feel like a full-time job. Our founders spent countless hours comparing flights, reading hotel reviews, and trying to coordinate group travel decisions—only to feel overwhelmed and uncertain about their choices.
               </p>
@@ -72,14 +72,14 @@ export default function AboutPage() {
           </div>
 
           {/* OUR MISSION */}
-          <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-12 mb-12 border border-purple-200">
+          <div className="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950 dark:to-purple-900 rounded-2xl p-12 mb-12 border border-purple-200 dark:border-purple-800">
             <div className="flex items-start gap-4 mb-6">
               <div className="w-16 h-16 bg-purple-600 rounded-2xl flex items-center justify-center flex-shrink-0">
                 <Target className="w-8 h-8 text-white" />
               </div>
               <div>
-                <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Mission</h2>
-                <p className="text-xl text-gray-700 leading-relaxed">
+                <h2 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">Our Mission</h2>
+                <p className="text-xl text-gray-700 dark:text-gray-200 leading-relaxed">
                   To empower every traveler with AI-driven insights and tools that make trip planning as exciting as the journey itself. We believe travel should be accessible, personalized, and stress-free for everyone.
                 </p>
               </div>
@@ -88,53 +88,53 @@ export default function AboutPage() {
 
           {/* OUR VALUES */}
           <div className="mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-8 text-center">Our Values</h2>
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-8 text-center">Our Values</h2>
             <div className="grid grid-cols-3 gap-6">
               {[
                 {
-                  icon: <Sparkles className="w-8 h-8 text-purple-600" />,
+                  icon: <Sparkles className="w-8 h-8 text-purple-600 dark:text-purple-400" />,
                   title: 'Innovation First',
                   description: 'We leverage cutting-edge AI to solve real travel problems and continuously push boundaries.'
                 },
                 {
-                  icon: <Users className="w-8 h-8 text-purple-600" />,
+                  icon: <Users className="w-8 h-8 text-purple-600 dark:text-purple-400" />,
                   title: 'User-Centric',
                   description: 'Every feature we build starts with understanding traveler needs and pain points.'
                 },
                 {
-                  icon: <Heart className="w-8 h-8 text-purple-600" />,
+                  icon: <Heart className="w-8 h-8 text-purple-600 dark:text-purple-400" />,
                   title: 'Transparency',
                   description: 'No hidden fees, no dark patterns. We show you exactly what you\'re paying for and why.'
                 },
                 {
-                  icon: <Globe className="w-8 h-8 text-purple-600" />,
+                  icon: <Globe className="w-8 h-8 text-purple-600 dark:text-purple-400" />,
                   title: 'Inclusivity',
                   description: 'Travel is for everyone. We design for diverse needs, budgets, and travel styles.'
                 },
                 {
-                  icon: <Zap className="w-8 h-8 text-purple-600" />,
+                  icon: <Zap className="w-8 h-8 text-purple-600 dark:text-purple-400" />,
                   title: 'Efficiency',
                   description: 'We respect your time. Our AI does the heavy lifting so you can focus on excitement.'
                 },
                 {
-                  icon: <Target className="w-8 h-8 text-purple-600" />,
+                  icon: <Target className="w-8 h-8 text-purple-600 dark:text-purple-400" />,
                   title: 'Reliability',
                   description: 'Your trip matters. We ensure accurate information and dependable booking processes.'
                 }
               ].map((value, idx) => (
-                <div key={idx} className="bg-white rounded-xl p-8 shadow-md border border-gray-200 hover:shadow-lg transition-shadow">
+                <div key={idx} className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-md border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow">
                   <div className="mb-4">{value.icon}</div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">{value.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{value.description}</p>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3">{value.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{value.description}</p>
                 </div>
               ))}
             </div>
           </div>
 
           {/* TEAM SECTION */}
-          <div className="bg-white rounded-2xl p-12 shadow-lg border border-gray-200 mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6 text-center">Meet the Team</h2>
-            <p className="text-lg text-gray-600 text-center mb-12 max-w-3xl mx-auto">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-12 shadow-lg border border-gray-200 dark:border-gray-700 mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-6 text-center">Meet the Team</h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300 text-center mb-12 max-w-3xl mx-auto">
               We're a diverse team of travel enthusiasts, AI engineers, and product designers united by a passion for making travel planning delightful.
             </p>
             
@@ -153,8 +153,8 @@ export default function AboutPage() {
                   <div className={`w-24 h-24 rounded-full bg-gradient-to-br ${member.color} flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4`}>
                     {member.initials}
                   </div>
-                  <h3 className="font-bold text-gray-900 mb-1">{member.name}</h3>
-                  <p className="text-sm text-gray-600">{member.role}</p>
+                  <h3 className="font-bold text-gray-900 dark:text-gray-100 mb-1">{member.name}</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{member.role}</p>
                 </div>
               ))}
             </div>
@@ -179,9 +179,9 @@ export default function AboutPage() {
           </div>
 
           {/* CTA */}
-          <div className="bg-white rounded-2xl p-12 shadow-lg border border-gray-200 text-center">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Ready to Plan Your Next Adventure?</h2>
-            <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-12 shadow-lg border border-gray-200 dark:border-gray-700 text-center">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">Ready to Plan Your Next Adventure?</h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
               Join thousands of travelers who've discovered a better way to plan trips. Start chatting with our AI today.
             </p>
             <div className="flex gap-4 justify-center">
@@ -198,11 +198,11 @@ export default function AboutPage() {
       </div>
 
       {/* FOOTER */}
-      <footer className="bg-gray-900 text-white text-center py-10 text-sm">
+      <footer className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 text-center py-10 text-sm border-t border-gray-200 dark:border-gray-800">
         <p>&copy; 2026 TravelBuddy. All rights reserved. | 
-          <Link href="/trust-safety" className="text-purple-400 hover:text-purple-300 transition"> Privacy Policy</Link> | 
-          <Link href="/trust-safety" className="text-purple-400 hover:text-purple-300 transition"> Terms of Service</Link> | 
-          <Link href="/contact" className="text-purple-400 hover:text-purple-300 transition"> Contact Us</Link>
+          <Link href="/trust-safety" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Privacy Policy</Link> | 
+          <Link href="/trust-safety" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Terms of Service</Link> | 
+          <Link href="/contact" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Contact Us</Link>
         </p>
       </footer>
     </>

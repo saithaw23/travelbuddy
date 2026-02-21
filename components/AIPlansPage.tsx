@@ -152,7 +152,7 @@ export default function AIPlansPage() {
           <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
             <button
               onClick={() => router.push("/")}
-              className="flex items-center gap-2 text-gray-600 hover:text-purple-600 transition"
+              className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-purple-600 transition"
             >
               <ArrowLeft className="w-5 h-5" />
               <span className="text-sm font-medium">Back</span>
@@ -179,10 +179,10 @@ export default function AIPlansPage() {
                 Powered by AI
               </span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-4">
               Complete Trip Plans
             </h1>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
               Based on your preferences, our AI has curated these complete
               itineraries. Each plan includes flights, hotels, restaurants, and
               activities—ready to book.
@@ -197,7 +197,7 @@ export default function AIPlansPage() {
               {mockPlans.map((plan) => (
                 <div
                   key={plan.id}
-                  className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-300 group"
+                  className="bg-white dark:bg-gray-800 rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-300 group"
                 >
                   {/* Image Header */}
                   <div className="relative h-48 overflow-hidden">
@@ -212,7 +212,7 @@ export default function AIPlansPage() {
                         {plan.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="px-2 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-medium text-white"
+                            className="px-2 py-1 bg-white dark:bg-gray-800/20 backdrop-blur-md rounded-full text-xs font-medium text-white"
                           >
                             {tag}
                           </span>
@@ -232,7 +232,7 @@ export default function AIPlansPage() {
 
                   {/* Content */}
                   <div className="p-5">
-                    <p className="text-sm text-gray-600 mb-4">{plan.tagline}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{plan.tagline}</p>
 
                     {/* Meta Info */}
                     <div className="grid grid-cols-2 gap-3 mb-4">
@@ -324,7 +324,7 @@ export default function AIPlansPage() {
             </p>
             <button
               onClick={() => router.push("/browse")}
-              className="px-8 py-3 bg-white text-purple-700 rounded-xl font-semibold hover:bg-purple-50 transition"
+              className="px-8 py-3 bg-white dark:bg-gray-800 text-purple-700 rounded-xl font-semibold hover:bg-purple-50 transition"
             >
               Browse Manually
             </button>
@@ -335,12 +335,12 @@ export default function AIPlansPage() {
       {/* Confirmation Modal */}
       {showConfirmModal && selectedPlanData && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-          <div className="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl">
+          <div className="bg-white dark:bg-gray-800 rounded-3xl max-w-md w-full p-6 shadow-2xl">
             <div className="text-center mb-6">
               <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Check className="w-8 h-8 text-purple-600" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">
                 Add to Your Plans?
               </h3>
               <p className="text-sm text-gray-600">
@@ -349,7 +349,7 @@ export default function AIPlansPage() {
               </p>
             </div>
 
-            <div className="bg-gray-50 rounded-2xl p-4 mb-6">
+            <div className="bg-gray-50 dark:bg-gray-950 rounded-2xl p-4 mb-6">
               <div className="flex items-center gap-3">
                 <img
                   src={selectedPlanData.image}
@@ -373,7 +373,7 @@ export default function AIPlansPage() {
             <div className="flex gap-3">
               <button
                 onClick={() => setShowConfirmModal(false)}
-                className="flex-1 py-3 border-2 border-gray-200 text-gray-700 rounded-xl font-semibold hover:border-gray-300 transition"
+                className="flex-1 py-3 border-2 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 rounded-xl font-semibold hover:border-gray-300 transition"
               >
                 Cancel
               </button>

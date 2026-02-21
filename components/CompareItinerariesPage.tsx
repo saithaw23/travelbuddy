@@ -141,17 +141,17 @@ export default function CompareItinerariesPage() {
       </header>
 
       {/* MAIN CONTENT */}
-      <div className="pt-28 pb-16 bg-gray-50 min-h-screen">
+      <div className="pt-28 pb-16 bg-gray-50 dark:bg-gray-950 min-h-screen">
         <div className="max-w-6xl mx-auto px-10">
           {/* HEADING */}
           <div className="mb-8">
-            <h1 className="text-2xl font-bold text-gray-800 mb-2">Compare Itineraries</h1>
-            <p className="text-gray-600 text-sm">Select and compare multiple saved itineraries to find the perfect trip</p>
+            <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-2">Compare Itineraries</h1>
+            <p className="text-gray-600 dark:text-gray-400 text-sm">Select and compare multiple saved itineraries to find the perfect trip</p>
           </div>
 
           {/* SAVED ITINERARIES SECTION */}
-          <div className="bg-white rounded-lg p-8 mb-8 border border-gray-200">
-            <h2 className="text-lg font-bold text-gray-800 mb-6">Your Saved Itineraries</h2>
+          <div className="bg-white dark:bg-gray-800 rounded-lg p-8 mb-8 border border-gray-200">
+            <h2 className="text-lg font-bold text-gray-800 dark:text-gray-200 mb-6">Your Saved Itineraries</h2>
 
             <div className="grid grid-cols-3 gap-6 mb-6">
               {savedItineraries.map(itinerary => (
@@ -160,12 +160,12 @@ export default function CompareItinerariesPage() {
                   className={`p-5 rounded-lg border-2 cursor-pointer transition ${
                     selectedItineraries.includes(itinerary.id)
                       ? 'border-purple-600 bg-purple-50'
-                      : 'border-gray-200 bg-white hover:border-purple-400'
+                      : 'border-gray-200 dark:border-gray-700 bg-white hover:border-purple-400'
                   }`}
                   onClick={() => toggleItinerary(itinerary.id)}
                 >
                   <div className="flex justify-between items-start mb-4">
-                    <h3 className="font-bold text-gray-800 text-sm">{itinerary.name}</h3>
+                    <h3 className="font-bold text-gray-800 dark:text-gray-200 text-sm">{itinerary.name}</h3>
                     {selectedItineraries.includes(itinerary.id) && (
                       <span className="text-purple-600 text-lg">✓</span>
                     )}
@@ -202,7 +202,7 @@ export default function CompareItinerariesPage() {
           </div>
 
           {/* COMPARISON TABLE */}
-          <div className="bg-white rounded-lg overflow-hidden border border-gray-200 mb-8">
+          <div className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 mb-8">
             <div className="bg-purple-600 text-white p-4 grid grid-cols-3 gap-4 font-bold text-sm">
               <div>Trip Overview</div>
               {selectedItineraries.map(id => (
@@ -212,7 +212,7 @@ export default function CompareItinerariesPage() {
 
             {/* Total Cost Row */}
             <div className="grid grid-cols-3 gap-4 p-4 border-b border-gray-200">
-              <div className="font-semibold text-gray-800 text-sm">Total Cost</div>
+              <div className="font-semibold text-gray-800 dark:text-gray-200 text-sm">Total Cost</div>
               {selectedItineraries.map(id => (
                 <div key={id} className="text-sm text-gray-800">
                   {savedItineraries.find(i => i.id === id)?.cost}
@@ -222,7 +222,7 @@ export default function CompareItinerariesPage() {
 
             {/* Budget Status Row */}
             <div className="grid grid-cols-3 gap-4 p-4">
-              <div className="font-semibold text-gray-800 text-sm">Budget Status</div>
+              <div className="font-semibold text-gray-800 dark:text-gray-200 text-sm">Budget Status</div>
               <div className="text-xs">
                 <span className="text-orange-500 font-semibold">⚠ Over Budget</span>
               </div>
@@ -239,7 +239,7 @@ export default function CompareItinerariesPage() {
               const details = itineraryDetails[itineraryId];
 
               return (
-                <div key={itineraryId} className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+                <div key={itineraryId} className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
                   {/* HEADER */}
                   <div className="bg-gradient-to-r from-purple-600 to-purple-700 text-white p-6">
                     <h3 className="text-lg font-bold mb-2">{itinerary?.name}</h3>
@@ -268,8 +268,8 @@ export default function CompareItinerariesPage() {
                             {day.items.map((item: any, itemIndex: number) => (
                               <div key={itemIndex}>
                                 <p className="text-xs font-bold text-purple-600 mb-1">{item.time}</p>
-                                <p className="text-sm font-semibold text-gray-800 mb-1">{item.title}</p>
-                                <p className="text-xs text-gray-600 mb-2">{item.desc}</p>
+                                <p className="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-1">{item.title}</p>
+                                <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">{item.desc}</p>
                                 <p className="text-sm font-semibold text-purple-600">{item.price}</p>
                               </div>
                             ))}
@@ -280,7 +280,7 @@ export default function CompareItinerariesPage() {
                   </div>
 
                   {/* ACTION BUTTONS */}
-                  <div className="border-t border-gray-200 p-6 flex gap-3">
+                  <div className="border-t border-gray-200 dark:border-gray-700 p-6 flex gap-3">
                     <button 
                       onClick={() => router.push('/checkout')}
                       className="flex-1 py-2 bg-purple-600 text-white rounded-lg font-semibold text-sm hover:bg-purple-700 transition"
@@ -297,16 +297,16 @@ export default function CompareItinerariesPage() {
           </div>
 
           {/* PARTICIPANT SUMMARY */}
-          <div className="mt-12 bg-white border border-gray-200 rounded-lg p-6">
-            <h3 className="text-lg font-bold text-gray-800 mb-4">Participant consensus board</h3>
-            <p className="text-sm text-gray-600 mb-6">Track which itinerary currently leads so you can lock it in or ask for more feedback.</p>
+          <div className="mt-12 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6">
+            <h3 className="text-lg font-bold text-gray-800 dark:text-gray-200 mb-4">Participant consensus board</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">Track which itinerary currently leads so you can lock it in or ask for more feedback.</p>
             <div className="grid grid-cols-3 gap-4 text-xs">
               {savedItineraries.map(itinerary => (
                 <div key={itinerary.id} className="border border-gray-100 rounded-lg p-4">
-                  <p className="font-semibold text-gray-800 mb-1">{itinerary.name}</p>
+                  <p className="font-semibold text-gray-800 dark:text-gray-200 mb-1">{itinerary.name}</p>
                   <p className="text-[11px] text-gray-500">{itinerary.dates}</p>
                   <p className="text-[11px] font-bold text-purple-600 mt-2">{voteSummaries[itinerary.id]?.majority || 'Awaiting votes'}</p>
-                  <p className="text-[11px] text-gray-600 mt-1">{voteSummaries[itinerary.id]?.summary || '—'}</p>
+                  <p className="text-[11px] text-gray-600 dark:text-gray-400 mt-1">{voteSummaries[itinerary.id]?.summary || '—'}</p>
                 </div>
               ))}
             </div>
@@ -315,11 +315,11 @@ export default function CompareItinerariesPage() {
       </div>
 
       {/* FOOTER */}
-      <footer className="bg-gray-900 text-white text-center py-10 text-sm mt-16">
+      <footer className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 text-center py-10 text-sm border-t border-gray-200 dark:border-gray-700 dark:border-gray-800">
         <p>&copy; 2025 TravelBuddy. All rights reserved. | 
-          <a href="#privacy" className="text-purple-400 hover:text-red-400 transition"> Privacy Policy</a> | 
-          <a href="#terms" className="text-purple-400 hover:text-red-400 transition"> Terms of Service</a> | 
-          <a href="#contact" className="text-purple-400 hover:text-red-400 transition"> Contact Us</a>
+          <a href="#privacy" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Privacy Policy</a> | 
+          <a href="#terms" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Terms of Service</a> | 
+          <a href="#contact" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Contact Us</a>
         </p>
       </footer>
     </>

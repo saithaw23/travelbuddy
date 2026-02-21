@@ -106,14 +106,14 @@ export default function BrowsePage() {
 
   return (
     <>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
         {/* Header */}
         <header className="bg-white border-b border-gray-100 sticky top-0 z-40">
           <div className="max-w-6xl mx-auto px-6 py-4">
             <div className="flex items-center justify-between">
               <button
                 onClick={() => router.push("/")}
-                className="flex items-center gap-2 text-gray-600 hover:text-purple-600 transition"
+                className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-purple-600 transition"
               >
                 <ArrowLeft className="w-5 h-5" />
                 <span className="text-sm font-medium">Back</span>
@@ -158,7 +158,7 @@ export default function BrowsePage() {
                 className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition ${
                   nearMeEnabled
                     ? "bg-purple-600 text-white"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                    : "bg-gray-100 text-gray-700 dark:text-gray-300 hover:bg-gray-200"
                 }`}
               >
                 <Navigation className={`w-4 h-4 ${detectingLocation ? "animate-pulse" : ""}`} />
@@ -182,7 +182,7 @@ export default function BrowsePage() {
                     className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold whitespace-nowrap transition ${
                       isActive
                         ? "bg-purple-600 text-white"
-                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                        : "bg-gray-100 text-gray-700 dark:text-gray-300 hover:bg-gray-200"
                     }`}
                   >
                     <Icon className="w-4 h-4" />
@@ -226,7 +226,7 @@ export default function BrowsePage() {
                       className="w-full h-full object-cover"
                     />
                     {item.distance && nearMeEnabled && (
-                      <span className="absolute top-3 left-3 px-2 py-1 bg-white/90 backdrop-blur-sm rounded-full text-xs font-medium text-gray-700">
+                      <span className="absolute top-3 left-3 px-2 py-1 bg-white dark:bg-gray-800/90 backdrop-blur-sm rounded-full text-xs font-medium text-gray-700">
                         <Navigation className="w-3 h-3 inline mr-1" />
                         {item.distance}
                       </span>
@@ -248,10 +248,10 @@ export default function BrowsePage() {
                   <div className="p-4">
                     <div className="flex items-start justify-between mb-2">
                       <div className="flex-1 min-w-0 pr-2">
-                        <h3 className="font-semibold text-gray-900 truncate">
+                        <h3 className="font-semibold text-gray-900 dark:text-gray-100 truncate">
                           {item.name}
                         </h3>
-                        <p className="text-sm text-gray-500 flex items-center gap-1">
+                        <p className="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-1">
                           <MapPin className="w-3 h-3" />
                           {item.location}
                         </p>
@@ -273,7 +273,7 @@ export default function BrowsePage() {
                         </span>
                       ))}
                       {item.duration && (
-                        <span className="px-2 py-1 bg-gray-100 rounded-full text-xs text-gray-600 flex items-center gap-1">
+                        <span className="px-2 py-1 bg-gray-100 rounded-full text-xs text-gray-600 dark:text-gray-400 flex items-center gap-1">
                           <Clock className="w-3 h-3" />
                           {item.duration}
                         </span>
@@ -378,7 +378,7 @@ export default function BrowsePage() {
                       return (
                         <div
                           key={item.id}
-                          className="flex items-center gap-4 p-3 bg-gray-50 rounded-xl"
+                          className="flex items-center gap-4 p-3 bg-gray-50 dark:bg-gray-950 rounded-xl"
                         >
                           <img
                             src={item.image}
@@ -390,11 +390,11 @@ export default function BrowsePage() {
                               <span className={`${config.bg} ${config.color} p-1 rounded`}>
                                 <Icon className="w-3 h-3" />
                               </span>
-                              <span className="text-xs text-gray-500 capitalize">
+                              <span className="text-xs text-gray-500 dark:text-gray-400 capitalize">
                                 {item.category}
                               </span>
                             </div>
-                            <p className="font-medium text-gray-900 truncate">
+                            <p className="font-medium text-gray-900 dark:text-gray-100 truncate">
                               {item.name}
                             </p>
                             <p className="text-sm text-gray-500">
@@ -413,7 +413,7 @@ export default function BrowsePage() {
                   </div>
 
                   {/* Summary */}
-                  <div className="border-t border-gray-200 pt-4 mb-6">
+                  <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mb-6">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-gray-600">Items</span>
                       <span className="font-medium text-gray-900">
@@ -436,7 +436,7 @@ export default function BrowsePage() {
                     <Sparkles className="w-5 h-5" />
                     Create My Plan
                   </button>
-                  <p className="text-xs text-gray-500 text-center mt-3">
+                  <p className="text-xs text-gray-500 dark:text-gray-400 text-center mt-3">
                     You can invite others and collaborate after creating
                   </p>
                 </>

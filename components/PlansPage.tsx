@@ -84,15 +84,15 @@ export default function PlansPage() {
       <header className="fixed top-0 left-0 right-0 h-20 bg-white shadow-md z-50 flex items-center justify-between px-10">
         <Link href="/" className="text-2xl font-bold text-purple-600">TravelBuddy</Link>
         <nav className="flex gap-10 items-center">
-          <Link href="/my-plans" className="text-sm font-medium text-gray-800 hover:text-purple-600">My Plans</Link>
-          <Link href="/how-it-works" className="text-sm font-medium text-gray-800 hover:text-purple-600">How It Works</Link>
-          <Link href="/contact" className="text-sm font-medium text-gray-800 hover:text-purple-600">Contact</Link>
+          <Link href="/my-plans" className="text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-purple-600">My Plans</Link>
+          <Link href="/how-it-works" className="text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-purple-600">How It Works</Link>
+          <Link href="/contact" className="text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-purple-600">Contact</Link>
         </nav>
         <div className="flex gap-6 items-center">
           <Link href="/profile" className="flex items-center gap-4 px-3 py-1.5 rounded-full bg-gray-100 border border-gray-300 hover:bg-gray-200 transition cursor-pointer">
             <div className="w-9 h-9 rounded-full bg-gradient-to-br from-purple-600 to-purple-900 flex items-center justify-center text-white font-semibold text-sm">KR</div>
             <div className="flex flex-col leading-tight">
-              <div className="font-semibold text-gray-800 text-sm">Krit</div>
+              <div className="font-semibold text-gray-800 dark:text-gray-200 text-sm">Krit</div>
               <div className="text-xs text-gray-500">Signed in</div>
             </div>
           </Link>
@@ -112,7 +112,7 @@ export default function PlansPage() {
       </section>
 
       {/* CONTEXT BAR */}
-      <div className="bg-white border-b border-gray-200 py-4">
+      <div className="bg-white border-b border-gray-200 dark:border-gray-700 py-4">
         <div className="max-w-6xl mx-auto px-10 flex items-center justify-between">
           <div className="flex items-center gap-6 text-sm text-gray-600">
             <div className="flex items-center gap-2">
@@ -137,7 +137,7 @@ export default function PlansPage() {
       </div>
 
       {/* MAIN CONTENT */}
-      <div className="bg-gray-50 min-h-screen py-12">
+      <div className="bg-gray-50 dark:bg-gray-950 min-h-screen py-12">
         <div className="max-w-6xl mx-auto px-10">
           {isLoading ? (
             <div className="text-center py-20">
@@ -152,17 +152,17 @@ export default function PlansPage() {
                     key={plan.id}
                     onClick={() => handleSelectPlan(plan.id)}
                     className={`bg-white rounded-2xl overflow-hidden border-2 cursor-pointer transition-all hover:shadow-lg ${
-                      selectedPlan === plan.id ? 'border-purple-600 ring-2 ring-purple-200' : 'border-gray-200'
+                      selectedPlan === plan.id ? 'border-purple-600 ring-2 ring-purple-200' : 'border-gray-200 dark:border-gray-700'
                     }`}
                   >
                     {/* Plan Header */}
                     <div className={`h-32 bg-gradient-to-br ${plan.image} p-6 flex flex-col justify-between`}>
                       <div className="flex items-center justify-between">
-                        <span className="bg-white/20 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full">
+                        <span className="bg-white dark:bg-gray-800/20 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full">
                           {plan.matchScore}% Match
                         </span>
                         {selectedPlan === plan.id && (
-                          <span className="bg-white text-purple-600 text-xs font-bold px-3 py-1 rounded-full">Selected</span>
+                          <span className="bg-white dark:bg-gray-800 text-purple-600 text-xs font-bold px-3 py-1 rounded-full">Selected</span>
                         )}
                       </div>
                       <div>
@@ -188,10 +188,10 @@ export default function PlansPage() {
                       </div>
 
                       <div className="border-t border-gray-100 pt-4">
-                        <p className="text-xs text-gray-500 mb-2">Includes:</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">Includes:</p>
                         <div className="flex flex-wrap gap-2">
                           {plan.included.map((item, idx) => (
-                            <span key={idx} className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-full">{item}</span>
+                            <span key={idx} className="text-xs bg-gray-100 text-gray-700 dark:text-gray-300 px-2 py-1 rounded-full">{item}</span>
                           ))}
                         </div>
                       </div>
@@ -201,7 +201,7 @@ export default function PlansPage() {
               </div>
 
               {/* Action Bar */}
-              <div className="bg-white rounded-2xl p-6 border border-gray-200 flex items-center justify-between">
+              <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 flex items-center justify-between">
                 <div>
                   {selectedPlan ? (
                     <p className="text-gray-800">
@@ -213,7 +213,7 @@ export default function PlansPage() {
                   )}
                 </div>
                 <div className="flex gap-4">
-                  <Link href="/browse" className="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-xl font-semibold text-sm hover:bg-gray-50 transition">
+                  <Link href="/browse" className="px-6 py-3 border-2 border-gray-300 text-gray-700 dark:text-gray-300 rounded-xl font-semibold text-sm hover:bg-gray-50 dark:bg-gray-950 transition">
                     Build My Own Instead
                   </Link>
                   <button
@@ -235,7 +235,7 @@ export default function PlansPage() {
       </div>
 
       {/* FOOTER */}
-      <footer className="bg-gray-900 text-white text-center py-10 text-sm">
+      <footer className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 text-center py-10 text-sm border-t border-gray-200 dark:border-gray-700 dark:border-gray-800">
         <p>&copy; 2025 TravelBuddy. All rights reserved.</p>
       </footer>
     </>

@@ -342,7 +342,7 @@ export default function RecommendationsPage() {
       <div className="pt-40 pb-16 bg-white min-h-screen">
         <div className="max-w-7xl mx-auto px-10">
           {/* CATEGORY TABS */}
-          <div className="flex gap-8 border-b border-gray-200 mb-8 pb-4">
+          <div className="flex gap-8 border-b border-gray-200 dark:border-gray-700 mb-8 pb-4">
             {categories.map(category => (
               <button
                 key={category.id}
@@ -350,7 +350,7 @@ export default function RecommendationsPage() {
                 className={`flex items-center gap-2 text-sm font-semibold transition ${
                   activeCategory === category.id
                     ? 'text-purple-600 border-b-2 border-purple-600 pb-4'
-                    : 'text-gray-800 hover:text-purple-600'
+                    : 'text-gray-800 dark:text-gray-200 hover:text-purple-600'
                 }`}
               >
                 {category.label}
@@ -367,7 +367,7 @@ export default function RecommendationsPage() {
           <div className="grid grid-cols-4 gap-8">
             {/* LEFT SIDEBAR - FILTERS */}
             <div className="col-span-1">
-              <div className="bg-white border border-gray-200 rounded-lg p-6 sticky top-24">
+              <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6 sticky top-24">
                 <div className="mb-6 p-4 rounded-xl border border-dashed border-purple-300 bg-purple-50">
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
@@ -377,37 +377,37 @@ export default function RecommendationsPage() {
                     <span className="text-[11px] text-purple-600">{locationPermission === 'granted' ? 'On' : 'Off'}</span>
                   </div>
                   <p className="text-sm font-semibold text-gray-800">{userLocation?.city || 'Locating...'}</p>
-                  <p className="text-xs text-gray-600 mb-3">{locationStatus}</p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400 mb-3">{locationStatus}</p>
                   <button className="flex items-center gap-1 text-xs font-semibold text-purple-600 underline">
                     Adjust radius <ArrowUpRight className="w-3 h-3" />
                   </button>
                 </div>
 
-                <h3 className="text-lg font-bold text-gray-800 mb-6">Refine Results</h3>
+                <h3 className="text-lg font-bold text-gray-800 dark:text-gray-200 mb-6">Refine Results</h3>
 
                 {/* AI MATCH SCORE */}
                 <div className="mb-6">
-                  <label className="block text-sm font-semibold text-gray-800 mb-3">AI Match Score</label>
+                  <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-3">AI Match Score</label>
                   <input type="range" min="0" max="100" defaultValue="80" className="w-full accent-purple-600" />
-                  <p className="text-xs text-gray-500 mt-2">80%+ relevance</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">80%+ relevance</p>
                 </div>
 
                 {/* PRICE RANGE */}
                 <div className="mb-6">
-                  <label className="block text-sm font-semibold text-gray-800 mb-3">Price Range</label>
+                  <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-3">Price Range</label>
                   <input type="range" min="0" max="1000" defaultValue="500" className="w-full accent-purple-600" />
-                  <p className="text-xs text-gray-500 mt-2">Up to $500</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">Up to $500</p>
                 </div>
 
                 {/* BUDGET CHECKBOX */}
                 <div className="mb-6 flex items-center gap-2">
                   <input type="checkbox" id="within-budget" defaultChecked className="w-4 h-4 accent-purple-600" />
-                  <label htmlFor="within-budget" className="text-sm text-gray-800 cursor-pointer">Within budget</label>
+                  <label htmlFor="within-budget" className="text-sm text-gray-800 dark:text-gray-200 cursor-pointer">Within budget</label>
                 </div>
 
                 {/* SORT BY */}
                 <div className="mb-6">
-                  <label className="block text-sm font-semibold text-gray-800 mb-2">Sort by:</label>
+                  <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">Sort by:</label>
                   <select className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-purple-600">
                     <option>Best Match</option>
                     <option>Price: Low to High</option>
@@ -417,7 +417,7 @@ export default function RecommendationsPage() {
                 </div>
 
                 {/* CLEAR FILTERS */}
-                <button className="w-full py-2 bg-gray-400 text-white rounded-lg font-semibold hover:bg-gray-500 transition">
+                <button className="w-full py-2 bg-gray-400 text-white rounded-lg font-semibold hover:bg-gray-50 dark:bg-gray-9500 transition">
                   Clear Filters
                 </button>
               </div>
@@ -425,12 +425,12 @@ export default function RecommendationsPage() {
 
             {/* CENTER - RECOMMENDATIONS */}
             <div className="col-span-2">
-              <h2 className="text-2xl font-bold text-gray-800 mb-2">Recommended {categories.find(c => c.id === activeCategory)?.label}</h2>
-              <p className="text-gray-600 text-sm mb-6">Showing 8 recommendations</p>
+              <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-2">Recommended {categories.find(c => c.id === activeCategory)?.label}</h2>
+              <p className="text-gray-600 dark:text-gray-400 text-sm mb-6">Showing 8 recommendations</p>
 
               <div className="space-y-4">
                 {flights.map(flight => (
-                  <div key={flight.id} className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition">
+                  <div key={flight.id} className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden hover:shadow-lg transition">
                     {/* Flight Image */}
                     <div className="h-32 bg-gradient-to-r from-blue-500 to-purple-600"></div>
 
@@ -444,29 +444,29 @@ export default function RecommendationsPage() {
                       </div>
 
                       {/* Route */}
-                      <h3 className="text-lg font-bold text-gray-800 mb-2">{flight.route}</h3>
+                      <h3 className="text-lg font-bold text-gray-800 dark:text-gray-200 mb-2">{flight.route}</h3>
 
                       {/* Time Details */}
-                      <p className="text-sm text-gray-600 mb-3">{flight.time} · {flight.duration}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{flight.time} · {flight.duration}</p>
 
                       {/* Price */}
                       <p className="text-2xl font-bold text-purple-600 mb-3">{flight.price}</p>
 
                       {/* Info */}
-                      <div className="flex items-center gap-2 text-xs text-gray-600 mb-2">
+                      <div className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-400 mb-2">
                         <span>Consensus:</span>
                         <span className={`font-semibold ${getMajorityLabel(flight.id).includes('favor') ? 'text-green-600' : getMajorityLabel(flight.id).includes('against') ? 'text-red-600' : 'text-orange-500'}`}>
                           {getMajorityLabel(flight.id)}
                         </span>
                       </div>
-                      <p className="text-xs text-gray-600 mb-1">Matches preferences</p>
-                      <p className="text-xs text-gray-600 mb-4">
+                      <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">Matches preferences</p>
+                      <p className="text-xs text-gray-600 dark:text-gray-400 mb-4">
                         {userLocation
                           ? getDistanceLabel(flight.id) || 'Calculating distance...'
                           : 'Enable location to see nearby matches'}
                       </p>
                       {getAverageRating(flight.id) && (
-                        <div className="flex items-center gap-1 text-xs font-semibold text-gray-800 mb-4">
+                        <div className="flex items-center gap-1 text-xs font-semibold text-gray-800 dark:text-gray-200 mb-4">
                           <Star className="w-3.5 h-3.5 text-yellow-500" fill="#FACC15" />
                           <span>{getAverageRating(flight.id)} average rating</span>
                         </div>
@@ -474,7 +474,7 @@ export default function RecommendationsPage() {
 
                       {/* Participant Votes */}
                       <div className="mb-4">
-                        <p className="text-sm font-semibold text-gray-800 mb-2">Participant votes</p>
+                        <p className="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">Participant votes</p>
                         <div className="space-y-2">
                           {participants.map(participant => (
                             <div key={participant.id} className="flex items-center justify-between text-xs">
@@ -483,8 +483,8 @@ export default function RecommendationsPage() {
                                   {participant.initials}
                                 </div>
                                 <div>
-                                  <p className="text-gray-800 font-semibold">{participant.name}</p>
-                                  <p className="text-gray-500 text-[10px] uppercase">{participant.role}</p>
+                                  <p className="text-gray-800 dark:text-gray-200 font-semibold">{participant.name}</p>
+                                  <p className="text-gray-500 dark:text-gray-400 text-[10px] uppercase">{participant.role}</p>
                                 </div>
                               </div>
                               <div className="flex gap-1">
@@ -493,7 +493,7 @@ export default function RecommendationsPage() {
                                     key={option}
                                     onClick={() => handleVoteChange(flight.id, participant.id, option)}
                                     type="button"
-                                    className={`px-2 py-1 rounded-full border text-[10px] font-semibold transition ${votes[flight.id]?.[participant.id] === option ? 'bg-purple-600 text-white border-purple-600' : 'border-gray-300 text-gray-600 hover:border-purple-400'}`}
+                                    className={`px-2 py-1 rounded-full border text-[10px] font-semibold transition ${votes[flight.id]?.[participant.id] === option ? 'bg-purple-600 text-white border-purple-600' : 'border-gray-300 text-gray-600 dark:text-gray-400 hover:border-purple-400'}`}
                                   >
                                     {option === 'yes' ? 'Yes' : option === 'no' ? 'No' : 'Later'}
                                   </button>
@@ -506,12 +506,12 @@ export default function RecommendationsPage() {
 
                       {/* Comments */}
                       <div className="mb-4">
-                        <p className="text-sm font-semibold text-gray-800 mb-2">Comments</p>
+                        <p className="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">Comments</p>
                         <div className="space-y-2 max-h-40 overflow-y-auto mb-3">
                           {(comments[flight.id] || []).map(comment => {
                             const participant = participants.find(p => p.id === comment.participantId);
                             return (
-                              <div key={comment.id} className="bg-white border border-gray-200 rounded-lg p-3">
+                              <div key={comment.id} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-3">
                                 <div className="flex items-center justify-between mb-1 text-[11px] text-gray-500">
                                   <span className="font-semibold text-gray-800">{participant?.name || 'Unknown'}</span>
                                   <span>{comment.createdAt}</span>
@@ -534,7 +534,7 @@ export default function RecommendationsPage() {
 
                       {/* Owner Notes */}
                       <div className="mb-4">
-                        <label className="block text-sm font-semibold text-gray-800 mb-2">Owner decision log</label>
+                        <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">Owner decision log</label>
                         <textarea
                           value={ownerNotes[flight.id] || ''}
                           onChange={(event) => handleOwnerNoteChange(flight.id, event.target.value)}
@@ -572,15 +572,15 @@ export default function RecommendationsPage() {
 
             {/* RIGHT SIDEBAR - TRIP SELECTIONS */}
             <div className="col-span-1">
-              <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 sticky top-24">
-                <h3 className="text-lg font-bold text-gray-800 mb-4">Your Trip Selections</h3>
+              <div className="bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-700 rounded-lg p-6 sticky top-24">
+                <h3 className="text-lg font-bold text-gray-800 dark:text-gray-200 mb-4">Your Trip Selections</h3>
 
                 {selectedItems.length === 0 ? (
-                  <p className="text-sm text-gray-500 text-center py-8">No items selected yet</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 text-center py-8">No items selected yet</p>
                 ) : (
                   <div className="mb-6 space-y-2">
                     {selectedItems.map(id => (
-                      <div key={id} className="text-sm text-gray-800 bg-white p-2 rounded">
+                      <div key={id} className="text-sm text-gray-800 dark:text-gray-200 bg-white dark:bg-gray-800 p-2 rounded">
                         Selected item
                       </div>
                     ))}
@@ -588,8 +588,8 @@ export default function RecommendationsPage() {
                 )}
 
                 {/* BUDGET BREAKDOWN */}
-                <div className="border-t border-gray-200 pt-6 mt-6">
-                  <h4 className="font-semibold text-gray-800 mb-4">Budget Breakdown</h4>
+                <div className="border-t border-gray-200 dark:border-gray-700 pt-6 mt-6">
+                  <h4 className="font-semibold text-gray-800 dark:text-gray-200 mb-4">Budget Breakdown</h4>
 
                   <div className="space-y-3 mb-6">
                     <div className="flex justify-between text-sm">
@@ -610,29 +610,29 @@ export default function RecommendationsPage() {
                     </div>
                   </div>
 
-                  <div className="border-t border-gray-200 pt-3 mb-4">
+                  <div className="border-t border-gray-200 dark:border-gray-700 pt-3 mb-4">
                     <div className="flex justify-between">
                       <span className="font-semibold text-gray-800">Total:</span>
                       <span className="text-purple-600 font-bold">$0</span>
                     </div>
                   </div>
 
-                  <p className="text-xs text-gray-500 mb-6">Remaining: $2,000</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-6">Remaining: $2,000</p>
 
                   {/* CTA BUTTON */}
                   <button 
                     onClick={() => router.push('/trip-summary')}
-                    className="w-full py-3 bg-gray-400 text-white rounded-lg font-semibold hover:bg-gray-500 transition"
+                    className="w-full py-3 bg-gray-400 text-white rounded-lg font-semibold hover:bg-gray-50 dark:bg-gray-9500 transition"
                   >
                     Save and Review Trip
                   </button>
                 </div>
 
-                <div className="border-t border-gray-200 pt-6 mt-6">
-                  <h4 className="font-semibold text-gray-800 mb-4">Participant pulse</h4>
+                <div className="border-t border-gray-200 dark:border-gray-700 pt-6 mt-6">
+                  <h4 className="font-semibold text-gray-800 dark:text-gray-200 mb-4">Participant pulse</h4>
                   <div className="space-y-3 text-xs text-gray-700">
                     {flights.map(flight => (
-                      <div key={flight.id} className="p-3 bg-white rounded-lg border border-gray-200">
+                      <div key={flight.id} className="p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200">
                         <div className="flex justify-between mb-1">
                           <span className="font-semibold text-gray-800">{flight.route}</span>
                           <span className="text-purple-600 font-bold">{getMajorityLabel(flight.id)}</span>
@@ -649,23 +649,23 @@ export default function RecommendationsPage() {
       </div>
 
       {/* FOOTER */}
-      <footer className="bg-gray-900 text-white text-center py-10 text-sm mt-16">
+      <footer className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 text-center py-10 text-sm border-t border-gray-200 dark:border-gray-700 dark:border-gray-800">
         <p>&copy; 2025 TravelBuddy. All rights reserved. | 
-          <a href="#privacy" className="text-purple-400 hover:text-red-400 transition"> Privacy Policy</a> | 
-          <a href="#terms" className="text-purple-400 hover:text-red-400 transition"> Terms of Service</a> | 
-          <a href="#contact" className="text-purple-400 hover:text-red-400 transition"> Contact Us</a>
+          <a href="#privacy" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Privacy Policy</a> | 
+          <a href="#terms" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Terms of Service</a> | 
+          <a href="#contact" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Contact Us</a>
         </p>
       </footer>
 
       {activePlace && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-end md:items-center justify-center z-[2000] p-4">
-          <div className="bg-white rounded-3xl shadow-2xl w-full max-w-3xl overflow-hidden">
+          <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl w-full max-w-3xl overflow-hidden">
             <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
               <div>
                 <p className="text-xs uppercase tracking-widest text-purple-500 font-semibold">{activePlace.category}</p>
                 <h3 className="text-xl font-bold text-gray-900">{activePlace.name}</h3>
               </div>
-              <button className="text-sm text-gray-500 hover:text-gray-900" onClick={() => setActivePlaceId(null)}>Close ✕</button>
+              <button className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900" onClick={() => setActivePlaceId(null)}>Close ✕</button>
             </div>
 
             <div className="grid md:grid-cols-2 gap-0">
@@ -675,20 +675,20 @@ export default function RecommendationsPage() {
                   <p className="text-sm font-semibold text-gray-900">{userLocation?.city || 'Location pending'}</p>
                   <p className="text-xs text-gray-600">{locationStatus}</p>
                   {userLocation && (
-                    <p className="text-xs text-gray-600 mt-2">Distance: {getDistanceLabel(activePlaceId!)} · Accuracy {userLocation.accuracy}</p>
+                    <p className="text-xs text-gray-600 dark:text-gray-400 mt-2">Distance: {getDistanceLabel(activePlaceId!)} · Accuracy {userLocation.accuracy}</p>
                   )}
                 </div>
 
                 <div>
-                  <h4 className="flex items-center gap-2 text-sm font-semibold text-gray-800 mb-2">
+                  <h4 className="flex items-center gap-2 text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">
                     <Sparkles className="w-4 h-4 text-purple-600" />
                     AI Insight
                   </h4>
-                  <p className="text-sm text-gray-700 leading-relaxed">{activePlace.aiSummary}</p>
+                  <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{activePlace.aiSummary}</p>
                 </div>
 
                 <div>
-                  <h4 className="flex items-center gap-2 text-sm font-semibold text-gray-800 mb-2">
+                  <h4 className="flex items-center gap-2 text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">
                     <Clock3 className="w-4 h-4 text-purple-600" />
                     Live essentials
                   </h4>
@@ -711,8 +711,8 @@ export default function RecommendationsPage() {
                 </div>
 
                 <div>
-                  <h4 className="text-sm font-semibold text-gray-800 mb-2">From the internet</h4>
-                  <ul className="list-disc list-inside text-xs text-gray-700 space-y-1">
+                  <h4 className="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">From the internet</h4>
+                  <ul className="list-disc list-inside text-xs text-gray-700 dark:text-gray-300 space-y-1">
                     {activePlace.internetHighlights.map(highlight => (
                       <li key={highlight}>{highlight}</li>
                     ))}
@@ -727,10 +727,10 @@ export default function RecommendationsPage() {
               <div className="md:col-span-2 border-t border-gray-100 p-6 space-y-4">
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                   <div>
-                    <h4 className="text-sm font-semibold text-gray-900 mb-1">Traveler reviews</h4>
+                    <h4 className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-1">Traveler reviews</h4>
                     <p className="text-xs text-gray-500">High-signal comments from friends & verified guests.</p>
                     {modalAverageRating && (
-                      <div className="flex items-center gap-1 text-xs font-semibold text-gray-800 mt-2">
+                      <div className="flex items-center gap-1 text-xs font-semibold text-gray-800 dark:text-gray-200 mt-2">
                         <Star className="w-3.5 h-3.5 text-yellow-500" fill="#FACC15" />
                         <span>{modalAverageRating} average · {filteredReviews.length} shown</span>
                       </div>
@@ -744,7 +744,7 @@ export default function RecommendationsPage() {
                         className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-semibold border transition ${
                           activeMediaFilter === filter
                             ? 'bg-purple-600 text-white border-purple-600'
-                            : 'border-gray-200 text-gray-600 hover:border-purple-300'
+                            : 'border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:border-purple-300'
                         }`}
                       >
                         {filter !== 'all' && renderMediaIcon(filter as ReviewType)}
@@ -762,7 +762,7 @@ export default function RecommendationsPage() {
                       <div key={review.id} className="border border-gray-100 rounded-2xl p-4">
                         <div className="flex items-center justify-between mb-2">
                           <div className="flex items-center gap-3">
-                            <div className="w-9 h-9 rounded-full bg-gray-100 text-gray-800 font-semibold text-sm flex items-center justify-center">
+                            <div className="w-9 h-9 rounded-full bg-gray-100 text-gray-800 dark:text-gray-200 font-semibold text-sm flex items-center justify-center">
                               {review.initials}
                             </div>
                             <div>
@@ -775,7 +775,7 @@ export default function RecommendationsPage() {
                             {review.rating.toFixed(1)}
                           </div>
                         </div>
-                        <div className="flex items-center gap-2 text-[11px] text-gray-500 mb-2">
+                        <div className="flex items-center gap-2 text-[11px] text-gray-500 dark:text-gray-400 mb-2">
                           {renderMediaIcon(review.type)}
                           <span className="capitalize">{review.type}</span>
                           {review.mediaLabel && <span>• {review.mediaLabel}</span>}
@@ -787,7 +787,7 @@ export default function RecommendationsPage() {
                 </div>
 
                 {activePlaceId && (
-                  <form onSubmit={(event) => handleReviewSubmit(event, activePlaceId)} className="bg-gray-50 border border-dashed border-gray-200 rounded-2xl p-4 space-y-3">
+                  <form onSubmit={(event) => handleReviewSubmit(event, activePlaceId)} className="bg-gray-50 dark:bg-gray-950 border border-dashed border-gray-200 dark:border-gray-700 rounded-2xl p-4 space-y-3">
                     <div className="flex items-center gap-2">
                       <label className="text-xs font-semibold text-gray-600">Share as:</label>
                       <div className="flex gap-2">
@@ -799,7 +799,7 @@ export default function RecommendationsPage() {
                             className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-semibold border transition ${
                               reviewForm.mediaType === type
                                 ? 'bg-white text-purple-600 border-purple-600'
-                                : 'border-gray-200 text-gray-600 hover:border-purple-300'
+                                : 'border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:border-purple-300'
                             }`}
                           >
                             {renderMediaIcon(type)}
@@ -813,7 +813,7 @@ export default function RecommendationsPage() {
                       onChange={(event) => setReviewForm(prev => ({ ...prev, text: event.target.value }))}
                       rows={3}
                       placeholder="Drop your tip, upload context, or paste a short video link."
-                      className="w-full border border-gray-200 rounded-xl text-sm text-gray-800 px-3 py-2 focus:outline-none focus:border-purple-600"
+                      className="w-full border border-gray-200 dark:border-gray-700 rounded-xl text-sm text-gray-800 dark:text-gray-200 px-3 py-2 focus:outline-none focus:border-purple-600"
                     />
                     <div className="flex justify-between items-center text-[11px] text-gray-500">
                       <span>Media uploads are mocked for demo purposes.</span>

@@ -38,7 +38,7 @@ export default function CookiePolicyPage() {
         }}
       >
         <div className="relative z-10 max-w-4xl px-8">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white bg-opacity-20 rounded-full mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 bg-opacity-20 rounded-full mb-6">
             <Cookie className="w-5 h-5 text-white" />
             <span className="text-sm font-semibold text-white">Cookie Information</span>
           </div>
@@ -52,16 +52,16 @@ export default function CookiePolicyPage() {
       </section>
 
       {/* MAIN CONTENT */}
-      <div className="bg-gray-50 pb-16">
+      <div className="bg-gray-50 dark:bg-gray-950 pb-16">
         <div className="max-w-4xl mx-auto px-10 -mt-10 relative z-20">
           
           {/* WHAT ARE COOKIES */}
-          <div className="bg-white rounded-2xl p-10 shadow-lg border border-gray-200 mb-8">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-10 shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
             <div className="flex items-center gap-3 mb-6">
               <Cookie className="w-8 h-8 text-purple-600" />
               <h2 className="text-3xl font-bold text-gray-900">What Are Cookies?</h2>
             </div>
-            <div className="space-y-4 text-gray-700 leading-relaxed">
+            <div className="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed">
               <p>
                 Cookies are small text files stored on your device (computer, tablet, or mobile) when you visit websites. They help websites remember your preferences, improve your experience, and provide analytics to website owners.
               </p>
@@ -72,17 +72,17 @@ export default function CookiePolicyPage() {
           </div>
 
           {/* TYPES OF COOKIES */}
-          <div className="bg-white rounded-2xl p-10 shadow-lg border border-gray-200 mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">Types of Cookies We Use</h2>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-10 shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">Types of Cookies We Use</h2>
             
             <div className="space-y-6">
               {/* ESSENTIAL COOKIES */}
               <div className="border-l-4 border-green-600 pl-6 bg-green-50 p-6 rounded-r-lg">
-                <h3 className="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3 flex items-center gap-2">
                   <Shield className="w-6 h-6 text-green-600" />
                   Essential Cookies (Required)
                 </h3>
-                <p className="text-gray-700 mb-4">
+                <p className="text-gray-700 dark:text-gray-300 mb-4">
                   These cookies are necessary for our website to function. They cannot be disabled.
                 </p>
                 <div className="overflow-x-auto">
@@ -122,11 +122,11 @@ export default function CookiePolicyPage() {
 
               {/* ANALYTICS COOKIES */}
               <div className="border-l-4 border-blue-600 pl-6 bg-blue-50 p-6 rounded-r-lg">
-                <h3 className="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3 flex items-center gap-2">
                   <Eye className="w-6 h-6 text-blue-600" />
                   Analytics Cookies (Optional)
                 </h3>
-                <p className="text-gray-700 mb-4">
+                <p className="text-gray-700 dark:text-gray-300 mb-4">
                   Help us understand how visitors use our website. You can disable these.
                 </p>
                 <div className="overflow-x-auto">
@@ -166,11 +166,11 @@ export default function CookiePolicyPage() {
 
               {/* MARKETING COOKIES */}
               <div className="border-l-4 border-purple-600 pl-6 bg-purple-50 p-6 rounded-r-lg">
-                <h3 className="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3 flex items-center gap-2">
                   <Settings className="w-6 h-6 text-purple-600" />
                   Marketing Cookies (Optional)
                 </h3>
-                <p className="text-gray-700 mb-4">
+                <p className="text-gray-700 dark:text-gray-300 mb-4">
                   Used to personalize ads and measure campaign effectiveness. You can disable these.
                 </p>
                 <div className="overflow-x-auto">
@@ -206,13 +206,13 @@ export default function CookiePolicyPage() {
           </div>
 
           {/* HOW TO MANAGE COOKIES */}
-          <div className="bg-white rounded-2xl p-10 shadow-lg border border-gray-200 mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">How to Manage Cookies</h2>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-10 shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">How to Manage Cookies</h2>
             
             <div className="space-y-6">
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Cookie Consent Tool</h3>
-                <p className="text-gray-700 mb-4">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3">Cookie Consent Tool</h3>
+                <p className="text-gray-700 dark:text-gray-300 mb-4">
                   When you first visit TravelBuddy, you'll see a cookie banner. You can customize your preferences by clicking "Cookie Settings."
                 </p>
                 <button className="px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition-all">
@@ -221,8 +221,8 @@ export default function CookiePolicyPage() {
               </div>
 
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Browser Settings</h3>
-                <p className="text-gray-700 mb-4">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3">Browser Settings</h3>
+                <p className="text-gray-700 dark:text-gray-300 mb-4">
                   You can also control cookies through your browser settings:
                 </p>
                 <div className="grid grid-cols-2 gap-4">
@@ -232,8 +232,8 @@ export default function CookiePolicyPage() {
                     { browser: 'Safari', path: 'Preferences > Privacy > Cookies and website data' },
                     { browser: 'Microsoft Edge', path: 'Settings > Cookies and site permissions > Cookies and site data' }
                   ].map((item, idx) => (
-                    <div key={idx} className="p-4 bg-gray-50 rounded-lg border border-gray-200">
-                      <h4 className="font-bold text-gray-900 mb-2">{item.browser}</h4>
+                    <div key={idx} className="p-4 bg-gray-50 dark:bg-gray-950 rounded-lg border border-gray-200">
+                      <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-2">{item.browser}</h4>
                       <p className="text-sm text-gray-600">{item.path}</p>
                     </div>
                   ))}
@@ -249,8 +249,8 @@ export default function CookiePolicyPage() {
           </div>
 
           {/* THIRD-PARTY COOKIES */}
-          <div className="bg-white rounded-2xl p-10 shadow-lg border border-gray-200 mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">Third-Party Cookies</h2>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-10 shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">Third-Party Cookies</h2>
             <div className="space-y-4 text-gray-700">
               <p>
                 We use services from third-party companies that may set their own cookies:
@@ -265,7 +265,7 @@ export default function CookiePolicyPage() {
                   { name: 'SendGrid', purpose: 'Email delivery tracking' }
                 ].map((service, idx) => (
                   <div key={idx} className="p-4 bg-purple-50 rounded-lg border border-purple-200">
-                    <h4 className="font-bold text-gray-900 mb-2">{service.name}</h4>
+                    <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-2">{service.name}</h4>
                     <p className="text-sm text-gray-600">{service.purpose}</p>
                   </div>
                 ))}
@@ -282,8 +282,8 @@ export default function CookiePolicyPage() {
           </div>
 
           {/* DO NOT TRACK */}
-          <div className="bg-white rounded-2xl p-10 shadow-lg border border-gray-200 mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">Do Not Track Signals</h2>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-10 shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">Do Not Track Signals</h2>
             <div className="space-y-4 text-gray-700">
               <p>
                 Some browsers have a "Do Not Track" (DNT) feature that signals websites you don't want to be tracked. Currently, there is no industry standard for how to respond to DNT signals.
@@ -295,8 +295,8 @@ export default function CookiePolicyPage() {
           </div>
 
           {/* UPDATES */}
-          <div className="bg-white rounded-2xl p-10 shadow-lg border border-gray-200 mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">Updates to This Policy</h2>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-10 shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">Updates to This Policy</h2>
             <div className="space-y-4 text-gray-700">
               <p>
                 We may update this Cookie Policy from time to time. Changes will be posted on this page with an updated "Last Updated" date.
@@ -330,16 +330,16 @@ export default function CookiePolicyPage() {
           </div>
 
           {/* OTHER LEGAL DOCS */}
-          <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 text-center">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">Related Legal Documents</h3>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700 text-center">
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Related Legal Documents</h3>
             <div className="flex gap-4 justify-center flex-wrap">
               <Link href="/privacy-policy" className="px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition-all">
                 Privacy Policy
               </Link>
-              <Link href="/terms-of-service" className="px-6 py-3 bg-white text-purple-600 border-2 border-purple-600 rounded-lg font-semibold hover:bg-purple-50 transition-all">
+              <Link href="/terms-of-service" className="px-6 py-3 bg-white dark:bg-gray-800 text-purple-600 border-2 border-purple-600 rounded-lg font-semibold hover:bg-purple-50 transition-all">
                 Terms of Service
               </Link>
-              <Link href="/data-processing" className="px-6 py-3 bg-white text-purple-600 border-2 border-purple-600 rounded-lg font-semibold hover:bg-purple-50 transition-all">
+              <Link href="/data-processing" className="px-6 py-3 bg-white dark:bg-gray-800 text-purple-600 border-2 border-purple-600 rounded-lg font-semibold hover:bg-purple-50 transition-all">
                 Data Processing Agreement
               </Link>
             </div>
@@ -349,11 +349,11 @@ export default function CookiePolicyPage() {
       </div>
 
       {/* FOOTER */}
-      <footer className="bg-gray-900 text-white text-center py-10 text-sm">
+      <footer className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 text-center py-10 text-sm border-t border-gray-200 dark:border-gray-700 dark:border-gray-800">
         <p>&copy; 2026 TravelBuddy. All rights reserved. | 
-          <Link href="/privacy-policy" className="text-purple-400 hover:text-purple-300 transition"> Privacy Policy</Link> | 
-          <Link href="/terms-of-service" className="text-purple-400 hover:text-purple-300 transition"> Terms of Service</Link> | 
-          <Link href="/contact" className="text-purple-400 hover:text-purple-300 transition"> Contact Us</Link>
+          <Link href="/privacy-policy" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Privacy Policy</Link> | 
+          <Link href="/terms-of-service" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Terms of Service</Link> | 
+          <Link href="/contact" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Contact Us</Link>
         </p>
       </footer>
     </>

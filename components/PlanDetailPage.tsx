@@ -388,14 +388,14 @@ export default function PlanDetailPage() {
 
   return (
     <>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
         {/* Header */}
         <header className="bg-white border-b border-gray-100 sticky top-0 z-40">
           <div className="max-w-4xl mx-auto px-6 py-4">
             <div className="flex items-center justify-between">
               <button
                 onClick={() => router.push("/my-plans")}
-                className="flex items-center gap-2 text-gray-600 hover:text-purple-600 transition"
+                className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-purple-600 transition"
               >
                 <ArrowLeft className="w-5 h-5" />
                 <span className="text-sm font-medium">My Plans</span>
@@ -403,7 +403,7 @@ export default function PlanDetailPage() {
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setShowInviteModal(true)}
-                  className="flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:border-purple-400 transition"
+                  className="flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:border-purple-400 transition"
                 >
                   <UserPlus className="w-4 h-4" />
                   Invite
@@ -438,7 +438,7 @@ export default function PlanDetailPage() {
                     </span>
                   )}
                 </div>
-                <h1 className="text-2xl font-bold text-gray-900 mb-2">
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
                   {mockPlan.name}
                 </h1>
                 <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600">
@@ -495,7 +495,7 @@ export default function PlanDetailPage() {
 
         {/* Itinerary Items */}
         <main className="max-w-4xl mx-auto px-6 py-8">
-          <h2 className="text-lg font-bold text-gray-900 mb-4">
+          <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
             Plan Items ({mockItems.length})
           </h2>
 
@@ -510,7 +510,7 @@ export default function PlanDetailPage() {
               return (
                 <div
                   key={item.id}
-                  className="bg-white rounded-2xl border border-gray-100 overflow-hidden"
+                  className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 overflow-hidden"
                 >
                   {/* Item Header */}
                   <div
@@ -530,11 +530,11 @@ export default function PlanDetailPage() {
                           >
                             <Icon className="w-4 h-4" />
                           </span>
-                          <span className="text-xs font-medium text-gray-500 uppercase">
+                          <span className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
                             {item.category}
                           </span>
                         </div>
-                        <h3 className="font-semibold text-gray-900 truncate">
+                        <h3 className="font-semibold text-gray-900 dark:text-gray-100 truncate">
                           {item.name}
                         </h3>
                         <p className="text-sm text-gray-500">{item.location}</p>
@@ -619,14 +619,14 @@ export default function PlanDetailPage() {
                     <div className="px-4 pb-4 pt-2 border-t border-gray-100">
                       {/* Voting */}
                       <div className="mb-4">
-                        <p className="text-sm font-semibold text-gray-800 mb-3">
+                        <p className="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-3">
                           Team Votes
                         </p>
                         <div className="grid gap-2">
                           {mockParticipants.map((p) => (
                             <div
                               key={p.id}
-                              className="flex items-center justify-between py-2 px-3 bg-gray-50 rounded-lg"
+                              className="flex items-center justify-between py-2 px-3 bg-gray-50 dark:bg-gray-950 rounded-lg"
                             >
                               <div className="flex items-center gap-3">
                                 <div className="w-8 h-8 rounded-full bg-purple-100 text-purple-700 font-semibold text-xs flex items-center justify-center">
@@ -654,7 +654,7 @@ export default function PlanDetailPage() {
                                               : option === "no"
                                               ? "bg-red-600 text-white"
                                               : "bg-gray-600 text-white"
-                                            : "border border-gray-300 text-gray-600 hover:border-gray-400"
+                                            : "border border-gray-300 text-gray-600 dark:text-gray-400 hover:border-gray-400"
                                         }`}
                                       >
                                         {option === "yes"
@@ -674,12 +674,12 @@ export default function PlanDetailPage() {
 
                       {/* Comments */}
                       <div className="mb-4">
-                        <p className="text-sm font-semibold text-gray-800 mb-3">
+                        <p className="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-3">
                           Comments
                         </p>
                         <div className="space-y-2 max-h-40 overflow-y-auto mb-3">
                           {itemComments.length === 0 ? (
-                            <p className="text-sm text-gray-500 py-2">
+                            <p className="text-sm text-gray-500 dark:text-gray-400 py-2">
                               No comments yet. Start the conversation!
                             </p>
                           ) : (
@@ -690,7 +690,7 @@ export default function PlanDetailPage() {
                               return (
                                 <div
                                   key={comment.id}
-                                  className="bg-white border border-gray-200 rounded-lg p-3"
+                                  className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-3"
                                 >
                                   <div className="flex items-center justify-between mb-1 text-xs text-gray-500">
                                     <span className="font-semibold text-gray-800">
@@ -727,7 +727,7 @@ export default function PlanDetailPage() {
 
                       {/* Owner Notes */}
                       <div>
-                        <label className="block text-sm font-semibold text-gray-800 mb-2">
+                        <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">
                           <Edit3 className="w-4 h-4 inline mr-1" />
                           Owner Notes
                         </label>
@@ -752,7 +752,7 @@ export default function PlanDetailPage() {
           </div>
 
           {/* Summary Footer */}
-          <div className="mt-8 p-6 bg-white rounded-2xl border border-gray-100">
+          <div className="mt-8 p-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100">
             <div className="flex items-center justify-between mb-4">
               <span className="text-gray-600">Total Estimated Cost</span>
               <span className="text-2xl font-bold text-gray-900">
@@ -776,7 +776,7 @@ export default function PlanDetailPage() {
       {/* Invite Modal */}
       {showInviteModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-          <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl max-w-md w-full p-6 shadow-2xl">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-lg font-bold text-gray-900">
                 Invite Collaborators
@@ -790,7 +790,7 @@ export default function PlanDetailPage() {
             </div>
 
             <form onSubmit={handleInvite}>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Email Address
               </label>
               <input
@@ -802,11 +802,11 @@ export default function PlanDetailPage() {
                 required
               />
 
-              <div className="bg-gray-50 rounded-xl p-4 mb-6">
-                <p className="text-sm text-gray-600 mb-2">
+              <div className="bg-gray-50 dark:bg-gray-950 rounded-xl p-4 mb-6">
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
                   Collaborators can:
                 </p>
-                <ul className="text-sm text-gray-700 space-y-1">
+                <ul className="text-sm text-gray-700 dark:text-gray-300 space-y-1">
                   <li className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-green-500" />
                     Vote on plan items
@@ -826,7 +826,7 @@ export default function PlanDetailPage() {
                 <button
                   type="button"
                   onClick={() => setShowInviteModal(false)}
-                  className="flex-1 py-3 border-2 border-gray-200 text-gray-700 rounded-xl font-semibold hover:border-gray-300 transition"
+                  className="flex-1 py-3 border-2 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 rounded-xl font-semibold hover:border-gray-300 transition"
                 >
                   Cancel
                 </button>
@@ -849,14 +849,14 @@ export default function PlanDetailPage() {
         const details = mockPlaceDetails[showDetailsModal];
         return (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-            <div className="bg-white rounded-2xl max-w-lg w-full shadow-2xl max-h-[90vh] overflow-y-auto">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl max-w-lg w-full shadow-2xl max-h-[90vh] overflow-y-auto">
               {/* Header */}
               <div className="relative h-40">
                 <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <button
                   onClick={() => setShowDetailsModal(null)}
-                  className="absolute top-4 right-4 p-2 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/40 transition"
+                  className="absolute top-4 right-4 p-2 bg-white dark:bg-gray-800/20 backdrop-blur-sm rounded-full hover:bg-white/40 transition"
                 >
                   <X className="w-5 h-5 text-white" />
                 </button>
@@ -877,11 +877,11 @@ export default function PlanDetailPage() {
                 </div>
 
                 {/* Description */}
-                <p className="text-sm text-gray-700 mb-6">{details.description}</p>
+                <p className="text-sm text-gray-700 dark:text-gray-300 mb-6">{details.description}</p>
 
                 {/* Facilities */}
                 <div className="mb-6">
-                  <h4 className="text-sm font-semibold text-gray-900 mb-3">Facilities & Amenities</h4>
+                  <h4 className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-3">Facilities & Amenities</h4>
                   <div className="grid grid-cols-2 gap-2">
                     {details.facilities.map((facility, idx) => (
                       <div
@@ -900,10 +900,10 @@ export default function PlanDetailPage() {
 
                 {/* User Reviews */}
                 <div>
-                  <h4 className="text-sm font-semibold text-gray-900 mb-3">Recent Reviews from Travelers</h4>
+                  <h4 className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-3">Recent Reviews from Travelers</h4>
                   <div className="space-y-3">
                     {details.userRatings.map((review, idx) => (
-                      <div key={idx} className="bg-gray-50 rounded-xl p-3">
+                      <div key={idx} className="bg-gray-50 dark:bg-gray-950 rounded-xl p-3">
                         <div className="flex items-center justify-between mb-2">
                           <div className="flex items-center gap-2">
                             <div className="w-8 h-8 rounded-full bg-purple-100 text-purple-700 font-semibold text-xs flex items-center justify-center">
@@ -921,7 +921,7 @@ export default function PlanDetailPage() {
                             ))}
                           </div>
                         </div>
-                        <p className="text-sm text-gray-700 mb-1">{review.comment}</p>
+                        <p className="text-sm text-gray-700 dark:text-gray-300 mb-1">{review.comment}</p>
                         <p className="text-xs text-gray-400">{review.date}</p>
                       </div>
                     ))}
@@ -946,7 +946,7 @@ export default function PlanDetailPage() {
         const qty = itemQuantities[showEditModal] || {};
         return (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-            <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl max-w-md w-full p-6 shadow-2xl">
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-bold text-gray-900">Edit Booking Details</h3>
                 <button
@@ -978,14 +978,14 @@ export default function PlanDetailPage() {
                     <div className="flex items-center gap-3">
                       <button
                         onClick={() => updateItemQuantity(showEditModal, 'seats', -1)}
-                        className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700"
+                        className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 dark:bg-gray-950 text-gray-700"
                       >
                         <Minus className="w-4 h-4" />
                       </button>
                       <span className="w-8 text-center font-semibold text-gray-900">{qty.seats || 1}</span>
                       <button
                         onClick={() => updateItemQuantity(showEditModal, 'seats', 1)}
-                        className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700"
+                        className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 dark:bg-gray-950 text-gray-700"
                       >
                         <Plus className="w-4 h-4" />
                       </button>
@@ -1003,14 +1003,14 @@ export default function PlanDetailPage() {
                       <div className="flex items-center gap-3">
                         <button
                           onClick={() => updateItemQuantity(showEditModal, 'nights', -1)}
-                          className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700"
+                          className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 dark:bg-gray-950 text-gray-700"
                         >
                           <Minus className="w-4 h-4" />
                         </button>
                         <span className="w-8 text-center font-semibold text-gray-900">{qty.nights || 1}</span>
                         <button
                           onClick={() => updateItemQuantity(showEditModal, 'nights', 1)}
-                          className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700"
+                          className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 dark:bg-gray-950 text-gray-700"
                         >
                           <Plus className="w-4 h-4" />
                         </button>
@@ -1023,14 +1023,14 @@ export default function PlanDetailPage() {
                       <div className="flex items-center gap-3">
                         <button
                           onClick={() => updateItemQuantity(showEditModal, 'guests', -1)}
-                          className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700"
+                          className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 dark:bg-gray-950 text-gray-700"
                         >
                           <Minus className="w-4 h-4" />
                         </button>
                         <span className="w-8 text-center font-semibold text-gray-900">{qty.guests || 1}</span>
                         <button
                           onClick={() => updateItemQuantity(showEditModal, 'guests', 1)}
-                          className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700"
+                          className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 dark:bg-gray-950 text-gray-700"
                         >
                           <Plus className="w-4 h-4" />
                         </button>
@@ -1048,14 +1048,14 @@ export default function PlanDetailPage() {
                     <div className="flex items-center gap-3">
                       <button
                         onClick={() => updateItemQuantity(showEditModal, 'guests', -1)}
-                        className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700"
+                        className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 dark:bg-gray-950 text-gray-700"
                       >
                         <Minus className="w-4 h-4" />
                       </button>
                       <span className="w-8 text-center font-semibold text-gray-900">{qty.guests || 1}</span>
                       <button
                         onClick={() => updateItemQuantity(showEditModal, 'guests', 1)}
-                        className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700"
+                        className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 dark:bg-gray-950 text-gray-700"
                       >
                         <Plus className="w-4 h-4" />
                       </button>
@@ -1072,14 +1072,14 @@ export default function PlanDetailPage() {
                     <div className="flex items-center gap-3">
                       <button
                         onClick={() => updateItemQuantity(showEditModal, 'quantity', -1)}
-                        className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700"
+                        className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 dark:bg-gray-950 text-gray-700"
                       >
                         <Minus className="w-4 h-4" />
                       </button>
                       <span className="w-8 text-center font-semibold text-gray-900">{qty.quantity || 1}</span>
                       <button
                         onClick={() => updateItemQuantity(showEditModal, 'quantity', 1)}
-                        className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700"
+                        className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 dark:bg-gray-950 text-gray-700"
                       >
                         <Plus className="w-4 h-4" />
                       </button>

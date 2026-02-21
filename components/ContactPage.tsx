@@ -97,7 +97,7 @@ export default function ContactPage() {
       </section>
 
       {/* MAIN CONTENT */}
-      <div className="bg-gray-50 pb-16">
+      <div className="bg-gray-50 dark:bg-gray-950 pb-16">
         <div className="max-w-6xl mx-auto px-10 -mt-10 relative z-20">
           
           {/* QUICK CONTACT OPTIONS */}
@@ -125,13 +125,13 @@ export default function ContactPage() {
                 color: 'from-green-600 to-green-800'
               }
             ].map((option, idx) => (
-              <div key={idx} className="bg-white rounded-xl p-8 shadow-lg border border-gray-200 text-center hover:shadow-xl transition-shadow">
+              <div key={idx} className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-gray-200 dark:border-gray-700 text-center hover:shadow-xl transition-shadow">
                 <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${option.color} flex items-center justify-center mx-auto mb-4`}>
                   {option.icon}
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{option.title}</h3>
-                <p className="text-gray-600 mb-4">{option.description}</p>
-                <button className="px-6 py-2 bg-gray-100 text-gray-800 rounded-lg font-semibold hover:bg-gray-200 transition-all">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">{option.title}</h3>
+                <p className="text-gray-600 dark:text-gray-400 mb-4">{option.description}</p>
+                <button className="px-6 py-2 bg-gray-100 text-gray-800 dark:text-gray-200 rounded-lg font-semibold hover:bg-gray-200 transition-all">
                   {option.action}
                 </button>
               </div>
@@ -142,8 +142,8 @@ export default function ContactPage() {
           <div className="grid grid-cols-3 gap-8 mb-12">
             
             {/* FORM */}
-            <div className="col-span-2 bg-white rounded-2xl p-10 shadow-lg border border-gray-200">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">Send Us a Message</h2>
+            <div className="col-span-2 bg-white dark:bg-gray-800 rounded-2xl p-10 shadow-lg border border-gray-200">
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">Send Us a Message</h2>
               
               {submitted && (
                 <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-center gap-3">
@@ -160,7 +160,7 @@ export default function ContactPage() {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-semibold text-gray-800 mb-2">Your Name</label>
+                    <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">Your Name</label>
                     <input
                       type="text"
                       name="name"
@@ -172,7 +172,7 @@ export default function ContactPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-gray-800 mb-2">Email Address</label>
+                    <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">Email Address</label>
                     <input
                       type="email"
                       name="email"
@@ -186,7 +186,7 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-gray-800 mb-2">Category</label>
+                  <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">Category</label>
                   <select
                     name="category"
                     value={formData.category}
@@ -203,7 +203,7 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-gray-800 mb-2">Subject</label>
+                  <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">Subject</label>
                   <input
                     type="text"
                     name="subject"
@@ -216,7 +216,7 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-gray-800 mb-2">Message</label>
+                  <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">Message</label>
                   <textarea
                     name="message"
                     value={formData.message}
@@ -242,8 +242,8 @@ export default function ContactPage() {
             <div className="space-y-6">
               
               {/* OFFICE INFO */}
-              <div className="bg-white rounded-xl p-6 shadow-md border border-gray-200">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Contact Information</h3>
+              <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md border border-gray-200">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Contact Information</h3>
                 <div className="space-y-4">
                   <div className="flex items-start gap-3">
                     <Mail className="w-5 h-5 text-purple-600 flex-shrink-0 mt-1" />
@@ -267,7 +267,7 @@ export default function ContactPage() {
                     <MapPin className="w-5 h-5 text-purple-600 flex-shrink-0 mt-1" />
                     <div>
                       <p className="font-semibold text-gray-900">Office</p>
-                      <p className="text-gray-600 text-sm">
+                      <p className="text-gray-600 dark:text-gray-400 text-sm">
                         123 Innovation Drive<br />
                         San Francisco, CA 94105<br />
                         United States
@@ -300,12 +300,12 @@ export default function ContactPage() {
               </div>
 
               {/* FAQ LINK */}
-              <div className="bg-white rounded-xl p-6 shadow-md border border-gray-200">
+              <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md border border-gray-200">
                 <div className="flex items-center gap-3 mb-3">
                   <HelpCircle className="w-6 h-6 text-purple-600" />
                   <h3 className="text-xl font-bold text-gray-900">Need Quick Answers?</h3>
                 </div>
-                <p className="text-gray-600 text-sm mb-4">
+                <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">
                   Check our FAQ section for instant answers to common questions.
                 </p>
                 <Link href="/how-it-works" className="inline-block px-4 py-2 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition-all text-sm">
@@ -317,8 +317,8 @@ export default function ContactPage() {
           </div>
 
           {/* DEPARTMENTS */}
-          <div className="bg-white rounded-2xl p-12 shadow-lg border border-gray-200 mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Contact by Department</h2>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-12 shadow-lg border border-gray-200 dark:border-gray-700 mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8 text-center">Contact by Department</h2>
             <div className="grid grid-cols-3 gap-6">
               {[
                 {
@@ -352,8 +352,8 @@ export default function ContactPage() {
                   description: 'Job opportunities, applications'
                 }
               ].map((dept, idx) => (
-                <div key={idx} className="p-6 bg-gray-50 rounded-xl border border-gray-200 hover:border-purple-300 transition-all">
-                  <h3 className="text-lg font-bold text-gray-900 mb-2">{dept.title}</h3>
+                <div key={idx} className="p-6 bg-gray-50 dark:bg-gray-950 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-purple-300 transition-all">
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2">{dept.title}</h3>
                   <a href={`mailto:${dept.email}`} className="text-purple-600 hover:text-purple-700 text-sm font-semibold block mb-2">
                     {dept.email}
                   </a>
@@ -374,7 +374,7 @@ export default function ContactPage() {
                 <a
                   key={idx}
                   href="#"
-                  className="w-12 h-12 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full flex items-center justify-center transition-all"
+                  className="w-12 h-12 bg-white dark:bg-gray-800 bg-opacity-20 hover:bg-opacity-30 rounded-full flex items-center justify-center transition-all"
                 >
                   <span className="text-xl">{platform[0]}</span>
                 </a>
@@ -386,11 +386,11 @@ export default function ContactPage() {
       </div>
 
       {/* FOOTER */}
-      <footer className="bg-gray-900 text-white text-center py-10 text-sm">
+      <footer className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 text-center py-10 text-sm border-t border-gray-200 dark:border-gray-700 dark:border-gray-800">
         <p>&copy; 2026 TravelBuddy. All rights reserved. | 
-          <Link href="/trust-safety" className="text-purple-400 hover:text-purple-300 transition"> Privacy Policy</Link> | 
-          <Link href="/trust-safety" className="text-purple-400 hover:text-purple-300 transition"> Terms of Service</Link> | 
-          <Link href="/contact" className="text-purple-400 hover:text-purple-300 transition"> Contact Us</Link>
+          <Link href="/trust-safety" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Privacy Policy</Link> | 
+          <Link href="/trust-safety" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Terms of Service</Link> | 
+          <Link href="/contact" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Contact Us</Link>
         </p>
       </footer>
     </>

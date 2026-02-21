@@ -38,7 +38,7 @@ export default function TrustSafetyPage() {
         }}
       >
         <div className="relative z-10 max-w-4xl px-8">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white bg-opacity-20 rounded-full mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 bg-opacity-20 rounded-full mb-6">
             <Shield className="w-5 h-5 text-white" />
             <span className="text-sm font-semibold text-white">Your Safety is Our Priority</span>
           </div>
@@ -52,20 +52,20 @@ export default function TrustSafetyPage() {
       </section>
 
       {/* MAIN CONTENT */}
-      <div className="bg-gray-50 pb-16">
+      <div className="bg-gray-50 dark:bg-gray-950 pb-16">
         <div className="max-w-6xl mx-auto px-10 -mt-10 relative z-20">
           
           {/* OUR COMMITMENT */}
-          <div className="bg-white rounded-2xl p-12 shadow-lg border border-gray-200 mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6 text-center">Our Commitment to You</h2>
-            <p className="text-lg text-gray-700 text-center mb-8 max-w-3xl mx-auto leading-relaxed">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-12 shadow-lg border border-gray-200 dark:border-gray-700 mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-6 text-center">Our Commitment to You</h2>
+            <p className="text-lg text-gray-700 dark:text-gray-300 text-center mb-8 max-w-3xl mx-auto leading-relaxed">
               At TravelBuddy, trust isn't just a feature—it's the foundation of everything we do. We implement industry-leading security measures and transparent practices to protect your information and ensure peace of mind.
             </p>
           </div>
 
           {/* SECURITY MEASURES */}
           <div className="mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-8 text-center">How We Protect You</h2>
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-8 text-center">How We Protect You</h2>
             <div className="grid grid-cols-2 gap-6">
               {[
                 {
@@ -105,12 +105,12 @@ export default function TrustSafetyPage() {
                   color: 'from-indigo-600 to-indigo-800'
                 }
               ].map((item, idx) => (
-                <div key={idx} className="bg-white rounded-xl p-8 shadow-md border border-gray-200 hover:shadow-lg transition-shadow">
+                <div key={idx} className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-md border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow">
                   <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center mb-4`}>
                     {item.icon}
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{item.description}</p>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3">{item.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{item.description}</p>
                 </div>
               ))}
             </div>
@@ -123,8 +123,8 @@ export default function TrustSafetyPage() {
                 <FileText className="w-8 h-8 text-white" />
               </div>
               <div>
-                <h2 className="text-4xl font-bold text-gray-900 mb-6">Your Data, Your Control</h2>
-                <div className="space-y-4 text-lg text-gray-700 leading-relaxed">
+                <h2 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-6">Your Data, Your Control</h2>
+                <div className="space-y-4 text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
                   <div className="flex items-start gap-3">
                     <CheckCircle className="w-6 h-6 text-purple-600 flex-shrink-0 mt-1" />
                     <p><strong>What We Collect:</strong> Name, email, travel preferences, booking history, and payment information (processed securely by Stripe).</p>
@@ -147,8 +147,8 @@ export default function TrustSafetyPage() {
           </div>
 
           {/* COMPLIANCE */}
-          <div className="bg-white rounded-2xl p-12 shadow-lg border border-gray-200 mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-8 text-center">Compliance & Certifications</h2>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-12 shadow-lg border border-gray-200 dark:border-gray-700 mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-8 text-center">Compliance & Certifications</h2>
             <div className="grid grid-cols-3 gap-8">
               {[
                 {
@@ -176,11 +176,11 @@ export default function TrustSafetyPage() {
                   description: 'All connections encrypted with TLS 1.3 for maximum security.'
                 }
               ].map((cert, idx) => (
-                <div key={idx} className="text-center p-6 bg-gray-50 rounded-xl border border-gray-200">
+                <div key={idx} className="text-center p-6 bg-gray-50 dark:bg-gray-950 rounded-xl border border-gray-200">
                   <div className="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
                     <CheckCircle className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-2">{cert.title}</h3>
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2">{cert.title}</h3>
                   <p className="text-sm text-gray-600">{cert.description}</p>
                 </div>
               ))}
@@ -188,40 +188,40 @@ export default function TrustSafetyPage() {
           </div>
 
           {/* SAFE TRAVEL PRACTICES */}
-          <div className="bg-white rounded-2xl p-12 shadow-lg border border-gray-200 mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-8 text-center">Safe Travel Practices</h2>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-12 shadow-lg border border-gray-200 dark:border-gray-700 mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-8 text-center">Safe Travel Practices</h2>
             <div className="max-w-4xl mx-auto space-y-6">
               <div className="border-l-4 border-purple-600 pl-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Verified Vendors</h3>
-                <p className="text-gray-700 leading-relaxed">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Verified Vendors</h3>
+                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
                   We partner only with reputable airlines, hotels, and service providers. All vendors are vetted for safety, reliability, and customer satisfaction.
                 </p>
               </div>
               
               <div className="border-l-4 border-purple-600 pl-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Real-Time Price Accuracy</h3>
-                <p className="text-gray-700 leading-relaxed">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Real-Time Price Accuracy</h3>
+                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
                   Prices are pulled directly from vendor APIs in real-time. What you see is what you pay—no bait-and-switch tactics.
                 </p>
               </div>
               
               <div className="border-l-4 border-purple-600 pl-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Booking Protection</h3>
-                <p className="text-gray-700 leading-relaxed">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Booking Protection</h3>
+                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
                   All bookings are confirmed directly with vendors. You receive official confirmation emails and booking references immediately.
                 </p>
               </div>
               
               <div className="border-l-4 border-purple-600 pl-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">24/7 Support</h3>
-                <p className="text-gray-700 leading-relaxed">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">24/7 Support</h3>
+                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
                   Our AI assistant and human support team are available around the clock to help with issues, changes, or emergencies during your trip.
                 </p>
               </div>
               
               <div className="border-l-4 border-purple-600 pl-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Travel Advisories</h3>
-                <p className="text-gray-700 leading-relaxed">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Travel Advisories</h3>
+                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
                   We monitor government travel advisories and alert you to any safety concerns for your destination before and during your trip.
                 </p>
               </div>
@@ -248,53 +248,53 @@ export default function TrustSafetyPage() {
           </div>
 
           {/* REPORT ISSUES */}
-          <div className="bg-white rounded-2xl p-12 shadow-lg border border-gray-200 mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6 text-center">Report a Security Issue</h2>
-            <p className="text-lg text-gray-700 text-center mb-8 max-w-3xl mx-auto">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-12 shadow-lg border border-gray-200 dark:border-gray-700 mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-6 text-center">Report a Security Issue</h2>
+            <p className="text-lg text-gray-700 dark:text-gray-300 text-center mb-8 max-w-3xl mx-auto">
               If you discover a security vulnerability or have concerns about your account safety, please contact us immediately.
             </p>
             <div className="flex gap-4 justify-center">
               <Link href="/contact" className="px-8 py-4 bg-purple-600 text-white rounded-lg text-lg font-semibold hover:bg-purple-700 transition-all shadow-lg">
                 Contact Security Team
               </Link>
-              <a href="mailto:security@travelbuddy.com" className="px-8 py-4 bg-white text-purple-600 border-2 border-purple-600 rounded-lg text-lg font-semibold hover:bg-purple-50 transition-all">
+              <a href="mailto:security@travelbuddy.com" className="px-8 py-4 bg-white dark:bg-gray-800 text-purple-600 border-2 border-purple-600 rounded-lg text-lg font-semibold hover:bg-purple-50 transition-all">
                 security@travelbuddy.com
               </a>
             </div>
-            <p className="text-sm text-gray-600 text-center mt-6">
+            <p className="text-sm text-gray-600 dark:text-gray-400 text-center mt-6">
               We take all security reports seriously and respond within 24 hours.
             </p>
           </div>
 
           {/* LEGAL DOCUMENTS */}
           <div className="bg-gray-100 rounded-2xl p-12 text-center">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">Legal Documents</h2>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">Legal Documents</h2>
             <div className="flex gap-6 justify-center flex-wrap">
-              <Link href="/privacy-policy" className="px-6 py-3 bg-white text-gray-800 rounded-lg font-semibold hover:bg-gray-50 transition-all shadow-sm border border-gray-200">
+              <Link href="/privacy-policy" className="px-6 py-3 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg font-semibold hover:bg-gray-50 dark:bg-gray-950 transition-all shadow-sm border border-gray-200">
                 Privacy Policy
               </Link>
-              <Link href="/terms-of-service" className="px-6 py-3 bg-white text-gray-800 rounded-lg font-semibold hover:bg-gray-50 transition-all shadow-sm border border-gray-200">
+              <Link href="/terms-of-service" className="px-6 py-3 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg font-semibold hover:bg-gray-50 dark:bg-gray-950 transition-all shadow-sm border border-gray-200">
                 Terms of Service
               </Link>
-              <Link href="/cookie-policy" className="px-6 py-3 bg-white text-gray-800 rounded-lg font-semibold hover:bg-gray-50 transition-all shadow-sm border border-gray-200">
+              <Link href="/cookie-policy" className="px-6 py-3 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg font-semibold hover:bg-gray-50 dark:bg-gray-950 transition-all shadow-sm border border-gray-200">
                 Cookie Policy
               </Link>
-              <Link href="/data-processing" className="px-6 py-3 bg-white text-gray-800 rounded-lg font-semibold hover:bg-gray-50 transition-all shadow-sm border border-gray-200">
+              <Link href="/data-processing" className="px-6 py-3 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg font-semibold hover:bg-gray-50 dark:bg-gray-950 transition-all shadow-sm border border-gray-200">
                 Data Processing Agreement
               </Link>
             </div>
-            <p className="text-sm text-gray-600 mt-6">Last updated: February 8, 2026</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mt-6">Last updated: February 8, 2026</p>
           </div>
 
         </div>
       </div>
 
       {/* FOOTER */}
-      <footer className="bg-gray-900 text-white text-center py-10 text-sm">
+      <footer className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 text-center py-10 text-sm border-t border-gray-200 dark:border-gray-700 dark:border-gray-800">
         <p>&copy; 2026 TravelBuddy. All rights reserved. | 
-          <Link href="/trust-safety" className="text-purple-400 hover:text-purple-300 transition"> Privacy Policy</Link> | 
-          <Link href="/trust-safety" className="text-purple-400 hover:text-purple-300 transition"> Terms of Service</Link> | 
-          <Link href="/contact" className="text-purple-400 hover:text-purple-300 transition"> Contact Us</Link>
+          <Link href="/trust-safety" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Privacy Policy</Link> | 
+          <Link href="/trust-safety" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Terms of Service</Link> | 
+          <Link href="/contact" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Contact Us</Link>
         </p>
       </footer>
     </>

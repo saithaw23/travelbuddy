@@ -151,11 +151,11 @@ export default function LandingPage() {
       </section>
 
       {/* MAIN CONTENT */}
-      <div className="bg-gray-50 pb-16">
+      <div className="bg-gray-50 dark:bg-gray-950 pb-16">
         <div className="max-w-6xl mx-auto px-10 -mt-20 relative z-20">
           <div className="max-w-4xl mx-auto">
             {/* FORM SECTION */}
-            <div className="bg-white rounded-2xl p-10 shadow-lg border border-gray-200">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl p-10 shadow-lg border border-gray-200">
               <div className="text-center mb-8">
                 <h2 className="text-4xl font-bold text-purple-600 mb-4">Tell Us About Your Trip</h2>
                 <p className="text-base text-gray-600">In just 3 minutes, get personalized recommendations perfectly matched to your budget and preferences</p>
@@ -164,11 +164,11 @@ export default function LandingPage() {
               <form onSubmit={handleSubmit}>
                 {/* TRIP BASICS */}
                 <div className="border-t-2 border-gray-300 mt-8 pt-6 mb-6">
-                  <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-6">Trip Basics</h3>
+                  <h3 className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-6">Trip Basics</h3>
                 </div>
 
                 <div className="mb-6">
-                  <label className="block text-sm font-semibold text-gray-800 mb-2">Where are you going?</label>
+                  <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">Where are you going?</label>
                   <div className="flex gap-3">
                     <div className="relative flex-1">
                       <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -178,7 +178,7 @@ export default function LandingPage() {
                         value={destination}
                         onChange={(e) => setDestination(e.target.value)}
                         disabled={nearMeEnabled}
-                        className={`w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg text-sm font-sans text-gray-800 focus:outline-none focus:border-purple-600 focus:ring-2 focus:ring-purple-100 ${nearMeEnabled ? 'bg-purple-50 border-purple-300' : ''}`}
+                        className={`w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg text-sm font-sans text-gray-800 dark:text-gray-200 focus:outline-none focus:border-purple-600 focus:ring-2 focus:ring-purple-100 ${nearMeEnabled ? 'bg-purple-50 border-purple-300' : ''}`}
                       />
                     </div>
                     <button
@@ -187,7 +187,7 @@ export default function LandingPage() {
                       className={`flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold transition-all ${
                         nearMeEnabled
                           ? 'bg-purple-600 text-white'
-                          : 'bg-gray-100 text-gray-700 hover:bg-purple-100 hover:text-purple-700 border border-gray-300'
+                          : 'bg-gray-100 text-gray-700 dark:text-gray-300 hover:bg-purple-100 hover:text-purple-700 border border-gray-300'
                       }`}
                     >
                       <Navigation className={`w-4 h-4 ${detectingLocation ? 'animate-pulse' : ''}`} />
@@ -204,72 +204,72 @@ export default function LandingPage() {
 
                 <div className="grid grid-cols-2 gap-6 mb-6">
                   <div>
-                    <label className="block text-sm font-semibold text-gray-800 mb-2">From</label>
+                    <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">From</label>
                     <input
                       type="date"
                       value={fromDate}
                       onChange={(e) => setFromDate(e.target.value)}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm font-sans text-gray-800 focus:outline-none focus:border-purple-600 focus:ring-2 focus:ring-purple-100"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm font-sans text-gray-800 dark:text-gray-200 focus:outline-none focus:border-purple-600 focus:ring-2 focus:ring-purple-100"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-gray-800 mb-2">To</label>
+                    <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">To</label>
                     <input
                       type="date"
                       value={toDate}
                       onChange={(e) => setToDate(e.target.value)}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm font-sans text-gray-800 focus:outline-none focus:border-purple-600 focus:ring-2 focus:ring-purple-100"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm font-sans text-gray-800 dark:text-gray-200 focus:outline-none focus:border-purple-600 focus:ring-2 focus:ring-purple-100"
                     />
                   </div>
                 </div>
 
                 <div className="mb-6">
-                  <label className="block text-sm font-semibold text-gray-800 mb-2">Quick select:</label>
+                  <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">Quick select:</label>
                   <div className="flex gap-4 flex-wrap mb-2">
-                    <button type="button" className="px-4 py-2 border border-gray-300 rounded-full text-sm font-medium text-gray-800 hover:border-purple-600 hover:text-purple-600 hover:bg-purple-50 transition" onClick={() => handlePresetDate('weekend')}>
+                    <button type="button" className="px-4 py-2 border border-gray-300 rounded-full text-sm font-medium text-gray-800 dark:text-gray-200 hover:border-purple-600 hover:text-purple-600 hover:bg-purple-50 transition" onClick={() => handlePresetDate('weekend')}>
                       This Weekend
                     </button>
-                    <button type="button" className="px-4 py-2 border border-gray-300 rounded-full text-sm font-medium text-gray-800 hover:border-purple-600 hover:text-purple-600 hover:bg-purple-50 transition" onClick={() => handlePresetDate('month')}>
+                    <button type="button" className="px-4 py-2 border border-gray-300 rounded-full text-sm font-medium text-gray-800 dark:text-gray-200 hover:border-purple-600 hover:text-purple-600 hover:bg-purple-50 transition" onClick={() => handlePresetDate('month')}>
                       Next Month
                     </button>
-                    <button type="button" className="px-4 py-2 border border-gray-300 rounded-full text-sm font-medium text-gray-800 hover:border-purple-600 hover:text-purple-600 hover:bg-purple-50 transition" onClick={() => handlePresetDate('flexible')}>
+                    <button type="button" className="px-4 py-2 border border-gray-300 rounded-full text-sm font-medium text-gray-800 dark:text-gray-200 hover:border-purple-600 hover:text-purple-600 hover:bg-purple-50 transition" onClick={() => handlePresetDate('flexible')}>
                       Flexible Dates
                     </button>
                   </div>
-                  <p className="text-xs text-gray-500 italic">Can&apos;t decide? Choose flexible dates for more options</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 italic">Can&apos;t decide? Choose flexible dates for more options</p>
                 </div>
 
                 <div className="mb-6">
-                  <label className="block text-sm font-semibold text-gray-800 mb-2">How many people are traveling?</label>
+                  <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">How many people are traveling?</label>
                   <input
                     type="number"
                     min="1"
                     max="10"
                     value={travelers}
                     onChange={handleTravelersChange}
-                    className="w-48 px-4 py-3 border border-gray-300 rounded-lg text-sm font-sans text-gray-800 focus:outline-none focus:border-purple-600 focus:ring-2 focus:ring-purple-100"
+                    className="w-48 px-4 py-3 border border-gray-300 rounded-lg text-sm font-sans text-gray-800 dark:text-gray-200 focus:outline-none focus:border-purple-600 focus:ring-2 focus:ring-purple-100"
                   />
                 </div>
 
                 {/* BUDGET & PREFERENCES */}
                 <div className="border-t-2 border-gray-300 mt-8 pt-6 mb-6">
-                  <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-6">Budget & Preferences</h3>
+                  <h3 className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-6">Budget & Preferences</h3>
                 </div>
 
                 <div className="grid grid-cols-2 gap-6 mb-6">
                   <div>
-                    <label className="block text-sm font-semibold text-gray-800 mb-2">What&apos;s your total budget?</label>
+                    <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">What&apos;s your total budget?</label>
                     <input
                       type="text"
                       value={budget}
                       onChange={(e) => setBudget(e.target.value)}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm font-sans text-gray-800 focus:outline-none focus:border-purple-600 focus:ring-2 focus:ring-purple-100"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm font-sans text-gray-800 dark:text-gray-200 focus:outline-none focus:border-purple-600 focus:ring-2 focus:ring-purple-100"
                     />
-                    <p className="text-xs text-gray-500 italic mt-1">Per person for entire trip</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 italic mt-1">Per person for entire trip</p>
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-gray-800 mb-2">Currency</label>
-                    <select value={currency} onChange={(e) => setCurrency(e.target.value)} className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm font-sans text-gray-800 focus:outline-none focus:border-purple-600 focus:ring-2 focus:ring-purple-100">
+                    <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">Currency</label>
+                    <select value={currency} onChange={(e) => setCurrency(e.target.value)} className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm font-sans text-gray-800 dark:text-gray-200 focus:outline-none focus:border-purple-600 focus:ring-2 focus:ring-purple-100">
                       <option>USD ($)</option>
                       <option>EUR (€)</option>
                       <option>GBP (£)</option>
@@ -280,7 +280,7 @@ export default function LandingPage() {
                 </div>
 
                 <div className="mb-6">
-                  <label className="block text-sm font-semibold text-gray-800 mb-3">How adventurous are you?</label>
+                  <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-3">How adventurous are you?</label>
                   <input
                     type="range"
                     min="1"
@@ -289,7 +289,7 @@ export default function LandingPage() {
                     onChange={(e) => setAdventureLevel(parseInt(e.target.value))}
                     className="w-full accent-purple-600"
                   />
-                  <div className="flex justify-between text-xs text-gray-500 mt-2">
+                  <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-2">
                     <span>Relaxed</span>
                     <span>Adventurous</span>
                   </div>
@@ -297,13 +297,13 @@ export default function LandingPage() {
                 </div>
 
                 <div className="mb-6">
-                  <label className="block text-sm font-semibold text-gray-800 mb-3">What&apos;s your travel style?</label>
+                  <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-3">What&apos;s your travel style?</label>
                   <div className="flex flex-wrap gap-3">
                     {travelStyles.map(style => (
                       <button
                         key={style}
                         type="button"
-                        className={`px-4 py-2 rounded-full text-sm font-medium transition ${selectedTravelStyles.includes(style) ? 'bg-purple-600 text-white' : 'bg-white border border-gray-300 text-gray-800 hover:border-purple-600 hover:bg-purple-50'}`}
+                        className={`px-4 py-2 rounded-full text-sm font-medium transition ${selectedTravelStyles.includes(style) ? 'bg-purple-600 text-white' : 'bg-white border border-gray-300 text-gray-800 dark:text-gray-200 hover:border-purple-600 hover:bg-purple-50'}`}
                         onClick={() => toggleTravelStyle(style)}
                       >
                         {style}
@@ -313,7 +313,7 @@ export default function LandingPage() {
                 </div>
 
                 <div className="mb-6">
-                  <label className="block text-sm font-semibold text-gray-800 mb-3">What interests you most?</label>
+                  <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-3">What interests you most?</label>
                   <div className="grid grid-cols-3 gap-4">
                     {interests.map(interest => (
                       <div key={interest} className="flex items-center gap-2">
@@ -324,7 +324,7 @@ export default function LandingPage() {
                           onChange={() => toggleInterest(interest)}
                           className="w-5 h-5 accent-purple-600 cursor-pointer"
                         />
-                        <label htmlFor={interest} className="text-sm text-gray-800 cursor-pointer">{interest}</label>
+                        <label htmlFor={interest} className="text-sm text-gray-800 dark:text-gray-200 cursor-pointer">{interest}</label>
                       </div>
                     ))}
                   </div>
@@ -332,11 +332,11 @@ export default function LandingPage() {
 
                 {additionalTravelersVisible && travelers > 1 && (
                   <div className="border-t-2 border-gray-300 mt-8 pt-6 mb-6">
-                    <p className="text-sm font-semibold text-gray-800 mb-4">Add preferences for additional travelers</p>
+                    <p className="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-4">Add preferences for additional travelers</p>
                     {Array.from({ length: travelers - 1 }).map((_, index) => (
                       <div key={index + 1} className="mb-4">
                         <div
-                          className="px-4 py-3 bg-gray-100 rounded-lg cursor-pointer font-semibold text-gray-800 hover:bg-purple-100 transition flex justify-between items-center"
+                          className="px-4 py-3 bg-gray-100 rounded-lg cursor-pointer font-semibold text-gray-800 dark:text-gray-200 hover:bg-purple-100 transition flex justify-between items-center"
                           onClick={() => toggleCollapsible(`person${index + 2}`)}
                         >
                           Person {index + 2} Preferences
@@ -345,7 +345,7 @@ export default function LandingPage() {
                         {expandedCollapsible === `person${index + 2}` && (
                           <div className="mt-4 pl-4 space-y-4">
                             <div>
-                              <label className="block text-sm font-semibold text-gray-800 mb-2">Adventure Level</label>
+                              <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">Adventure Level</label>
                               <input
                                 type="range"
                                 min="1"
@@ -354,7 +354,7 @@ export default function LandingPage() {
                                 onChange={(e) => setAdditionalAdventureLevels({...additionalAdventureLevels, [index + 2]: parseInt(e.target.value)})}
                                 className="w-full accent-purple-600"
                               />
-                              <div className="flex justify-between text-xs text-gray-500 mt-2">
+                              <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-2">
                                 <span>Relaxed</span>
                                 <span>Adventurous</span>
                               </div>
@@ -362,7 +362,7 @@ export default function LandingPage() {
                             </div>
 
                             <div>
-                              <label className="block text-sm font-semibold text-gray-800 mb-3">What is your travel style?</label>
+                              <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-3">What is your travel style?</label>
                               <div className="flex flex-wrap gap-2">
                                 {travelStyles.map((style) => (
                                   <button
@@ -371,7 +371,7 @@ export default function LandingPage() {
                                     className={`px-4 py-2 rounded-full text-xs font-semibold transition-all ${
                                       selectedTravelStyles.includes(style)
                                         ? 'bg-purple-600 text-white'
-                                        : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+                                        : 'bg-gray-200 text-gray-800 dark:text-gray-200 hover:bg-gray-300'
                                     }`}
                                   >
                                     {style}
@@ -381,7 +381,7 @@ export default function LandingPage() {
                             </div>
 
                             <div>
-                              <label className="block text-sm font-semibold text-gray-800 mb-3">What interests you most?</label>
+                              <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-3">What interests you most?</label>
                               <div className="grid grid-cols-3 gap-3">
                                 {interests.map((interest) => (
                                   <div key={interest} className="flex items-center gap-2">
@@ -391,7 +391,7 @@ export default function LandingPage() {
                                       defaultChecked={false}
                                       className="w-5 h-5 accent-purple-600 cursor-pointer"
                                     />
-                                    <label htmlFor={`person${index + 2}-${interest}`} className="text-sm text-gray-800 cursor-pointer">{interest}</label>
+                                    <label htmlFor={`person${index + 2}-${interest}`} className="text-sm text-gray-800 dark:text-gray-200 cursor-pointer">{interest}</label>
                                   </div>
                                 ))}
                               </div>
@@ -409,7 +409,7 @@ export default function LandingPage() {
                     <Sparkles className="w-5 h-5" />
                     Get AI Trip Plans
                   </button>
-                  <button type="button" onClick={handleBrowseManually} className="flex-1 min-w-52 px-10 py-3 bg-white text-purple-600 border-2 border-purple-600 rounded-lg text-base font-semibold hover:bg-purple-50 transition-all flex items-center justify-center gap-2">
+                  <button type="button" onClick={handleBrowseManually} className="flex-1 min-w-52 px-10 py-3 bg-white dark:bg-gray-800 text-purple-600 border-2 border-purple-600 rounded-lg text-base font-semibold hover:bg-purple-50 transition-all flex items-center justify-center gap-2">
                     <Compass className="w-5 h-5" />
                     Browse Manually
                   </button>
@@ -422,7 +422,7 @@ export default function LandingPage() {
         {/* FEATURES SECTION */}
         <div className="max-w-6xl mx-auto px-10 mt-16 mb-16 text-center">
           <h2 className="text-4xl font-bold text-purple-600 mb-4">How We Personalize Your Trip</h2>
-          <p className="text-base text-gray-600 mb-12 max-w-2xl mx-auto">Our AI analyzes your preferences to match you with options that fit your style AND budget</p>
+          <p className="text-base text-gray-600 dark:text-gray-400 mb-12 max-w-2xl mx-auto">Our AI analyzes your preferences to match you with options that fit your style AND budget</p>
           <div className="grid grid-cols-4 gap-6">
             {[
               { icon: '🎯', title: 'Smart Matching', desc: 'AI matches flights, hotels & activities to your preferences' },
@@ -432,8 +432,8 @@ export default function LandingPage() {
             ].map((feature, idx) => (
               <div key={idx} className="p-6 bg-gray-100 rounded-xl text-center">
                 <div className="text-5xl mb-3">{feature.icon}</div>
-                <h4 className="text-base font-semibold text-gray-800 mb-2">{feature.title}</h4>
-                <p className="text-sm text-gray-600 leading-relaxed">{feature.desc}</p>
+                <h4 className="text-base font-semibold text-gray-800 dark:text-gray-200 mb-2">{feature.title}</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{feature.desc}</p>
               </div>
             ))}
           </div>
@@ -441,11 +441,11 @@ export default function LandingPage() {
       </div>
 
       {/* FOOTER */}
-      <footer className="bg-gray-900 text-white text-center py-10 text-sm mt-16">
+      <footer className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 text-center py-10 text-sm border-t border-gray-200 dark:border-gray-700 dark:border-gray-800">
         <p>&copy; 2025 TravelBuddy. All rights reserved. | 
-          <a href="#privacy" className="text-purple-400 hover:text-red-400 transition"> Privacy Policy</a> | 
-          <a href="#terms" className="text-purple-400 hover:text-red-400 transition"> Terms of Service</a> | 
-          <a href="#contact" className="text-purple-400 hover:text-red-400 transition"> Contact Us</a>
+          <a href="#privacy" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Privacy Policy</a> | 
+          <a href="#terms" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Terms of Service</a> | 
+          <a href="#contact" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Contact Us</a>
         </p>
       </footer>
     </>

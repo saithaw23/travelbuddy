@@ -151,30 +151,30 @@ export default function TripSummaryPage() {
       </section>
 
       {/* MAIN CONTENT */}
-      <div className="bg-gray-50 pb-16 min-h-screen">
+      <div className="bg-gray-50 dark:bg-gray-950 pb-16 min-h-screen">
         <div className="max-w-6xl mx-auto px-10 py-12">
           <div className="grid grid-cols-3 gap-8">
             {/* LEFT - ITINERARY */}
             <div className="col-span-2 space-y-4">
-              <h2 className="text-lg font-bold text-gray-800 mb-4">Your Trip Itinerary</h2>
+              <h2 className="text-lg font-bold text-gray-800 dark:text-gray-200 mb-4">Your Trip Itinerary</h2>
 
               {itinerary.map(day => (
-                <div key={day.id} className="bg-white rounded-lg border border-gray-200">
+                <div key={day.id} className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200">
                   <button
                     onClick={() => setExpandedDay(expandedDay === day.id ? null : day.id)}
-                    className="w-full px-6 py-4 flex justify-between items-center hover:bg-gray-50 transition"
+                    className="w-full px-6 py-4 flex justify-between items-center hover:bg-gray-50 dark:bg-gray-950 transition"
                   >
                     <h3 className="font-semibold text-gray-800">{day.title}</h3>
                     <span className="text-gray-500">{expandedDay === day.id ? '▼' : '▶'}</span>
                   </button>
 
                   {expandedDay === day.id && day.items.length > 0 && (
-                    <div className="border-t border-gray-200 px-6 py-4 space-y-6">
+                    <div className="border-t border-gray-200 dark:border-gray-700 px-6 py-4 space-y-6">
                       {day.items.map((item, idx) => (
                         <div key={idx} className="border-l-4 border-purple-600 pl-4">
                           <p className="text-sm font-semibold text-purple-600 mb-1">{item.time}</p>
-                          <h4 className="font-bold text-gray-800 mb-1">{item.title}</h4>
-                          <p className="text-sm text-gray-600 mb-2">{item.description}</p>
+                          <h4 className="font-bold text-gray-800 dark:text-gray-200 mb-1">{item.title}</h4>
+                          <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{item.description}</p>
                           <p className="font-semibold text-purple-600 mb-3">{item.price}</p>
                           {item.actions.length > 0 && (
                             <div className="flex gap-4">
@@ -212,8 +212,8 @@ export default function TripSummaryPage() {
               </div>
 
               {/* BUDGET BREAKDOWN */}
-              <div className="bg-white rounded-lg p-6 border border-gray-200">
-                <h4 className="font-semibold text-gray-800 mb-3 text-sm">Budget Breakdown</h4>
+              <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200">
+                <h4 className="font-semibold text-gray-800 dark:text-gray-200 mb-3 text-sm">Budget Breakdown</h4>
                 <div className="space-y-2">
                   {budgetBreakdown.map((item, idx) => (
                     <div key={idx} className="flex justify-between text-xs">
@@ -221,7 +221,7 @@ export default function TripSummaryPage() {
                       <span className="font-semibold text-gray-800">{item.amount}</span>
                     </div>
                   ))}
-                  <div className="border-t border-gray-200 pt-2 mt-2 flex justify-between font-bold text-gray-800 text-xs">
+                  <div className="border-t border-gray-200 dark:border-gray-700 pt-2 mt-2 flex justify-between font-bold text-gray-800 dark:text-gray-200 text-xs">
                     <span>Total:</span>
                     <span className="text-purple-600">{totalSpent}</span>
                   </div>
@@ -251,9 +251,9 @@ export default function TripSummaryPage() {
               </div>
 
               {/* COLLABORATION STATUS */}
-              <div className="bg-white rounded-lg p-6 border border-gray-200">
-                <h4 className="font-semibold text-gray-800 mb-3 text-sm">Collaboration tracker</h4>
-                <p className="text-xs text-gray-500 mb-4">Shows majority vote per key item so you can act before checkout.</p>
+              <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200">
+                <h4 className="font-semibold text-gray-800 dark:text-gray-200 mb-3 text-sm">Collaboration tracker</h4>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">Shows majority vote per key item so you can act before checkout.</p>
                 <div className="space-y-3">
                   {collaborationStatus.map(item => (
                     <div key={item.id} className="border border-gray-100 rounded-lg p-3">
@@ -268,12 +268,12 @@ export default function TripSummaryPage() {
               </div>
 
               {/* TRAVELER FEEDBACK */}
-              <div className="bg-white rounded-lg p-6 border border-gray-200">
-                <h4 className="font-semibold text-gray-800 mb-3 text-sm flex items-center gap-2">
+              <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200">
+                <h4 className="font-semibold text-gray-800 dark:text-gray-200 mb-3 text-sm flex items-center gap-2">
                   <MessageCircle className="w-4 h-4 text-purple-600" />
                   Traveler feedback
                 </h4>
-                <p className="text-xs text-gray-500 mb-4">Latest media shared by collaborators. Use this to finalize swaps.</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">Latest media shared by collaborators. Use this to finalize swaps.</p>
                 <div className="space-y-3">
                   {travelerFeedback.map(item => (
                     <div key={item.id} className="border border-gray-100 rounded-lg p-3">
@@ -287,7 +287,7 @@ export default function TripSummaryPage() {
                           {item.rating.toFixed(1)}
                         </div>
                       </div>
-                      <p className="text-[11px] text-gray-500 flex items-center gap-1 mb-2">
+                      <p className="text-[11px] text-gray-500 dark:text-gray-400 flex items-center gap-1 mb-2">
                         {item.media === 'photo' && <ImageIcon className="w-3.5 h-3.5 text-purple-600" />}
                         {item.media === 'video' && <Video className="w-3.5 h-3.5 text-purple-600" />}
                         {item.media === 'text' && <MessageCircle className="w-3.5 h-3.5 text-purple-600" />}
@@ -304,11 +304,11 @@ export default function TripSummaryPage() {
       </div>
 
       {/* FOOTER */}
-      <footer className="bg-gray-900 text-white text-center py-10 text-sm mt-16">
+      <footer className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 text-center py-10 text-sm border-t border-gray-200 dark:border-gray-700 dark:border-gray-800">
         <p>&copy; 2025 TravelBuddy. All rights reserved. | 
-          <a href="#privacy" className="text-purple-400 hover:text-red-400 transition"> Privacy Policy</a> | 
-          <a href="#terms" className="text-purple-400 hover:text-red-400 transition"> Terms of Service</a> | 
-          <a href="#contact" className="text-purple-400 hover:text-red-400 transition"> Contact Us</a>
+          <a href="#privacy" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Privacy Policy</a> | 
+          <a href="#terms" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Terms of Service</a> | 
+          <a href="#contact" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Contact Us</a>
         </p>
       </footer>
     </>

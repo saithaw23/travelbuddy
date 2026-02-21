@@ -67,13 +67,13 @@ export default function CheckoutPage() {
 
   if (bookingComplete && !showRatingModal) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="bg-white rounded-2xl p-10 text-center max-w-md shadow-lg">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl p-10 text-center max-w-md shadow-lg">
           <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <Check className="w-10 h-10 text-green-600" />
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Booking Confirmed!</h1>
-          <p className="text-gray-600 mb-6">Your NYC Holiday Deluxe trip is booked. Check your email for confirmation details.</p>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">Booking Confirmed!</h1>
+          <p className="text-gray-600 dark:text-gray-400 mb-6">Your NYC Holiday Deluxe trip is booked. Check your email for confirmation details.</p>
           <p className="text-sm text-gray-500">Preparing your rating form...</p>
         </div>
       </div>
@@ -106,12 +106,12 @@ export default function CheckoutPage() {
       </header>
 
       {/* MAIN CONTENT */}
-      <div className="pt-28 pb-16 bg-gray-50 min-h-screen">
+      <div className="pt-28 pb-16 bg-gray-50 dark:bg-gray-950 min-h-screen">
         <div className="max-w-4xl mx-auto px-10">
           {/* HEADING */}
           <div className="mb-8">
-            <h1 className="text-2xl font-bold text-gray-800 mb-2">Complete Your Booking</h1>
-            <p className="text-gray-600 text-sm">NYC Holiday Deluxe · Dec 15-22, 2025 · 7 nights</p>
+            <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-2">Complete Your Booking</h1>
+            <p className="text-gray-600 dark:text-gray-400 text-sm">NYC Holiday Deluxe · Dec 15-22, 2025 · 7 nights</p>
           </div>
 
           {/* BOOKING FORM */}
@@ -119,51 +119,51 @@ export default function CheckoutPage() {
             {/* LEFT - FORM */}
             <div className="col-span-2 space-y-6">
               {/* TRAVELER DETAILS */}
-              <div className="bg-white rounded-lg p-6 border border-gray-200">
-                <h2 className="text-lg font-bold text-gray-800 mb-4">Traveler Details</h2>
+              <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200">
+                <h2 className="text-lg font-bold text-gray-800 dark:text-gray-200 mb-4">Traveler Details</h2>
                 
                 <div className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-semibold text-gray-800 mb-2">First Name</label>
-                      <input type="text" defaultValue="John" className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-800 focus:outline-none focus:border-purple-600" />
+                      <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">First Name</label>
+                      <input type="text" defaultValue="John" className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-800 dark:text-gray-200 focus:outline-none focus:border-purple-600" />
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold text-gray-800 mb-2">Last Name</label>
-                      <input type="text" defaultValue="Doe" className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-800 focus:outline-none focus:border-purple-600" />
+                      <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">Last Name</label>
+                      <input type="text" defaultValue="Doe" className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-800 dark:text-gray-200 focus:outline-none focus:border-purple-600" />
                     </div>
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-semibold text-gray-800 mb-2">Email</label>
-                    <input type="email" defaultValue="john.doe@example.com" className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-800 focus:outline-none focus:border-purple-600" />
+                    <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">Email</label>
+                    <input type="email" defaultValue="john.doe@example.com" className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-800 dark:text-gray-200 focus:outline-none focus:border-purple-600" />
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-semibold text-gray-800 mb-2">Phone</label>
-                    <input type="tel" placeholder="+1 (555) 123-4567" className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-800 focus:outline-none focus:border-purple-600" />
+                    <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">Phone</label>
+                    <input type="tel" placeholder="+1 (555) 123-4567" className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-800 dark:text-gray-200 focus:outline-none focus:border-purple-600" />
                   </div>
                 </div>
               </div>
 
               {/* PAYMENT DETAILS */}
-              <div className="bg-white rounded-lg p-6 border border-gray-200">
-                <h2 className="text-lg font-bold text-gray-800 mb-4">Payment Details</h2>
+              <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200">
+                <h2 className="text-lg font-bold text-gray-800 dark:text-gray-200 mb-4">Payment Details</h2>
                 
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-semibold text-gray-800 mb-2">Card Number</label>
-                    <input type="text" placeholder="1234 5678 9012 3456" className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-800 focus:outline-none focus:border-purple-600" />
+                    <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">Card Number</label>
+                    <input type="text" placeholder="1234 5678 9012 3456" className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-800 dark:text-gray-200 focus:outline-none focus:border-purple-600" />
                   </div>
                   
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-semibold text-gray-800 mb-2">Expiry Date</label>
-                      <input type="text" placeholder="MM/YY" className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-800 focus:outline-none focus:border-purple-600" />
+                      <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">Expiry Date</label>
+                      <input type="text" placeholder="MM/YY" className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-800 dark:text-gray-200 focus:outline-none focus:border-purple-600" />
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold text-gray-800 mb-2">CVV</label>
-                      <input type="text" placeholder="123" className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-800 focus:outline-none focus:border-purple-600" />
+                      <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">CVV</label>
+                      <input type="text" placeholder="123" className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-800 dark:text-gray-200 focus:outline-none focus:border-purple-600" />
                     </div>
                   </div>
                 </div>
@@ -206,7 +206,7 @@ export default function CheckoutPage() {
                 <button 
                   type="button"
                   onClick={handleSaveForLater}
-                  className="w-full py-3 border-2 border-gray-300 text-gray-800 rounded-lg font-semibold hover:bg-gray-50 transition flex items-center justify-center gap-2"
+                  className="w-full py-3 border-2 border-gray-300 text-gray-800 dark:text-gray-200 rounded-lg font-semibold hover:bg-gray-50 dark:bg-gray-950 transition flex items-center justify-center gap-2"
                 >
                   <Save className="w-5 h-5" />
                   Save for Later
@@ -216,25 +216,25 @@ export default function CheckoutPage() {
 
             {/* RIGHT - ORDER SUMMARY */}
             <div>
-              <div className="bg-white rounded-lg p-6 border border-gray-200 sticky top-28">
-                <h3 className="text-lg font-bold text-gray-800 mb-4">Order Summary</h3>
+              <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700 sticky top-28">
+                <h3 className="text-lg font-bold text-gray-800 dark:text-gray-200 mb-4">Order Summary</h3>
                 
                 <div className="space-y-3 mb-4 pb-4 border-b border-gray-200">
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600">Flight:</span>
-                    <span className="text-gray-800 font-semibold">$450</span>
+                    <span className="text-gray-800 dark:text-gray-200 font-semibold">$450</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600">Hotel (7 nights):</span>
-                    <span className="text-gray-800 font-semibold">$1,200</span>
+                    <span className="text-gray-800 dark:text-gray-200 font-semibold">$1,200</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600">Activities & Tours:</span>
-                    <span className="text-gray-800 font-semibold">$400</span>
+                    <span className="text-gray-800 dark:text-gray-200 font-semibold">$400</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600">Meals & Dining:</span>
-                    <span className="text-gray-800 font-semibold">$350</span>
+                    <span className="text-gray-800 dark:text-gray-200 font-semibold">$350</span>
                   </div>
                 </div>
 
@@ -244,8 +244,8 @@ export default function CheckoutPage() {
                 </div>
 
                 <div className="bg-purple-50 rounded-lg p-4 text-sm">
-                  <p className="text-gray-700 mb-2"><span className="font-semibold">Trip Details:</span></p>
-                  <ul className="space-y-1 text-gray-600 text-xs">
+                  <p className="text-gray-700 dark:text-gray-300 mb-2"><span className="font-semibold">Trip Details:</span></p>
+                  <ul className="space-y-1 text-gray-600 dark:text-gray-400 text-xs">
                     <li>📍 New York City</li>
                     <li>📅 Dec 15-22, 2025</li>
                     <li>🌙 7 nights</li>
@@ -259,29 +259,29 @@ export default function CheckoutPage() {
       </div>
 
       {/* FOOTER */}
-      <footer className="bg-gray-900 text-white text-center py-10 text-sm mt-16">
+      <footer className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 text-center py-10 text-sm border-t border-gray-200 dark:border-gray-700 dark:border-gray-800">
         <p>&copy; 2025 TravelBuddy. All rights reserved. | 
-          <a href="#privacy" className="text-purple-400 hover:text-red-400 transition"> Privacy Policy</a> | 
-          <a href="#terms" className="text-purple-400 hover:text-red-400 transition"> Terms of Service</a> | 
-          <a href="#contact" className="text-purple-400 hover:text-red-400 transition"> Contact Us</a>
+          <a href="#privacy" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Privacy Policy</a> | 
+          <a href="#terms" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Terms of Service</a> | 
+          <a href="#contact" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Contact Us</a>
         </p>
       </footer>
 
       {/* RATING MODAL - Shown after successful booking */}
       {showRatingModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-          <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl max-w-lg w-full p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
             <div className="text-center mb-6">
               <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Star className="w-8 h-8 text-yellow-500" fill="#FACC15" />
               </div>
-              <h2 className="text-xl font-bold text-gray-900 mb-2">Rate Your Experience</h2>
+              <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Rate Your Experience</h2>
               <p className="text-sm text-gray-600">Help other travelers by rating the places in your trip!</p>
             </div>
 
             <div className="space-y-4 mb-6">
               {bookingItems.map((item) => (
-                <div key={item.id} className="bg-gray-50 rounded-xl p-4">
+                <div key={item.id} className="bg-gray-50 dark:bg-gray-950 rounded-xl p-4">
                   <div className="flex items-center justify-between mb-2">
                     <div>
                       <p className="font-semibold text-gray-900">{item.name}</p>
@@ -306,7 +306,7 @@ export default function CheckoutPage() {
                         />
                       </button>
                     ))}
-                    <span className="ml-2 text-sm text-gray-500 self-center">
+                    <span className="ml-2 text-sm text-gray-500 dark:text-gray-400 self-center">
                       {ratings[item.id] ? `${ratings[item.id]}/5` : 'Not rated'}
                     </span>
                   </div>
@@ -321,7 +321,7 @@ export default function CheckoutPage() {
                   setShowRatingModal(false);
                   router.push('/profile');
                 }}
-                className="flex-1 py-3 border-2 border-gray-200 text-gray-700 rounded-xl font-semibold hover:border-gray-300 transition"
+                className="flex-1 py-3 border-2 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 rounded-xl font-semibold hover:border-gray-300 transition"
               >
                 Skip
               </button>

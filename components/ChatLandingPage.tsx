@@ -176,16 +176,16 @@ export default function ChatLandingPage() {
               <Sparkles className="w-4 h-4 text-purple-600" />
               <span className="text-sm font-semibold text-purple-600">AI-Powered Travel Planning</span>
             </div>
-            <h1 className="text-5xl font-bold text-gray-900 mb-4">
+            <h1 className="text-5xl font-bold text-gray-900 dark:text-gray-100 mb-4">
               Chat Your Way to the <span className="text-purple-600">Perfect Trip</span>
             </h1>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
               Just tell me what you're looking for, and I'll create personalized itineraries that match your style, budget, and interests
             </p>
           </div>
 
           {/* Chat Container */}
-          <div className="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
             
             {/* Messages Area */}
             <div className="h-[500px] overflow-y-auto p-6 space-y-4">
@@ -198,7 +198,7 @@ export default function ChatLandingPage() {
                     className={`max-w-[75%] rounded-2xl px-5 py-3 ${
                       message.role === 'user'
                         ? 'bg-purple-600 text-white'
-                        : 'bg-gray-100 text-gray-800'
+                        : 'bg-gray-100 text-gray-800 dark:text-gray-200'
                     }`}
                   >
                     {message.role === 'assistant' && (
@@ -232,14 +232,14 @@ export default function ChatLandingPage() {
 
             {/* Starter Prompts (show only if no user messages yet) */}
             {messages.filter(m => m.role === 'user').length === 0 && (
-              <div className="px-6 pb-4 border-t border-gray-200 pt-4">
-                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Try asking:</p>
+              <div className="px-6 pb-4 border-t border-gray-200 dark:border-gray-700 pt-4">
+                <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">Try asking:</p>
                 <div className="grid grid-cols-2 gap-2">
                   {STARTER_PROMPTS.map((prompt, idx) => (
                     <button
                       key={idx}
                       onClick={() => handleStarterPrompt(prompt.text)}
-                      className="flex items-center gap-2 px-4 py-3 bg-gray-50 hover:bg-purple-50 border border-gray-200 hover:border-purple-300 rounded-lg text-left text-sm text-gray-700 hover:text-purple-700 transition-all group"
+                      className="flex items-center gap-2 px-4 py-3 bg-gray-50 dark:bg-gray-950 hover:bg-purple-50 border border-gray-200 dark:border-gray-700 hover:border-purple-300 rounded-lg text-left text-sm text-gray-700 dark:text-gray-300 hover:text-purple-700 transition-all group"
                     >
                       <span className="text-xl">{prompt.icon}</span>
                       <span className="font-medium">{prompt.text}</span>
@@ -250,7 +250,7 @@ export default function ChatLandingPage() {
             )}
 
             {/* Input Area */}
-            <form onSubmit={handleSubmit} className="border-t border-gray-200 p-4 bg-gray-50">
+            <form onSubmit={handleSubmit} className="border-t border-gray-200 dark:border-gray-700 p-4 bg-gray-50 dark:bg-gray-950">
               <div className="flex gap-3">
                 <input
                   ref={inputRef}
@@ -275,10 +275,10 @@ export default function ChatLandingPage() {
 
           {/* Alternative Option */}
           <div className="text-center mt-8">
-            <p className="text-sm text-gray-600 mb-3">Prefer to browse on your own?</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Prefer to browse on your own?</p>
             <button
               onClick={() => router.push('/browse/setup')}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-white border-2 border-purple-600 text-purple-600 rounded-lg font-semibold hover:bg-purple-50 transition-all"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-white dark:bg-gray-800 border-2 border-purple-600 text-purple-600 rounded-lg font-semibold hover:bg-purple-50 transition-all"
             >
               <Compass className="w-5 h-5" />
               Browse Destinations Manually
@@ -288,7 +288,7 @@ export default function ChatLandingPage() {
 
         {/* Features Section */}
         <div className="max-w-6xl mx-auto px-10 py-16">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Why Chat With Our AI?</h2>
+          <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-gray-100 mb-12">Why Chat With Our AI?</h2>
           <div className="grid grid-cols-4 gap-6">
             {[
               { icon: <Sparkles className="w-8 h-8 text-purple-600" />, title: 'Natural Conversation', desc: 'Just talk like you would with a friend' },
@@ -296,10 +296,10 @@ export default function ChatLandingPage() {
               { icon: <DollarSign className="w-8 h-8 text-purple-600" />, title: 'Budget Aware', desc: 'Plans that fit your spending limits' },
               { icon: <Heart className="w-8 h-8 text-purple-600" />, title: 'Your Preferences', desc: 'Matches your interests and travel style' }
             ].map((feature, idx) => (
-              <div key={idx} className="p-6 bg-white rounded-xl shadow-md text-center border border-gray-100 hover:shadow-lg transition-shadow">
+              <div key={idx} className="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md text-center border border-gray-100 hover:shadow-lg transition-shadow">
                 <div className="flex justify-center mb-3">{feature.icon}</div>
-                <h4 className="text-base font-semibold text-gray-800 mb-2">{feature.title}</h4>
-                <p className="text-sm text-gray-600 leading-relaxed">{feature.desc}</p>
+                <h4 className="text-base font-semibold text-gray-800 dark:text-gray-200 mb-2">{feature.title}</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{feature.desc}</p>
               </div>
             ))}
           </div>
@@ -307,11 +307,11 @@ export default function ChatLandingPage() {
       </div>
 
       {/* FOOTER */}
-      <footer className="bg-gray-900 text-white text-center py-10 text-sm">
+      <footer className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 text-center py-10 text-sm border-t border-gray-200 dark:border-gray-700 dark:border-gray-800">
         <p>&copy; 2025 TravelBuddy. All rights reserved. | 
-          <a href="#privacy" className="text-purple-400 hover:text-purple-300 transition"> Privacy Policy</a> | 
-          <a href="#terms" className="text-purple-400 hover:text-purple-300 transition"> Terms of Service</a> | 
-          <a href="#contact" className="text-purple-400 hover:text-purple-300 transition"> Contact Us</a>
+          <a href="#privacy" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Privacy Policy</a> | 
+          <a href="#terms" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Terms of Service</a> | 
+          <a href="#contact" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Contact Us</a>
         </p>
       </footer>
     </>

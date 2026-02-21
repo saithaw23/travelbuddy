@@ -38,7 +38,7 @@ export default function TermsOfServicePage() {
         }}
       >
         <div className="relative z-10 max-w-4xl px-8">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white bg-opacity-20 rounded-full mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 bg-opacity-20 rounded-full mb-6">
             <FileText className="w-5 h-5 text-white" />
             <span className="text-sm font-semibold text-white">Legal Agreement</span>
           </div>
@@ -52,13 +52,13 @@ export default function TermsOfServicePage() {
       </section>
 
       {/* MAIN CONTENT */}
-      <div className="bg-gray-50 pb-16">
+      <div className="bg-gray-50 dark:bg-gray-950 pb-16">
         <div className="max-w-4xl mx-auto px-10 -mt-10 relative z-20">
           
           {/* INTRODUCTION */}
-          <div className="bg-white rounded-2xl p-10 shadow-lg border border-gray-200 mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">Agreement to Terms</h2>
-            <div className="space-y-4 text-gray-700 leading-relaxed">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-10 shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">Agreement to Terms</h2>
+            <div className="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed">
               <p>
                 Welcome to TravelBuddy! These Terms of Service ("Terms") govern your access to and use of TravelBuddy's website, mobile applications, and services (collectively, the "Services").
               </p>
@@ -74,7 +74,7 @@ export default function TermsOfServicePage() {
           </div>
 
           {/* USER ACCOUNTS */}
-          <div className="bg-white rounded-2xl p-10 shadow-lg border border-gray-200 mb-8">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-10 shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
             <div className="flex items-center gap-3 mb-6">
               <Users className="w-8 h-8 text-purple-600" />
               <h2 className="text-3xl font-bold text-gray-900">1. User Accounts</h2>
@@ -90,7 +90,7 @@ export default function TermsOfServicePage() {
                 <li>You must notify us immediately of any unauthorized access</li>
               </ul>
 
-              <h3 className="text-xl font-bold text-gray-900 mt-6">1.2 Account Responsibilities</h3>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-6">1.2 Account Responsibilities</h3>
               <p>You are responsible for:</p>
               <ul className="list-disc list-inside space-y-2 ml-4">
                 <li>All activities that occur under your account</li>
@@ -99,7 +99,7 @@ export default function TermsOfServicePage() {
                 <li>Complying with all applicable laws and regulations</li>
               </ul>
 
-              <h3 className="text-xl font-bold text-gray-900 mt-6">1.3 Account Termination</h3>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-6">1.3 Account Termination</h3>
               <p>We may suspend or terminate your account if you:</p>
               <ul className="list-disc list-inside space-y-2 ml-4">
                 <li>Violate these Terms</li>
@@ -111,7 +111,7 @@ export default function TermsOfServicePage() {
           </div>
 
           {/* BOOKING TERMS */}
-          <div className="bg-white rounded-2xl p-10 shadow-lg border border-gray-200 mb-8">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-10 shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
             <div className="flex items-center gap-3 mb-6">
               <CreditCard className="w-8 h-8 text-purple-600" />
               <h2 className="text-3xl font-bold text-gray-900">2. Booking & Payment Terms</h2>
@@ -119,8 +119,8 @@ export default function TermsOfServicePage() {
             
             <div className="space-y-6">
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">2.1 Bookings</h3>
-                <ul className="list-disc list-inside space-y-2 text-gray-700 ml-4">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3">2.1 Bookings</h3>
+                <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 ml-4">
                   <li>All bookings are subject to availability</li>
                   <li>Prices may change until booking is confirmed</li>
                   <li>Confirmation email constitutes a binding contract</li>
@@ -130,8 +130,8 @@ export default function TermsOfServicePage() {
               </div>
 
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">2.2 Pricing</h3>
-                <ul className="list-disc list-inside space-y-2 text-gray-700 ml-4">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3">2.2 Pricing</h3>
+                <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 ml-4">
                   <li>All prices displayed in USD unless otherwise specified</li>
                   <li>Prices include all mandatory taxes and fees</li>
                   <li>Currency conversion rates may apply</li>
@@ -140,8 +140,8 @@ export default function TermsOfServicePage() {
               </div>
 
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">2.3 Payment</h3>
-                <ul className="list-disc list-inside space-y-2 text-gray-700 ml-4">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3">2.3 Payment</h3>
+                <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 ml-4">
                   <li>Payment processed securely via Stripe</li>
                   <li>Full payment required at time of booking</li>
                   <li>We accept major credit cards and debit cards</li>
@@ -150,13 +150,13 @@ export default function TermsOfServicePage() {
               </div>
 
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">2.4 Cancellations & Refunds</h3>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3">2.4 Cancellations & Refunds</h3>
                 <div className="bg-yellow-50 border-l-4 border-yellow-600 p-4">
                   <p className="text-gray-700">
                     <strong>Important:</strong> Cancellation policies vary by vendor (airline, hotel, restaurant). Please review the specific cancellation policy for each booking before confirming.
                   </p>
                 </div>
-                <ul className="list-disc list-inside space-y-2 text-gray-700 ml-4 mt-4">
+                <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 ml-4 mt-4">
                   <li>Refunds processed within 5-10 business days</li>
                   <li>Cancellation fees may apply</li>
                   <li>Non-refundable bookings clearly marked</li>
@@ -167,7 +167,7 @@ export default function TermsOfServicePage() {
           </div>
 
           {/* USER CONDUCT */}
-          <div className="bg-white rounded-2xl p-10 shadow-lg border border-gray-200 mb-8">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-10 shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
             <div className="flex items-center gap-3 mb-6">
               <AlertCircle className="w-8 h-8 text-purple-600" />
               <h2 className="text-3xl font-bold text-gray-900">3. User Conduct & Prohibited Activities</h2>
@@ -200,7 +200,7 @@ export default function TermsOfServicePage() {
           </div>
 
           {/* INTELLECTUAL PROPERTY */}
-          <div className="bg-white rounded-2xl p-10 shadow-lg border border-gray-200 mb-8">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-10 shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
             <div className="flex items-center gap-3 mb-6">
               <Shield className="w-8 h-8 text-purple-600" />
               <h2 className="text-3xl font-bold text-gray-900">4. Intellectual Property</h2>
@@ -212,7 +212,7 @@ export default function TermsOfServicePage() {
                 All content on TravelBuddy (text, graphics, logos, software, AI models) is owned by TravelBuddy, Inc. and protected by copyright, trademark, and other intellectual property laws.
               </p>
 
-              <h3 className="text-xl font-bold text-gray-900 mt-6">4.2 User Content</h3>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-6">4.2 User Content</h3>
               <p>By posting content (reviews, photos, comments), you grant us a worldwide, non-exclusive, royalty-free license to:</p>
               <ul className="list-disc list-inside space-y-2 ml-4">
                 <li>Display, reproduce, and distribute your content</li>
@@ -221,7 +221,7 @@ export default function TermsOfServicePage() {
               </ul>
               <p className="mt-4">You retain ownership of your content and can delete it anytime.</p>
 
-              <h3 className="text-xl font-bold text-gray-900 mt-6">4.3 Trademarks</h3>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-6">4.3 Trademarks</h3>
               <p>
                 "TravelBuddy" and our logo are registered trademarks. You may not use our trademarks without written permission.
               </p>
@@ -229,7 +229,7 @@ export default function TermsOfServicePage() {
           </div>
 
           {/* LIABILITY */}
-          <div className="bg-white rounded-2xl p-10 shadow-lg border border-gray-200 mb-8">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-10 shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
             <div className="flex items-center gap-3 mb-6">
               <Scale className="w-8 h-8 text-purple-600" />
               <h2 className="text-3xl font-bold text-gray-900">5. Disclaimers & Limitation of Liability</h2>
@@ -244,14 +244,14 @@ export default function TermsOfServicePage() {
               </div>
 
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">5.2 Third-Party Services</h3>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3">5.2 Third-Party Services</h3>
                 <p className="text-gray-700">
                   We are not responsible for services provided by airlines, hotels, restaurants, or other third-party vendors. Complaints should be directed to the vendor.
                 </p>
               </div>
 
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">5.3 AI Recommendations</h3>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3">5.3 AI Recommendations</h3>
                 <p className="text-gray-700">
                   Our AI provides recommendations based on available data. We do not guarantee accuracy, suitability, or satisfaction with AI-generated suggestions.
                 </p>
@@ -259,10 +259,10 @@ export default function TermsOfServicePage() {
 
               <div className="bg-red-50 border-2 border-red-600 p-6 rounded-lg">
                 <h3 className="text-xl font-bold text-red-900 mb-3">5.4 Limitation of Liability</h3>
-                <p className="text-gray-800 mb-3">
+                <p className="text-gray-800 dark:text-gray-200 mb-3">
                   TO THE MAXIMUM EXTENT PERMITTED BY LAW, TRAVELBUDDY SHALL NOT BE LIABLE FOR:
                 </p>
-                <ul className="list-disc list-inside space-y-2 text-gray-800 ml-4">
+                <ul className="list-disc list-inside space-y-2 text-gray-800 dark:text-gray-200 ml-4">
                   <li>Indirect, incidental, or consequential damages</li>
                   <li>Lost profits, data, or business opportunities</li>
                   <li>Damages exceeding the amount you paid us in the past 12 months</li>
@@ -273,8 +273,8 @@ export default function TermsOfServicePage() {
           </div>
 
           {/* DISPUTE RESOLUTION */}
-          <div className="bg-white rounded-2xl p-10 shadow-lg border border-gray-200 mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">6. Dispute Resolution & Arbitration</h2>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-10 shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">6. Dispute Resolution & Arbitration</h2>
             
             <div className="space-y-6">
               <div className="bg-yellow-50 border-2 border-yellow-600 p-6 rounded-lg">
@@ -285,18 +285,18 @@ export default function TermsOfServicePage() {
               </div>
 
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">6.1 Informal Resolution</h3>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3">6.1 Informal Resolution</h3>
                 <p className="text-gray-700">
                   Before filing a claim, you agree to contact us at <a href="mailto:legal@travelbuddy.com" className="text-purple-600 font-semibold">legal@travelbuddy.com</a> to attempt informal resolution. We'll try to resolve disputes within 60 days.
                 </p>
               </div>
 
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">6.2 Binding Arbitration</h3>
-                <p className="text-gray-700 mb-3">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3">6.2 Binding Arbitration</h3>
+                <p className="text-gray-700 dark:text-gray-300 mb-3">
                   If informal resolution fails, disputes will be resolved through binding arbitration under the American Arbitration Association (AAA) rules.
                 </p>
-                <ul className="list-disc list-inside space-y-2 text-gray-700 ml-4">
+                <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 ml-4">
                   <li>Arbitration conducted in San Francisco, CA (or your location for claims under $10,000)</li>
                   <li>Arbitrator's decision is final and binding</li>
                   <li>Limited appeal rights</li>
@@ -312,7 +312,7 @@ export default function TermsOfServicePage() {
               </div>
 
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">6.4 Exceptions</h3>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3">6.4 Exceptions</h3>
                 <p className="text-gray-700">
                   Either party may bring claims in small claims court or seek injunctive relief for intellectual property violations.
                 </p>
@@ -321,8 +321,8 @@ export default function TermsOfServicePage() {
           </div>
 
           {/* GOVERNING LAW */}
-          <div className="bg-white rounded-2xl p-10 shadow-lg border border-gray-200 mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">7. Governing Law & Jurisdiction</h2>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-10 shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">7. Governing Law & Jurisdiction</h2>
             <div className="space-y-4 text-gray-700">
               <p>
                 These Terms are governed by the laws of the State of California, United States, without regard to conflict of law principles.
@@ -334,8 +334,8 @@ export default function TermsOfServicePage() {
           </div>
 
           {/* CHANGES TO TERMS */}
-          <div className="bg-white rounded-2xl p-10 shadow-lg border border-gray-200 mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">8. Changes to Terms</h2>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-10 shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">8. Changes to Terms</h2>
             <div className="space-y-4 text-gray-700">
               <p>
                 We may update these Terms from time to time. We will notify you of material changes by:
@@ -377,16 +377,16 @@ export default function TermsOfServicePage() {
           </div>
 
           {/* OTHER LEGAL DOCS */}
-          <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 text-center">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">Related Legal Documents</h3>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700 text-center">
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Related Legal Documents</h3>
             <div className="flex gap-4 justify-center flex-wrap">
               <Link href="/privacy-policy" className="px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition-all">
                 Privacy Policy
               </Link>
-              <Link href="/cookie-policy" className="px-6 py-3 bg-white text-purple-600 border-2 border-purple-600 rounded-lg font-semibold hover:bg-purple-50 transition-all">
+              <Link href="/cookie-policy" className="px-6 py-3 bg-white dark:bg-gray-800 text-purple-600 border-2 border-purple-600 rounded-lg font-semibold hover:bg-purple-50 transition-all">
                 Cookie Policy
               </Link>
-              <Link href="/data-processing" className="px-6 py-3 bg-white text-purple-600 border-2 border-purple-600 rounded-lg font-semibold hover:bg-purple-50 transition-all">
+              <Link href="/data-processing" className="px-6 py-3 bg-white dark:bg-gray-800 text-purple-600 border-2 border-purple-600 rounded-lg font-semibold hover:bg-purple-50 transition-all">
                 Data Processing Agreement
               </Link>
             </div>
@@ -396,11 +396,11 @@ export default function TermsOfServicePage() {
       </div>
 
       {/* FOOTER */}
-      <footer className="bg-gray-900 text-white text-center py-10 text-sm">
+      <footer className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 text-center py-10 text-sm border-t border-gray-200 dark:border-gray-700 dark:border-gray-800">
         <p>&copy; 2026 TravelBuddy. All rights reserved. | 
-          <Link href="/privacy-policy" className="text-purple-400 hover:text-purple-300 transition"> Privacy Policy</Link> | 
-          <Link href="/terms-of-service" className="text-purple-400 hover:text-purple-300 transition"> Terms of Service</Link> | 
-          <Link href="/contact" className="text-purple-400 hover:text-purple-300 transition"> Contact Us</Link>
+          <Link href="/privacy-policy" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Privacy Policy</Link> | 
+          <Link href="/terms-of-service" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Terms of Service</Link> | 
+          <Link href="/contact" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition"> Contact Us</Link>
         </p>
       </footer>
     </>
