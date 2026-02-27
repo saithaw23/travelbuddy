@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { genAI } from '@/lib/gemini';
+import { ChatMessage, generateChatCompletion } from '@/lib/ai';
 
 const SUMMARIZE_PROMPT = `You are a travel data extraction AI. The user has had a conversation with a travel planning assistant and has decided to confirm their trip details.
 
@@ -51,13 +51,15 @@ export async function POST(request: NextRequest) {
             )
             .join('\n');
 
-        const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+        const messages: ChatMessage[] = [
+            { role: 'system', content: SUMMARIZE_PROMPT },
+            { role: 'user', content: `CONVERSATION:\n${transcript}` },
+        ];
 
-        const result = await model.generateContent(
-            `${SUMMARIZE_PROMPT}\n\nCONVERSATION:\n${transcript}`
-        );
-
-        let responseText = result.response.text();
+        let responseText = await generateChatCompletion(messages, {
+            temperature: 0.4,
+            maxTokens: 1600,
+        });
 
         // Strip any markdown code fences if present
         responseText = responseText

@@ -278,7 +278,7 @@ export default function ChatLandingPage() {
           <div className="shrink-0 flex items-center gap-2 px-6 py-3 border-b border-gray-100 dark:border-gray-800 bg-white/70 dark:bg-gray-900/70 backdrop-blur-md">
             <Sparkles className="w-4 h-4 text-purple-600" />
             <span className="text-sm font-semibold text-purple-600">AI-Powered Travel Planning</span>
-            <span className="ml-auto text-xs text-gray-400">Powered by Gemini</span>
+            <span className="ml-auto text-xs text-gray-400">Powered by Groq</span>
           </div>
 
           {/* Messages — scrollable */}

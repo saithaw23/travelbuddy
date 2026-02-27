@@ -1,27 +1,31 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { genAI, TRAVEL_SYSTEM_PROMPT } from '@/lib/gemini';
+import { generateChatCompletion, TRAVEL_SYSTEM_PROMPT, ChatMessage } from '@/lib/ai';
 
 export async function POST(request: NextRequest) {
   try {
     const { message, conversationHistory } = await request.json();
 
-    const model = genAI.getGenerativeModel({
-      model: 'gemini-2.0-flash',
-      systemInstruction: TRAVEL_SYSTEM_PROMPT,
-    });
-
-    // Convert our history format to Gemini's format
     const history = (conversationHistory || [])
-      .slice(0, -1) // exclude the latest user message (we pass it separately)
+      .filter((msg: { role: string }) => msg.role === 'user' || msg.role === 'assistant')
       .map((msg: { role: string; content: string }) => ({
-        role: msg.role === 'user' ? 'user' : 'model',
-        parts: [{ text: msg.content }],
+        role: msg.role as ChatMessage['role'],
+        content: msg.content,
       }));
 
-    const chat = model.startChat({ history });
+    // Ensure the conversation that follows the system prompt begins with a user message.
+    const firstUserIndex = history.findIndex(entry => entry.role === 'user');
+    const normalizedHistory = firstUserIndex === -1 ? [] : history.slice(firstUserIndex);
 
-    const result = await chat.sendMessage(message);
-    const responseText = result.response.text();
+    const messages: ChatMessage[] = [
+      { role: 'system', content: TRAVEL_SYSTEM_PROMPT },
+      ...normalizedHistory,
+      { role: 'user', content: message },
+    ];
+
+    const responseText = await generateChatCompletion(messages, {
+      temperature: 0.65,
+      maxTokens: 700,
+    });
 
     return NextResponse.json({
       success: true,
