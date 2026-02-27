@@ -27,7 +27,7 @@ Return ONLY valid JSON (no markdown, no extra text) in this exact structure:
       "totalCost": 2500,
       "rating": 4.8,
       "reviewCount": 234,
-      "image": "https://images.unsplash.com/photo-XXXXXXXXXXXXXXXXXX?w=600",
+      "image": "",
       "highlights": ["Highlight 1", "Highlight 2", "Highlight 3", "Highlight 4"],
       "included": { "flights": 2, "hotels": 5, "restaurants": 8, "activities": 10 },
       "tags": ["Tag1", "Tag2", "Tag3"],
@@ -38,7 +38,7 @@ Return ONLY valid JSON (no markdown, no extra text) in this exact structure:
   ]
 }
 
-Use real Unsplash photo IDs relevant to the destinations. Make the plans genuinely match the user's stated preferences. Vary the price points (budget, mid-range, premium).`;
+Use real Unsplash photo IDs relevant to the destinations. Make the plans genuinely match the user's stated preferences. Vary the price points (budget, mid-range, premium). Leave the "image" field as an empty string—the client will resolve a matching photo automatically.`;
 
 export async function POST(request: NextRequest) {
     try {

@@ -18,6 +18,77 @@ import {
   Wand2,
 } from "lucide-react";
 
+// Maps destination keywords to reliable Unsplash photos so AI-generated plans
+// always display an image even when the LLM hallucinates a broken URL.
+const DESTINATION_IMAGES: Record<string, string> = {
+  tokyo: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=600',
+  japan: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600',
+  bali: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600',
+  indonesia: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600',
+  paris: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600',
+  france: 'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=600',
+  'new york': 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=600',
+  nyc: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=600',
+  barcelona: 'https://images.unsplash.com/photo-1583422409516-2895a77efded?w=600',
+  spain: 'https://images.unsplash.com/photo-1543783207-ec64e4d95325?w=600',
+  london: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=600',
+  england: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=600',
+  rome: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=600',
+  italy: 'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=600',
+  greece: 'https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=600',
+  santorini: 'https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=600',
+  switzerland: 'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=600',
+  cancun: 'https://images.unsplash.com/photo-1510097467424-192d713fd8b2?w=600',
+  mexico: 'https://images.unsplash.com/photo-1518638150340-f706e86654de?w=600',
+  'puerto vallarta': 'https://images.unsplash.com/photo-1512813195386-6cf811ad3542?w=600',
+  tulum: 'https://images.unsplash.com/photo-1682553064441-0829e2b1e879?w=600',
+  playa: 'https://images.unsplash.com/photo-1510097467424-192d713fd8b2?w=600',
+  hawaii: 'https://images.unsplash.com/photo-1507876466758-bc54f384809c?w=600',
+  thailand: 'https://images.unsplash.com/photo-1528181304800-259b08848526?w=600',
+  bangkok: 'https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=600',
+  dubai: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600',
+  maldives: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=600',
+  iceland: 'https://images.unsplash.com/photo-1504893524553-b855bce32c67?w=600',
+  portugal: 'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600',
+  lisbon: 'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600',
+  amsterdam: 'https://images.unsplash.com/photo-1534351590666-13e3e96b5017?w=600',
+  korea: 'https://images.unsplash.com/photo-1538485399081-7191377e8241?w=600',
+  seoul: 'https://images.unsplash.com/photo-1538485399081-7191377e8241?w=600',
+  australia: 'https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=600',
+  sydney: 'https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=600',
+  morocco: 'https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?w=600',
+  marrakech: 'https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?w=600',
+  egypt: 'https://images.unsplash.com/photo-1539768942893-daf53e736b68?w=600',
+  cairo: 'https://images.unsplash.com/photo-1539768942893-daf53e736b68?w=600',
+  peru: 'https://images.unsplash.com/photo-1526392060635-9d6019884377?w=600',
+  'costa rica': 'https://images.unsplash.com/photo-1519999482648-25049ddd37b1?w=600',
+  colombia: 'https://images.unsplash.com/photo-1518638150340-f706e86654de?w=600',
+  vietnam: 'https://images.unsplash.com/photo-1528127269322-539801943592?w=600',
+  india: 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=600',
+  africa: 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=600',
+  safari: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=600',
+  caribbean: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600',
+  beach: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600',
+  mountain: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600',
+  adventure: 'https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=600',
+};
+
+const GENERIC_FALLBACK = 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600';
+
+/** Resolve a working image URL for an AI-generated plan. */
+function resolveImage(plan: { image?: string; destination?: string; name?: string }): string {
+  // If the image URL looks like a valid Unsplash URL with a real photo ID, keep it
+  if (plan.image && /^https:\/\/images\.unsplash\.com\/photo-\d{10,}/.test(plan.image)) {
+    return plan.image;
+  }
+  // Otherwise match destination/name keywords against our map
+  const haystack = `${plan.destination ?? ''} ${plan.name ?? ''}`.toLowerCase();
+  for (const [keyword, url] of Object.entries(DESTINATION_IMAGES)) {
+    if (haystack.includes(keyword)) return url;
+  }
+  return GENERIC_FALLBACK;
+}
+
 interface TripPlan {
   id: string;
   name: string;
@@ -155,8 +226,13 @@ export default function AIPlansPage() {
         const parsedPlans: TripPlan[] = JSON.parse(storedPlans);
 
         if (parsedPlans && parsedPlans.length > 0) {
+          // Fix broken AI-generated image URLs
+          const fixedPlans = parsedPlans.map((p: TripPlan) => ({
+            ...p,
+            image: resolveImage(p),
+          }));
           setPreferences(parsedPrefs);
-          setPlans(parsedPlans);
+          setPlans(fixedPlans);
           setIsAIGenerated(true);
         }
       }
