@@ -3,8 +3,9 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, FormEvent, useState, useEffect } from 'react';
-import { MapPin, Navigation, Sparkles, Compass } from 'lucide-react';
+import { MapPin, Navigation, Sparkles, Compass, ShieldCheck } from 'lucide-react';
 import { ModeToggle } from './mode/mode-toggle';
+import { useDestinations } from '@/lib/useTripData';
 
 export default function LandingPage() {
   const router = useRouter();
@@ -25,6 +26,7 @@ export default function LandingPage() {
   const [detectingLocation, setDetectingLocation] = useState(false);
 
   const adventureLabels = ['', 'Relaxed', 'Moderate', 'Balanced', 'Adventurous', 'Extreme'];
+  const verifiedDestinations = useDestinations();
 
   const travelStyles = ['Luxury', 'Budget-Friendly', 'Local Experiences', 'Adventure Sports', 'Cultural Tours', 'Relaxation', 'Nightlife', 'Family-Friendly'];
   const interests = ['Food & Dining', 'Outdoor Activities', 'Museums & Culture', 'Nightlife & Entertainment', 'Shopping', 'Photography', 'Beach & Water', 'Mountain & Hiking', 'Historical Sites', 'Wildlife & Nature', 'Adventure Sports', 'Art & Design'];
@@ -417,6 +419,31 @@ export default function LandingPage() {
                 </div>
               </form>
             </div>
+          </div>
+        </div>
+
+        {/* VERIFIED DESTINATIONS SECTION */}
+        <div className="max-w-6xl mx-auto px-10 mt-16 mb-12">
+          <div className="text-center mb-10">
+            <h2 className="text-4xl font-bold text-purple-600 mb-4">Verified Destinations</h2>
+            <p className="text-base text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Every itinerary is cross-checked with official tourism data so you can book with confidence</p>
+          </div>
+          <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-5">
+            {verifiedDestinations.map((dest) => (
+              <div key={dest.id} className="relative bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition border border-gray-200 dark:border-gray-700">
+                <img src={dest.image} alt={`${dest.city}, ${dest.country}`} className="w-full h-32 object-cover" />
+                {/* Verified badge with confidence score */}
+                <span className="absolute top-2 right-2 flex items-center gap-1 px-2 py-1 bg-green-600/90 backdrop-blur-sm rounded-full text-[11px] font-semibold text-white">
+                  <ShieldCheck className="w-3 h-3" />
+                  {dest.confidenceScore}% verified
+                </span>
+                <div className="p-3">
+                  <h4 className="font-semibold text-gray-900 dark:text-gray-100 text-sm">{dest.city}</h4>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">{dest.country}</p>
+                  <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-1 leading-tight">{dest.verificationNotes}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 

@@ -84,3 +84,53 @@ export interface UserProfile {
   };
   memberSince: string;
 }
+
+// --- Verified-itinerary types used by mock data layer ---
+
+export interface CuratedDestination {
+  id: string;
+  city: string;
+  country: string;
+  /** 0–100 confidence that listed prices / info are still accurate */
+  confidenceScore: number;
+  verificationNotes: string;
+  image: string;
+}
+
+export interface DailyActivity {
+  day: number;
+  title: string;
+  description: string;
+  estimatedCost: number;
+}
+
+export interface RecommendedItinerary {
+  id: string;
+  destinationId: string;
+  dailyBreakdown: DailyActivity[];
+  estBudget: number;
+  tags: string[];
+}
+
+export interface InfluencerTip {
+  id: string;
+  handle: string;
+  platform: 'instagram' | 'tiktok' | 'youtube' | 'blog';
+  summary: string;
+  proofLink: string;
+}
+
+export interface VerifiedSource {
+  type: 'destination' | 'itinerary' | 'influencer';
+  sourceId: string;
+  confidenceScore: number;
+  lastVerified: string; // ISO date
+}
+
+export interface TripPlan {
+  id: string;
+  destination: CuratedDestination;
+  itinerary: RecommendedItinerary;
+  tips: InfluencerTip[];
+  verification: VerifiedSource;
+}

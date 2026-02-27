@@ -28,7 +28,8 @@ import {
   mockRestaurants,
   mockActivities,
 } from "@/lib/mockData";
-import { useTripData } from "@/lib/useTripData";
+import { useTripData, useDestinations } from "@/lib/useTripData";
+import { ShieldCheck } from "lucide-react";
 
 const categoryConfig: Record<ItemCategory, { icon: any; label: string; color: string; bg: string }> = {
   flight: { icon: Plane, label: "Flights", color: "text-blue-600", bg: "bg-blue-100" },
@@ -53,6 +54,14 @@ export default function BrowsePage() {
   const [nearMeEnabled, setNearMeEnabled] = useState(false);
   const [userLocation, setUserLocation] = useState<string | null>(null);
   const [detectingLocation, setDetectingLocation] = useState(false);
+
+  // Look up verified destination data so we can badge matched cards
+  const verifiedDestinations = useDestinations();
+  const matchedDestination = verifiedDestinations.find(
+    (d) =>
+      tripData.destination.toLowerCase().includes(d.city.toLowerCase()) ||
+      d.city.toLowerCase().includes(tripData.destination.toLowerCase()),
+  );
 
   // Check if trip data exists, if not redirect to setup
   useEffect(() => {
@@ -197,9 +206,17 @@ export default function BrowsePage() {
         {/* Items Grid */}
         <main className="max-w-6xl mx-auto px-6 py-8">
           <div className="mb-6 flex items-center justify-between">
-            <h2 className="text-xl font-bold text-gray-900">
-              {categoryConfig[activeCategory].label}
-            </h2>
+            <div className="flex items-center gap-3">
+              <h2 className="text-xl font-bold text-gray-900">
+                {categoryConfig[activeCategory].label}
+              </h2>
+              {matchedDestination && (
+                <span className="flex items-center gap-1 px-2.5 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">
+                  <ShieldCheck className="w-3.5 h-3.5" />
+                  {matchedDestination.confidenceScore}% verified
+                </span>
+              )}
+            </div>
             <p className="text-sm text-gray-500">
               {filteredItems.length} options available
             </p>

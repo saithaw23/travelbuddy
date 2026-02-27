@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useState, useRef, useEffect } from 'react';
 import { Send, Sparkles, Compass, MapPin, DollarSign, Users, Heart, CheckCircle2 } from 'lucide-react';
 import { ModeToggle } from './mode/mode-toggle';
+import { getVerifiedContext } from '@/lib/useTripData';
 
 interface Message {
   id: string;
@@ -33,7 +34,8 @@ export default function ChatLandingPage() {
   const router = useRouter();
   const [messages, setMessages] = useState<Message[]>(() => {
     // Build initial greeting — may be enhanced with landing form prefs
-    let openingContent = "Hi! I'm your AI travel assistant 🌍 Tell me about your dream trip and I'll help you plan it perfectly. Where would you like to go?";
+    const verifiedCtx = getVerifiedContext();
+    let openingContent = `Hi! I'm your AI travel assistant 🌍 Tell me about your dream trip and I'll help you plan it perfectly.\n\n🛡️ ${verifiedCtx}`;
 
     if (typeof window !== 'undefined') {
       try {
