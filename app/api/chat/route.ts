@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
       }));
 
     // Ensure the conversation that follows the system prompt begins with a user message.
-    const firstUserIndex = history.findIndex(entry => entry.role === 'user');
+    const firstUserIndex = history.findIndex((entry: ChatMessage) => entry.role === 'user');
     const normalizedHistory = firstUserIndex === -1 ? [] : history.slice(firstUserIndex);
 
     const messages: ChatMessage[] = [

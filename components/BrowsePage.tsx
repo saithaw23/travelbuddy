@@ -21,7 +21,7 @@ import {
   Calendar,
   Users,
 } from "lucide-react";
-import { ItemCategory, PlanItem } from "@/lib/types";
+import { ItemCategory, PlanItem, Plan } from "@/lib/types";
 import {
   mockFlights,
   mockHotels,
@@ -95,7 +95,50 @@ export default function BrowsePage() {
   const totalCost = selectedItemsData.reduce((sum, item) => sum + item.price, 0);
 
   const handleCreatePlan = () => {
-    // In real app, this would create a plan and redirect
+    if (selectedItemsData.length > 0) {
+      // Pick the best image: prefer hotel, then any item
+      const heroImage =
+        selectedItemsData.find((i) => i.category === "hotel")?.image ||
+        selectedItemsData[0]?.image ||
+        "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600";
+
+      const dateRange =
+        tripData.fromDate && tripData.toDate
+          ? `${new Date(tripData.fromDate).toLocaleDateString("en-US", { month: "short", day: "numeric" })} - ${new Date(tripData.toDate).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}`
+          : "Dates TBD";
+
+      const newPlan: Plan = {
+        id: `browse-${Date.now()}`,
+        name: `${tripData.destination || "My"} Trip`,
+        destination: tripData.destination || "My Destination",
+        dateRange,
+        travelers: tripData.travelers || 1,
+        totalCost,
+        status: "planning",
+        items: selectedItemsData,
+        collaborators: [],
+        createdAt: new Date().toLocaleDateString(),
+        updatedAt: new Date().toLocaleDateString(),
+        image: heroImage,
+      };
+
+      try {
+        const existing: Plan[] = JSON.parse(
+          localStorage.getItem("travelbuddy_user_plans") || "[]"
+        );
+        // Replace any previous browse plan for the same destination to avoid duplicates
+        const filtered = existing.filter(
+          (p) => !(p.id.startsWith("browse-") && p.destination === newPlan.destination)
+        );
+        localStorage.setItem(
+          "travelbuddy_user_plans",
+          JSON.stringify([newPlan, ...filtered])
+        );
+      } catch {
+        /* ignore storage errors */
+      }
+    }
+
     router.push("/my-plans");
   };
 

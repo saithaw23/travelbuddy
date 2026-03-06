@@ -262,13 +262,35 @@ export default function PlanDetailPage() {
   const params = useParams();
   const planId = params?.id as string;
 
-  // Load selected plan from sessionStorage (set by AIPlansPage)
+  // Load selected plan from sessionStorage.
+  // Priority: selectedBrowsePlan (from browse flow) > selectedPlan (from AI flow) > mockPlan
   const [activePlan, setActivePlan] = React.useState(() => {
     try {
-      const stored = typeof window !== 'undefined' ? sessionStorage.getItem('selectedPlan') : null;
-      if (stored) return { ...mockPlan, ...JSON.parse(stored) };
+      if (typeof window !== 'undefined') {
+        const browsePlan = sessionStorage.getItem('selectedBrowsePlan');
+        if (browsePlan) {
+          const parsed = JSON.parse(browsePlan);
+          return { ...mockPlan, name: parsed.name, destination: parsed.destination, dateRange: parsed.dateRange, travelers: parsed.travelers, totalCost: parsed.totalCost, image: parsed.image, isAiGenerated: false };
+        }
+        const aiPlan = sessionStorage.getItem('selectedPlan');
+        if (aiPlan) return { ...mockPlan, ...JSON.parse(aiPlan) };
+      }
     } catch { /* ignore */ }
     return mockPlan;
+  });
+
+  // Load items: browse plans carry their real items; AI/mock plans use mockItems
+  const [planItems] = React.useState<PlanItem[]>(() => {
+    try {
+      if (typeof window !== 'undefined') {
+        const browsePlan = sessionStorage.getItem('selectedBrowsePlan');
+        if (browsePlan) {
+          const parsed = JSON.parse(browsePlan);
+          if (parsed.items && parsed.items.length > 0) return parsed.items as PlanItem[];
+        }
+      }
+    } catch { /* ignore */ }
+    return mockItems;
   });
 
   const [expandedItem, setExpandedItem] = useState<string | null>(null);
@@ -328,7 +350,7 @@ export default function PlanDetailPage() {
     return item.price * (qty.quantity || 1);
   };
 
-  const totalCost = mockItems.reduce((sum, item) => sum + getItemPrice(item), 0);
+  const totalCost = planItems.reduce((sum, item) => sum + getItemPrice(item), 0);
 
   const handleVote = (itemId: string, participantId: string, vote: VoteOption) => {
     setVotes((prev) => ({
@@ -502,14 +524,108 @@ export default function PlanDetailPage() {
           </div>
         </section>
 
+        {/* Trip Timeline */}
+        {planItems.length > 0 && (() => {
+          // Group items by date, preserving first-seen order
+          const dateOrder: string[] = [];
+          const byDate: Record<string, PlanItem[]> = {};
+          planItems.forEach((item) => {
+            const d = item.date || 'TBD';
+            if (!byDate[d]) { byDate[d] = []; dateOrder.push(d); }
+            byDate[d].push(item);
+          });
+          // Sort items within each day by time (if present)
+          dateOrder.forEach((d) => {
+            byDate[d].sort((a, b) => {
+              if (!a.time) return 1;
+              if (!b.time) return -1;
+              return a.time.localeCompare(b.time);
+            });
+          });
+
+          return (
+            <section className="bg-white border-b border-gray-100">
+              <div className="max-w-4xl mx-auto px-6 py-6">
+                <h2 className="text-base font-bold text-gray-900 dark:text-gray-100 mb-5 flex items-center gap-2">
+                  <Calendar className="w-4 h-4 text-purple-600" />
+                  Trip Timeline
+                </h2>
+
+                <div className="relative">
+                  {/* Vertical spine */}
+                  <div className="absolute left-[18px] top-2 bottom-2 w-px bg-purple-100" />
+
+                  <div className="space-y-6">
+                    {dateOrder.map((date, di) => (
+                      <div key={date} className="relative">
+                        {/* Date badge */}
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className="relative z-10 w-9 h-9 rounded-full bg-purple-600 flex items-center justify-center shadow-sm flex-shrink-0">
+                            <span className="text-white text-[10px] font-bold leading-tight text-center px-0.5">{date}</span>
+                          </div>
+                          <span className="text-sm font-semibold text-gray-800 dark:text-gray-200">
+                            {dateOrder.length > 1 ? `Day ${di + 1}` : 'Schedule'}
+                          </span>
+                        </div>
+
+                        {/* Items for this date */}
+                        <div className="ml-12 space-y-2">
+                          {byDate[date].map((item, ii) => {
+                            const Icon = categoryIcons[item.category];
+                            const colors = categoryColors[item.category];
+                            const isLast = ii === byDate[date].length - 1;
+                            return (
+                              <div key={item.id} className="flex items-start gap-3">
+                                {/* Connector dot */}
+                                <div className="relative flex-shrink-0 mt-1">
+                                  <div className={`w-2 h-2 rounded-full ${colors.bg.replace('bg-', 'bg-').replace('-100', '-400')} ring-2 ring-white`} />
+                                  {!isLast && (
+                                    <div className="absolute top-3 left-[3px] w-px h-[calc(100%+8px)] bg-gray-100" />
+                                  )}
+                                </div>
+
+                                {/* Item card */}
+                                <div className="flex-1 flex items-center gap-3 px-3 py-2 rounded-xl bg-gray-50 dark:bg-gray-800/50 hover:bg-purple-50 dark:hover:bg-purple-900/20 transition group cursor-default">
+                                  <span className={`p-1.5 rounded-lg ${colors.bg} ${colors.text} flex-shrink-0`}>
+                                    <Icon className="w-3.5 h-3.5" />
+                                  </span>
+                                  <div className="flex-1 min-w-0">
+                                    <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">{item.name}</p>
+                                    <p className="text-xs text-gray-500 truncate">{item.location}</p>
+                                  </div>
+                                  <div className="flex items-center gap-2 flex-shrink-0">
+                                    {item.time && (
+                                      <span className="flex items-center gap-1 text-xs text-gray-500">
+                                        <Clock className="w-3 h-3" />
+                                        {item.time}
+                                      </span>
+                                    )}
+                                    <span className="text-xs font-semibold text-purple-700 bg-purple-50 dark:bg-purple-900/30 px-2 py-0.5 rounded-full">
+                                      ${item.price.toLocaleString()}
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </section>
+          );
+        })()}
+
         {/* Itinerary Items */}
         <main className="max-w-4xl mx-auto px-6 py-8">
           <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
-            Plan Items ({mockItems.length})
+            Plan Items ({planItems.length})
           </h2>
 
           <div className="space-y-4">
-            {mockItems.map((item) => {
+            {planItems.map((item) => {
               const Icon = categoryIcons[item.category];
               const colors = categoryColors[item.category];
               const isExpanded = expandedItem === item.id;
@@ -853,7 +969,7 @@ export default function PlanDetailPage() {
 
       {/* Place Details Modal */}
       {showDetailsModal && mockPlaceDetails[showDetailsModal] && (() => {
-        const item = mockItems.find(i => i.id === showDetailsModal)!;
+        const item = planItems.find(i => i.id === showDetailsModal) ?? planItems[0];
         const details = mockPlaceDetails[showDetailsModal];
         return (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
@@ -949,7 +1065,7 @@ export default function PlanDetailPage() {
 
       {/* Edit Booking Modal */}
       {showEditModal && (() => {
-        const item = mockItems.find(i => i.id === showEditModal)!;
+        const item = planItems.find(i => i.id === showEditModal) ?? planItems[0];
         const qty = itemQuantities[showEditModal] || {};
         return (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import {
   Plus,
@@ -29,9 +29,26 @@ const statusConfig = {
 
 export default function MyPlansPage() {
   const router = useRouter();
-  const [plans] = useState<Plan[]>(mockPlans);
+  const [plans, setPlans] = useState<Plan[]>(mockPlans);
   const [selectedPlans, setSelectedPlans] = useState<string[]>([]);
   const [showMenu, setShowMenu] = useState<string | null>(null);
+
+  // Load user-created plans from localStorage on mount
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem("travelbuddy_user_plans");
+      if (stored) {
+        const userPlans: Plan[] = JSON.parse(stored);
+        if (userPlans.length > 0) {
+          setPlans(userPlans);
+          return;
+        }
+      }
+    } catch {
+      /* ignore storage errors — fall back to mock data */
+    }
+    setPlans(mockPlans);
+  }, []);
 
   const togglePlanSelection = (planId: string) => {
     setSelectedPlans((prev) =>
@@ -215,7 +232,26 @@ export default function MyPlansPage() {
                               <Copy className="w-4 h-4" />
                               Duplicate
                             </button>
-                            <button className="w-full flex items-center gap-2 px-3 py-2 text-sm text-red-600 hover:bg-red-50">
+                            <button
+                              className="w-full flex items-center gap-2 px-3 py-2 text-sm text-red-600 hover:bg-red-50"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                const updated = plans.filter((p) => p.id !== plan.id);
+                                setPlans(updated);
+                                setShowMenu(null);
+                                try {
+                                  // Only persist user-created plans; mock plans are in-memory only
+                                  const stored = localStorage.getItem("travelbuddy_user_plans");
+                                  if (stored) {
+                                    const userPlans: Plan[] = JSON.parse(stored);
+                                    localStorage.setItem(
+                                      "travelbuddy_user_plans",
+                                      JSON.stringify(userPlans.filter((p) => p.id !== plan.id))
+                                    );
+                                  }
+                                } catch { /* ignore */ }
+                              }}
+                            >
                               <Trash2 className="w-4 h-4" />
                               Delete
                             </button>
@@ -263,6 +299,18 @@ export default function MyPlansPage() {
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
+                          // Pass plan data to PlanDetailPage via sessionStorage
+                          try {
+                            if (plan.items && plan.items.length > 0) {
+                              // Browse plan — pass items + header separately
+                              sessionStorage.setItem("selectedBrowsePlan", JSON.stringify(plan));
+                              sessionStorage.removeItem("selectedPlan");
+                            } else {
+                              // AI plan — pass as selectedPlan (used by PlanDetailPage header)
+                              sessionStorage.setItem("selectedPlan", JSON.stringify(plan));
+                              sessionStorage.removeItem("selectedBrowsePlan");
+                            }
+                          } catch { /* ignore */ }
                           router.push(`/plan/${plan.id}`);
                         }}
                         className="flex items-center gap-1 text-sm font-medium text-purple-600 hover:text-purple-700"

@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { usePathname } from 'next/navigation';
-import { MessageCircle, X, Send, Minimize2 } from 'lucide-react';
+import { usePathname, useRouter } from 'next/navigation';
+import { MessageCircle, X, Send, Minimize2, Sparkles } from 'lucide-react';
 
 interface Message {
   id: string;
@@ -11,20 +11,29 @@ interface Message {
   timestamp: Date;
 }
 
+const CONFIRM_KEYWORDS = ['confirm', 'confirmed', 'go ahead', "that's it", "that's all", 'finalize', 'looks good', 'proceed'];
+
+function isConfirmMessage(msg: string): boolean {
+  const lower = msg.toLowerCase().trim();
+  return CONFIRM_KEYWORDS.some(kw => lower === kw || lower.startsWith(kw + ' ') || lower.endsWith(' ' + kw));
+}
+
 export default function FloatingChatWidget() {
   const pathname = usePathname();
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
       role: 'assistant',
-      content: "Hi! Need help with your trip planning? Ask me anything!",
+      content: "Hi! Need help with your trip planning? Ask me anything — when you're happy with the ideas, just say \"confirm\" and I'll build your personalized plans!",
       timestamp: new Date(),
     }
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [isSummarizing, setIsSummarizing] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -43,7 +52,7 @@ export default function FloatingChatWidget() {
   }
 
   const handleSendMessage = async (message: string) => {
-    if (!message.trim()) return;
+    if (!message.trim() || isTyping || isSummarizing) return;
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -55,6 +64,12 @@ export default function FloatingChatWidget() {
     const updatedMessages = [...messages, userMessage];
     setMessages(updatedMessages);
     setInputValue('');
+
+    if (isConfirmMessage(message)) {
+      await handleConfirm(updatedMessages);
+      return;
+    }
+
     setIsTyping(true);
 
     try {
@@ -86,6 +101,62 @@ export default function FloatingChatWidget() {
     }
   };
 
+  const handleConfirm = async (currentMessages: Message[]) => {
+    setIsSummarizing(true);
+
+    setMessages(prev => [...prev, {
+      id: (Date.now() + 1).toString(),
+      role: 'assistant',
+      content: "✨ Perfect! Let me put together your personalized trip plans...",
+      timestamp: new Date(),
+    }]);
+
+    try {
+      const response = await fetch('/api/chat/summarize', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          conversationHistory: currentMessages.map(m => ({ role: m.role, content: m.content })),
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        sessionStorage.setItem('travelPreferences', JSON.stringify(data.preferences));
+        sessionStorage.setItem('aiPlans', JSON.stringify(data.plans));
+
+        setMessages(prev => [...prev, {
+          id: (Date.now() + 2).toString(),
+          role: 'assistant',
+          content: `🗺️ I've created **3 personalized trip plans** based on our conversation. Taking you there now...`,
+          timestamp: new Date(),
+        }]);
+
+        setTimeout(() => {
+          setIsOpen(false);
+          router.push('/ai-plans');
+        }, 2000);
+      } else {
+        setMessages(prev => [...prev, {
+          id: (Date.now() + 2).toString(),
+          role: 'assistant',
+          content: "I had trouble generating your plans. Could you share a bit more and try confirming again?",
+          timestamp: new Date(),
+        }]);
+        setIsSummarizing(false);
+      }
+    } catch {
+      setMessages(prev => [...prev, {
+        id: (Date.now() + 2).toString(),
+        role: 'assistant',
+        content: "Something went wrong generating your plans. Please try again.",
+        timestamp: new Date(),
+      }]);
+      setIsSummarizing(false);
+    }
+  };
+
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -104,7 +175,6 @@ export default function FloatingChatWidget() {
       </button>
     );
   }
-
   return (
     <div
       className={`fixed bottom-6 right-6 bg-white rounded-2xl shadow-2xl border border-gray-200 z-50 transition-all ${isMinimized ? 'w-80 h-16' : 'w-96 h-[600px]'
@@ -183,14 +253,18 @@ export default function FloatingChatWidget() {
                 onChange={(e) => setInputValue(e.target.value)}
                 placeholder="Ask me anything..."
                 className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-purple-600 focus:ring-2 focus:ring-purple-100"
-                disabled={isTyping}
+                disabled={isTyping || isSummarizing}
               />
               <button
                 type="submit"
-                disabled={!inputValue.trim() || isTyping}
+                disabled={!inputValue.trim() || isTyping || isSummarizing}
                 className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-all"
               >
-                <Send className="w-4 h-4" />
+                {isSummarizing ? (
+                  <Sparkles className="w-4 h-4 animate-pulse" />
+                ) : (
+                  <Send className="w-4 h-4" />
+                )}
               </button>
             </div>
           </form>

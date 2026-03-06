@@ -251,6 +251,38 @@ export default function AIPlansPage() {
     const planData = plans.find((p) => p.id === selectedPlan);
     if (planData) {
       sessionStorage.setItem('selectedPlan', JSON.stringify(planData));
+      sessionStorage.removeItem('selectedBrowsePlan');
+
+      // Also persist to localStorage so MyPlansPage can display it
+      try {
+        const existing = JSON.parse(
+          localStorage.getItem("travelbuddy_user_plans") || "[]"
+        );
+        // Avoid duplicates — replace any existing entry with same AI plan id
+        const filtered = existing.filter(
+          (p: { id: string }) => p.id !== `ai-${planData.id}`
+        );
+        const planRecord = {
+          id: `ai-${planData.id}`,
+          name: planData.name,
+          destination: planData.destination,
+          dateRange: planData.duration,
+          travelers: 2,
+          totalCost: planData.totalCost,
+          status: "planning",
+          items: [],
+          collaborators: [],
+          createdAt: new Date().toLocaleDateString(),
+          updatedAt: new Date().toLocaleDateString(),
+          image: planData.image,
+        };
+        localStorage.setItem(
+          "travelbuddy_user_plans",
+          JSON.stringify([planRecord, ...filtered])
+        );
+      } catch {
+        /* ignore storage errors */
+      }
     }
     router.push(`/plan/${selectedPlan}`);
   };
